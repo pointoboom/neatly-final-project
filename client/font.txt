@@ -2,3 +2,5 @@
 font-family: "Noto Serif Display", serif;
 **Inter**
 font-family: 'Inter', sans-serif;
+**OPen San**
+font-family: 'Open Sans', sans-serif;

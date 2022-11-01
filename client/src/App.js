@@ -6,7 +6,13 @@ import { Text } from "@chakra-ui/react";
 function App() {
   return (
     <div className="App">
-      <Text fontSize="5xl">Neatly Hotel</Text>
+      <Text
+        fontSize="5xl"
+        fontWeight="400px"
+        fontFamily={("Noto Serif Display", "serif")}
+      >
+        Neatly Hotel
+      </Text>
       <Text>TEST TESTSTSTSTSTSTSTSTSTS</Text>
       <Text
         fontWeight="bold
