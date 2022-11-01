@@ -3,10 +3,18 @@ import "./App.css";
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+
+import CustomerCarousel from "./components/CustomerCarousel";
+// import TestCompoent from "./components/TestCompoent";
+
 function App() {
   return (
     <div className="App">
-      <Text
+
+      <CustomerCarousel/>
+      {/* <TestCompoent/> */}
+
+      {/* <Text
         fontSize="5xl"
         fontWeight="400px"
         fontFamily={("Noto Serif Display", "serif")}
@@ -33,7 +41,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
