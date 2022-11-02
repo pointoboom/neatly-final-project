@@ -5,6 +5,7 @@ import SliderImage from "../components/SliderImage";
 import SearchSection from "../components/SearchSection";
 import Service from "../components/Service";
 import RoomsDetails from "../components/RoomsDetails";
+import Footerbar from "../components/Footerbar";
 
 function HomePage() {
   return (
@@ -19,7 +20,8 @@ function HomePage() {
       <RoomsDetails />
 
       <CustomerCarousel />
-      {/* // kwan footer */}
+      {/* // nan footer */}
+      <Footerbar/>
     </>
   );
 }
