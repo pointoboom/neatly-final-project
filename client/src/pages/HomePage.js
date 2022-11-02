@@ -6,6 +6,7 @@ import SearchSection from "../components/SearchSection";
 import Service from "../components/Service";
 import RoomsDetails from "../components/RoomsDetails";
 import Navbar from "../components/Navbar";
+import Footerbar from "../components/Footerbar";
 
 function HomePage() {
   return (
