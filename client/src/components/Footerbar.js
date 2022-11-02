@@ -3,6 +3,7 @@ import { Image, Stack, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
 function Footerbar() {
   return (
     <Flex
+    
       display="flex"
       direction="column"
       justify="center"
@@ -12,7 +13,7 @@ function Footerbar() {
       height="480px"
       fontFamily={"Inter"}
     >
-      <Flex width="1200px" height="250px" justifyContent="space-between">
+      <Flex width="1200px" height="315px" justifyContent="space-between">
         <Flex
           className="neatly-logo"
           width="500px"
@@ -50,7 +51,7 @@ function Footerbar() {
         <Flex
           className="neatly-contact"
           width="379px"
-          height="230px"
+          height="315px"
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
@@ -78,7 +79,7 @@ function Footerbar() {
                 src="./images/footerbar/tel.svg"
                 alt="phone number"
               />
-              <Text fontSize="16px" textColor="white" padding="12px">
+              <Text fontSize="16px" textColor="white" padding="10px">
                 +66 99 999 9999
               </Text>
             </Flex>

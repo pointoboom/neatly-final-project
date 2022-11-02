@@ -2,8 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&family=Open+Sans:wght@600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&display=swap');
 
 @tailwind base;
 @tailwind components;
