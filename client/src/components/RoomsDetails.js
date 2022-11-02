@@ -10,7 +10,7 @@ function RoomsDetails() {
         fontSize="6xl"
         color="#2F3E35"
         textAlign="center"
-        fontWeight="black"
+        // fontWeight="500"
         fontFamily={"Noto Serif Display"}
       >
         Rooms & Suits
@@ -24,11 +24,7 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text
-            fontSize="3rem"
-            fontFamily={"Noto Serif Display"}
-            fontWeight="black"
-          >
+          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
             Superior Garden View
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
@@ -53,11 +49,7 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text
-            fontSize="3rem"
-            fontFamily={"Noto Serif Display"}
-            fontWeight="black"
-          >
+          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
             Deluxe
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
@@ -80,11 +72,7 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text
-            fontSize="3rem"
-            fontFamily={"Noto Serif Display"}
-            fontWeight="black"
-          >
+          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
             Superior
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
@@ -109,11 +97,7 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text
-            fontSize="3rem"
-            fontFamily={"Noto Serif Display"}
-            fontWeight="black"
-          >
+          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
             Premier Sea View
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
@@ -138,11 +122,7 @@ function RoomsDetails() {
             color="white"
             direction="column"
           >
-            <Text
-              fontSize="3rem"
-              fontFamily={"Noto Serif Display"}
-              fontWeight="black"
-            >
+            <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
               Supreme
             </Text>
             <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
@@ -165,11 +145,7 @@ function RoomsDetails() {
             color="white"
             direction="column"
           >
-            <Text
-              fontSize="3rem"
-              fontFamily={"Noto Serif Display"}
-              fontWeight="black"
-            >
+            <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
               Suite
             </Text>
             <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
