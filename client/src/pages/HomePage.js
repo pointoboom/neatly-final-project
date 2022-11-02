@@ -5,11 +5,13 @@ import SliderImage from "../components/SliderImage";
 import SearchSection from "../components/SearchSection";
 import Service from "../components/Service";
 import RoomsDetails from "../components/RoomsDetails";
+import Navbar from "../components/Navbar";
 
 function HomePage() {
   return (
     <>
       {/* // kwan navbar  */}
+      <Navbar />
       <SearchSection />
       <About />
       <SliderImage />
