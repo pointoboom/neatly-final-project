@@ -19,18 +19,54 @@ function SliderImage() {
     {
       image: "./images/About/img2.svg",
     },
+    {
+      image: "./images/About/img2.svg",
+    },
+    {
+      image: "./images/About/img2.svg",
+    },
+    {
+      image: "./images/About/img2.svg",
+    },
+    {
+      image: "./images/About/img2.svg",
+    },
   ];
+
   return (
     <Carousel
-      interval="8000"
-      autoPlay
       infiniteLoop
       showStatus={false}
       centerMode
-      centerSlidePercentage="20"
+      centerSlidePercentage="15"
+      showIndicators={false}
+      renderArrowPrev={(onClickHandler, hasPrev, label) =>
+        hasPrev && (
+          <button
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+            className="absolute z-10 top-[200px]  left-[200px] "
+          >
+            <Image src="./images/About/Prevarrow.svg" />
+          </button>
+        )
+      }
+      renderArrowNext={(onClickHandler, hasNext, label) =>
+        hasNext && (
+          <button
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+            className="absolute z-10 top-[200px] right-[200px] "
+          >
+            <Image src="./images/About/Nextarrow.svg" />
+          </button>
+        )
+      }
     >
       {slideData.map((slide) => {
-        return <Image src={slide.image} height="400px" />;
+        return <Image src={slide.image} height="500px" />;
       })}
     </Carousel>
   );

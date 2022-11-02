@@ -7,18 +7,21 @@ function About() {
       flexDirection="column"
       px="150px"
     >
-      <Text
-        fontFamily={("Noto Serif Display", "serif")}
-        fontSize="70px"
-        fontWeight="500px"
-        letterSpacing="-0.02em"
-        textShadow={
-          "0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)"
-        }
-        mb="50px"
-      >
-        Neatly Hotel
-      </Text>
+      <Box display="flex" justifyContent="center">
+        <Text
+          fontFamily={("Noto Serif Display", "serif")}
+          fontSize="70px"
+          fontWeight="500px"
+          letterSpacing="-0.02em"
+          textShadow={
+            "0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)"
+          }
+          mb="50px"
+        >
+          Neatly Hotel
+        </Text>
+      </Box>
+
       <Box flex justifyContent flexDirection={"column"} px="170px" mb="100px">
         <Text fontSize="16px" fontFamily={("Inter", "sans-serif")} mb="20px">
           Set in Bangkok, Thailand. Neatly Hotel offers 5-star accommodation
