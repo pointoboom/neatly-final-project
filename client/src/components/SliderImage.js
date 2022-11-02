@@ -46,7 +46,7 @@ function SliderImage() {
             type="button"
             onClick={onClickHandler}
             title={label}
-            className="absolute z-10 top-[200px]  left-[200px] "
+            className="absolute z-10 top-[130px]  left-[200px] "
           >
             <Image src="./images/About/Prevarrow.svg" />
           </button>
@@ -58,15 +58,15 @@ function SliderImage() {
             type="button"
             onClick={onClickHandler}
             title={label}
-            className="absolute z-10 top-[200px] right-[200px] "
+            className="absolute z-10 top-[130px] right-[200px] "
           >
-            <Image src="./images/About/Nextarrow.svg" height="full" />
+            <Image src="./images/About/Nextarrow.svg" />
           </button>
         )
       }
     >
       {slideData.map((slide) => {
-        return <Image src={slide.image} height="500px" />;
+        return <Image src={slide.image} height="full" />;
       })}
     </Carousel>
   );
