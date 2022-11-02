@@ -9,7 +9,17 @@ import {
 } from "@chakra-ui/react";
 function Navbar() {
   return (
-    <Box color="#F7F7FB" w="100%" h="100px" px="160px" py="26px">
+    <Box
+      color="#F7F7FB"
+      w="100%"
+      h="100px"
+      px="160px"
+      py="26px"
+      position="sticky"
+      top="0"
+      background="white"
+      zIndex="sticky"
+    >
       <Flex>
         <HStack spacing={"42px"}>
           <Image src="./images/logo.svg" alt="Neatly Logo" w="167px" h="45px" />

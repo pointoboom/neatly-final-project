@@ -38,7 +38,7 @@ function SliderImage() {
       infiniteLoop
       showStatus={false}
       centerMode
-      centerSlidePercentage="15"
+      centerSlidePercentage="30"
       showIndicators={false}
       renderArrowPrev={(onClickHandler, hasPrev, label) =>
         hasPrev && (
@@ -46,7 +46,7 @@ function SliderImage() {
             type="button"
             onClick={onClickHandler}
             title={label}
-            className="absolute z-10 top-[130px]  left-[200px] "
+            className="absolute z-10 top-[300px]  left-[200px] "
           >
             <Image src="./images/About/Prevarrow.svg" />
           </button>
@@ -58,7 +58,7 @@ function SliderImage() {
             type="button"
             onClick={onClickHandler}
             title={label}
-            className="absolute z-10 top-[130px] right-[200px] "
+            className="absolute z-10 top-[300px] right-[200px] "
           >
             <Image src="./images/About/Nextarrow.svg" />
           </button>

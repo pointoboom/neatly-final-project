@@ -12,7 +12,7 @@ function SearchSection() {
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       bgSize="cover"
-      py="450px"
+      py="250px"
     >
       <Flex direction="column" justify="center" align="center" mb="90px">
         <Text
@@ -96,6 +96,7 @@ function SearchSection() {
             color="white"
             px="40px"
             fontFamily={"Inter"}
+            _hover={{ background: "#E76B39" }}
           >
             Search
           </Button>
