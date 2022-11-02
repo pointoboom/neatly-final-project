@@ -60,7 +60,7 @@ function SliderImage() {
             title={label}
             className="absolute z-10 top-[200px] right-[200px] "
           >
-            <Image src="./images/About/Nextarrow.svg" />
+            <Image src="./images/About/Nextarrow.svg" height="full" />
           </button>
         )
       }
