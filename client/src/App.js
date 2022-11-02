@@ -3,14 +3,11 @@ import "./App.css";
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import SliderImage from "./components/SliderImage";
-import About from "./components/About";
-
+import SearchSection from "./components/SearchSection";
 function App() {
   return (
     <div className="App">
-      <About />
-      <SliderImage />
+      <SearchSection />
     </div>
   );
 }
