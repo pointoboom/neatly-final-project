@@ -36,14 +36,15 @@ const SlideData = [
 ];
 
 function CustomerCarousel() {
-  const [hasNext, setHasNext] = React.useState(true);
-  const [hasPrev, setHasPrev] = React.useState(true);
-  const [labelPrev] = React.useState("PREVIOUS");
-  const [labelNext] = React.useState("NEXT");
+  const [slides, useSlides] = useState([...SlideData]);
+  // const [hasNext, setHasNext] = React.useState(true);
+  // const [hasPrev, setHasPrev] = React.useState(true);
+  // const [labelPrev] = React.useState("PREVIOUS");
+  // const [labelNext] = React.useState("NEXT");
 
-  const clickHandler = () => {
-    console.log("clickHandlerCalled");
-  };
+  // const clickHandler = () => {
+  //   console.log("clickHandlerCalled");
+  // };
   return (
     <Flex justify="center" bg="#E6EBE9">
       {/* <img src="images/CustomerCarousel/right-arrow.svg" />
@@ -103,7 +104,7 @@ function CustomerCarousel() {
             }
             renderThumbs={() => null}
           >
-            {SlideData.map((slide, index) => {
+            {slides.map((slide, index) => {
               return (
                 <Box
                   w="100%"
