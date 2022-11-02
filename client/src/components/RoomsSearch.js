@@ -14,11 +14,11 @@ function RoomsSearch() {
       margin="2rem"
     >
       <Flex>
-        <Image
+        <img
           src="./images/rooms_details/superior_garden_view.svg"
-          width="400px"
-          height="200px"
           margin="2rem"
+          width="400px"
+          height="250px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
           <Heading fontSize="xl">Superior Garden View</Heading>
@@ -31,7 +31,7 @@ function RoomsSearch() {
             shower.
           </Text>
         </Flex>
-        <Flex direction="column" justify="end">
+        <Flex direction="column" justify="center">
           <Text fontSize="xs" as="s" textAlign="end">
             THB 3,100.00
           </Text>
@@ -53,11 +53,11 @@ function RoomsSearch() {
       </Flex>
 
       <Flex>
-        <Image
+        <img
           src="./images/rooms_details/deluxe.svg"
-          width="400px"
-          height="200px"
           margin="2rem"
+          width="400px"
+          height="250px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
           <Heading fontSize="xl">Superior Garden View</Heading>
@@ -70,7 +70,7 @@ function RoomsSearch() {
             shower.
           </Text>
         </Flex>
-        <Flex direction="column" justify="end">
+        <Flex direction="column" justify="center">
           <Text fontSize="xs" as="s" textAlign="end">
             THB 3,100.00
           </Text>
@@ -92,11 +92,11 @@ function RoomsSearch() {
       </Flex>
 
       <Flex>
-        <Image
+        <img
           src="./images/rooms_details/superior.svg"
-          width="400px"
-          height="200px"
           margin="2rem"
+          width="400px"
+          height="150px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
           <Heading fontSize="xl">Superior Garden View</Heading>
@@ -109,7 +109,7 @@ function RoomsSearch() {
             shower.
           </Text>
         </Flex>
-        <Flex direction="column" justify="end">
+        <Flex direction="column" justify="center">
           <Text fontSize="xs" as="s" textAlign="end">
             THB 3,100.00
           </Text>
@@ -131,11 +131,11 @@ function RoomsSearch() {
       </Flex>
 
       <Flex>
-        <Image
+        <img
           src="./images/rooms_details/supreme.svg"
-          width="400px"
-          height="200px"
           margin="2rem"
+          width="400px"
+          height="150px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
           <Heading fontSize="xl">Superior Garden View</Heading>
@@ -148,7 +148,7 @@ function RoomsSearch() {
             shower.
           </Text>
         </Flex>
-        <Flex direction="column" justify="end">
+        <Flex direction="column" justify="center">
           <Text fontSize="xs" as="s" textAlign="end">
             THB 3,100.00
           </Text>
