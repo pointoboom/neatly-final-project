@@ -4,6 +4,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* @import '~antd/dist/antd.css'; */
 * {
   box-sizing: border-box;
   margin: 0px;
