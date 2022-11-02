@@ -1,13 +1,23 @@
 {
+<<<<<<< HEAD
+=======
+  "window.zoomLevel": 0,
+>>>>>>> footer
   "sqltools.connections": [
     {
       "previewLimit": 50,
       "server": "tiny.db.elephantsql.com",
       "port": 5432,
       "driver": "PostgreSQL",
+<<<<<<< HEAD
       "name": "Neatly",
       "database": "vkhwmske",
       "username": "vkhwmske",
+=======
+      "database": "vkhwmske",
+      "username": "vkhwmske",
+      "name": "DB",
+>>>>>>> footer
       "password": "o-XPZ9RddpFJHaVzfG3jBn2ROvHPAS1y"
     }
   ]
