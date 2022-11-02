@@ -3,7 +3,6 @@ import { Image, Stack, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
 function Footerbar() {
   return (
     <Flex
-    
       display="flex"
       direction="column"
       justify="center"
@@ -13,7 +12,12 @@ function Footerbar() {
       height="480px"
       fontFamily={"Inter"}
     >
-      <Flex width="1200px" height="315px" justifyContent="space-between">
+      <Flex
+        width="full"
+        height="315px"
+        justifyContent="space-between"
+        px="200px"
+      >
         <Flex
           className="neatly-logo"
           width="500px"
@@ -115,16 +119,17 @@ function Footerbar() {
       </Flex>
 
       <Flex
-        width="1200px"
+        width="1500px"
         height="1px"
         backgroundColor="rgba(70, 92, 80, 1)"
       ></Flex>
 
       <Flex
-        width="1200px"
+        width="full"
         height="100px"
         justifyContent="space-between"
         alignItems="flex-end"
+        px="200px"
       >
         <Flex width="170px" height="100px">
           <Stack

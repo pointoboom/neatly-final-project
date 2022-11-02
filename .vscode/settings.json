@@ -1,15 +1,15 @@
 {
-    "window.zoomLevel": -1,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "server": "tiny.db.elephantsql.com",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "database": "vkhwmske",
-            "username": "vkhwmske",
-            "name": "DB",
-            "password": "o-XPZ9RddpFJHaVzfG3jBn2ROvHPAS1y"
-        }
-    ]
+  "window.zoomLevel": 0,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "tiny.db.elephantsql.com",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "database": "vkhwmske",
+      "username": "vkhwmske",
+      "name": "DB",
+      "password": "o-XPZ9RddpFJHaVzfG3jBn2ROvHPAS1y"
+    }
+  ]
 }
