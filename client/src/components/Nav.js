@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Image, Spacer, Text } from "@chakra-ui/react";
 function Nav() {
     return (
     <Box color="#F7F7FB" w="100%" h="100px" px="160px" py="26px">
