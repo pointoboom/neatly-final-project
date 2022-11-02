@@ -1,5 +1,4 @@
 import "./App.css";
-import DatePicker from "./components/DatePicker";
 import RoomsDetails from "./components/RoomsDetails.js";
 import RoomsSearch from "./components/RoomsSearch";
 function App() {

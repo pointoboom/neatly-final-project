@@ -1,7 +1,7 @@
 import { Button, Text } from "@chakra-ui/react";
-import { Flex, Spacer } from "@chakra-ui/react";
-import { Image } from "@chakra-ui/react";
-import { Stack, HStack, VStack, StackDivider } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+// import { Image } from "@chakra-ui/react";
+import { VStack, StackDivider } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 
 function RoomsSearch() {
@@ -15,8 +15,8 @@ function RoomsSearch() {
     >
       <Flex>
         <img
+          class="mr-12 my-6"
           src="./images/rooms_details/superior_garden_view.svg"
-          margin="2rem"
           width="400px"
           height="250px"
         />
@@ -54,13 +54,15 @@ function RoomsSearch() {
 
       <Flex>
         <img
+          class="mr-12 my-6"
           src="./images/rooms_details/deluxe.svg"
-          margin="2rem"
           width="400px"
           height="250px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
-          <Heading fontSize="xl">Superior Garden View</Heading>
+          <Heading fontSize="xl" font-family="Inter">
+            Deluxe
+          </Heading>
           <Text fontSize="xs" color="gray.700" fontWeight="thin" my="1rem">
             2 Guests&ensp;|&ensp;1 Double bed&ensp;|&ensp;32 sqm
           </Text>
@@ -93,13 +95,15 @@ function RoomsSearch() {
 
       <Flex>
         <img
+          class="mr-12 my-6"
           src="./images/rooms_details/superior.svg"
-          margin="2rem"
           width="400px"
           height="150px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
-          <Heading fontSize="xl">Superior Garden View</Heading>
+          <Heading fontSize="xl" font-family="Inter">
+            Superior
+          </Heading>
           <Text fontSize="xs" color="gray.700" fontWeight="thin" my="1rem">
             2 Guests&ensp;|&ensp;1 Double bed&ensp;|&ensp;32 sqm
           </Text>
@@ -132,13 +136,15 @@ function RoomsSearch() {
 
       <Flex>
         <img
+          class="mr-12 my-6"
           src="./images/rooms_details/supreme.svg"
-          margin="2rem"
           width="400px"
           height="150px"
         />
         <Flex direction="column" justify="center" ml="1rem" mb="2rem">
-          <Heading fontSize="xl">Superior Garden View</Heading>
+          <Heading fontSize="xl" font-family="Inter">
+            Supreme
+          </Heading>
           <Text fontSize="xs" color="gray.700" fontWeight="thin" my="1rem">
             2 Guests&ensp;|&ensp;1 Double bed&ensp;|&ensp;32 sqm
           </Text>
