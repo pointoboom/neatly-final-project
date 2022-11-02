@@ -10,7 +10,7 @@ function RoomsDetails() {
         fontSize="6xl"
         color="#2F3E35"
         textAlign="center"
-        fontWeight="black"
+        // fontWeight="500"
         fontFamily={"Noto Serif Display"}
       >
         Rooms & Suits
