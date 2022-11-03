@@ -5,6 +5,7 @@ import { DatePicker, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import { Divider } from "@chakra-ui/react";
 function RegisterPage() {
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
@@ -201,6 +202,7 @@ function RegisterPage() {
               )}
             </Upload>
           </Flex>
+          <Divider mb="2.5rem" />
           <Flex className="card-form" direction="column" mb="60px">
             <Flex mb="40px">
               <Text
