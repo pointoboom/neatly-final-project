@@ -110,7 +110,7 @@ function RegisterPage() {
                   ></Input>
                 </Flex>
                 <Flex direction="column" fontFamily={"Inter"} fontSize="16px">
-                  <Text mb="15px">Date od Birth</Text>
+                  <Text mb="15px">Date of Birth</Text>
                   <DatePicker
                     format="dd,DD MMM YYYY"
                     style={{
