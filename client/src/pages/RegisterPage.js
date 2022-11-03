@@ -61,7 +61,10 @@ function RegisterPage() {
       cvc,
       dob,
       country,
+      role: "admin",
+      profile_picture: "test",
     };
+    // console.log(data);
     register(data);
   };
 
@@ -405,6 +408,9 @@ function RegisterPage() {
                   width="550px"
                   mb="10px"
                   _hover={{ background: "#E76B39" }}
+                  onClick={(event) => {
+                    handleSubmit(event);
+                  }}
                 >
                   Register
                 </Button>

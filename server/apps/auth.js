@@ -12,7 +12,7 @@ authRouter.get("/", async (req, res) => {
   });
 });
 
-authRouter.post("/", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
   const hasRegistered = req.body.status === "registered";
   const newUser = {
     ...req.body,
@@ -22,23 +22,23 @@ authRouter.post("/", async (req, res) => {
   newUser.password = await bcrypt.hash(newUser.password, salt);
   await pool.query(
     `insert into users
-       (fullname, username, email, password, id_number, date_of_birth,
-       country, profile_picture, role, card_number, card_owner, expiry_date, cvc_cvv) 
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+         (fullname, username, email, password, id_number, date_of_birth,
+         country, profile_picture, role, card_number, card_owner, expiry_date, cvc_cvv)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
     [
       newUser.fullname,
       newUser.username,
       newUser.email,
       newUser.password,
-      newUser.id_number,
-      newUser.date_of_birth,
+      newUser.idnumber,
+      newUser.dob,
       newUser.country,
       newUser.profile_picture,
       newUser.role,
-      newUser.card_number,
-      newUser.card_owner,
-      newUser.expiry_date,
-      newUser.cvc_cvv,
+      newUser.cardnum,
+      newUser.cardowner,
+      newUser.expdate,
+      newUser.cvc,
     ]
   );
 
