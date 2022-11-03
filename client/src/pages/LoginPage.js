@@ -1,5 +1,11 @@
 import Navbar from "../components/Navbar";
-import { Image, Stack, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Input, Text, Flex, Button, Link } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
 
 function LoginPage() {
   return (
@@ -29,11 +35,15 @@ function LoginPage() {
         >
           <Flex
             className="register-box"
-            bgColor="rgba(100, 100, 251, 1)"
+            display="flex"
+            direction="column"
+            align="flex-start"
+            justify="flex-start"
             width="452px"
-            height="452px"
+            height="600px"
           >
             <Text
+              className="login"
               fontSize="68px"
               align="center"
               textColor="rgba(47, 62, 53, 1)"
@@ -42,6 +52,59 @@ function LoginPage() {
             >
               Log In
             </Text>
+
+            <Flex
+              className="input"
+              display="flex"
+              direction="column"
+              align="flex-start"
+              justify="flex-start"
+              fontFamily={"Inter"}
+            >
+              <FormControl>
+                <FormLabel fontSize="16px">Username or Email</FormLabel>
+                <Input
+                  type="email"
+                  fontSize="16px"
+                  placeholder="Enter your username or email"
+                  mb="40px"
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel fontSize="16px">Password</FormLabel>
+                <Input
+                  type="password"
+                  fontSize="16px"
+                  placeholder="Enter your password"
+                  mb="40px"
+                />
+              </FormControl>
+
+              <Button
+                fontFamily={"Open Sans"}
+                bg="orange.600"
+                color="white"
+                width="450px"
+                mb="10px"
+                type="submit"
+                _hover={{ background: "rgba(193, 72, 23, 1)" }}
+              >
+                Log In
+              </Button>
+
+              <Text fontSize="16px" mb="10px" color="rgba(100, 109, 137, 1)">
+                Don’t have an account yet?
+                <Link
+                  fontFamily={"Open Sans"}
+                  color="rgba(193, 72, 23, 1)"
+                  href="/register"
+                  paddingLeft="10px"
+                >
+                  Register
+                </Link>
+              </Text>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
