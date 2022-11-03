@@ -3,6 +3,8 @@ import "../App.css";
 import HomePage from "./HomePage";
 import RegisterPage from "./RegisterPage";
 import RoomSearchPage from "./RoomSearchPage";
+import LoginPage from "./LoginPage";
+
 function UnauthenticatedApp() {
   return (
     <div className="App">
@@ -12,7 +14,7 @@ function UnauthenticatedApp() {
         <Route path="/search" element={<RoomSearchPage />} />
         {/* <Route path="/createorder" element={<CreateOrders />} /> */}
         {/* <Route path="*" element={<HomePage />} /> */}
-        {/* <Route path="*" element={<LoginPage />} /> */}
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );
