@@ -1,12 +1,15 @@
 import Footerbar from "../components/Footerbar";
 import Navbar from "../components/Navbar";
 import RoomsSearch from "../components/RoomsSearch";
-import { Flex, Box, Text, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Flex, Box, Button } from "@chakra-ui/react";
+import React from "react";
 import { DatePicker, Select } from "antd";
+import useScrollDirection from "../hooks/useScrollDirection";
 import "antd/dist/antd.css";
 
 function RoomSearchPage() {
+  const scrollDirection = useScrollDirection();
+
   return (
     <>
       <Navbar />
@@ -19,7 +22,9 @@ function RoomSearchPage() {
         justify="center"
         align="center"
         position="sticky"
-        top="100"
+        top={scrollDirection === "down" ? "-24" : "100"}
+        transition="all"
+        transitionDuration="2s"
         boxShadow="md"
         zIndex="10"
       >

@@ -3,7 +3,7 @@ import { Flex } from "@chakra-ui/react";
 // import { Image } from "@chakra-ui/react";
 import { VStack, StackDivider } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
-
+import React, { useState, useEffect } from "react";
 function RoomsSearch() {
   return (
     <VStack
