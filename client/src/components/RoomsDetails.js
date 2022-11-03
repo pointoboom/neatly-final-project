@@ -5,13 +5,13 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 function RoomsDetails() {
   return (
-    <Flex direction="column" align="center" margin="25px">
+    <Flex direction="column" align="center" my="100px">
       <Text
         fontSize="6xl"
         color="#2F3E35"
         textAlign="center"
-        // fontWeight="500"
         fontFamily={"Noto Serif Display"}
+        mb="30px"
       >
         Rooms & Suits
       </Text>
@@ -24,14 +24,14 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
+          <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Superior Garden View
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
-            <Text fontSize="1.5rem" fontFamily={"Open Sans"}>
+            <Text fontSize="1rem" fontFamily={"Open Sans"}>
               Explore room
             </Text>
-            <ArrowForwardIcon position="absolute" left="145px" bottom="8px" />
+            <ArrowForwardIcon position="absolute" left="115px" bottom="4px" />
           </Flex>
         </Flex>
         <Image
@@ -49,14 +49,14 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
+          <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Deluxe
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
-            <Text fontSize="1.5rem" fontFamily={"Open Sans"}>
+            <Text fontSize="1rem" fontFamily={"Open Sans"}>
               Explore room
             </Text>
-            <ArrowForwardIcon position="absolute" left="145px" bottom="8px" />
+            <ArrowForwardIcon position="absolute" left="115px" bottom="4px" />
           </Flex>
         </Flex>
         <Image
@@ -72,14 +72,14 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
+          <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Superior
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
-            <Text fontSize="1.5rem" fontFamily={"Open Sans"}>
+            <Text fontSize="1rem" fontFamily={"Open Sans"}>
               Explore room
             </Text>
-            <ArrowForwardIcon position="absolute" left="145px" bottom="8px" />
+            <ArrowForwardIcon position="absolute" left="115px" bottom="4px" />
           </Flex>
         </Flex>
         <Image
@@ -97,14 +97,14 @@ function RoomsDetails() {
           color="white"
           direction="column"
         >
-          <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
+          <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Premier Sea View
           </Text>
           <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
-            <Text fontSize="1.5rem" fontFamily={"Open Sans"}>
+            <Text fontSize="1rem" fontFamily={"Open Sans"}>
               Explore room
             </Text>
-            <ArrowForwardIcon position="absolute" left="145px" bottom="8px" />
+            <ArrowForwardIcon position="absolute" left="115px" bottom="4px" />
           </Flex>
         </Flex>
 
@@ -122,14 +122,14 @@ function RoomsDetails() {
             color="white"
             direction="column"
           >
-            <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
+            <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
               Supreme
             </Text>
             <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
-              <Text fontSize="1.5rem" fontFamily={"Open Sans"}>
+              <Text fontSize="1rem" fontFamily={"Open Sans"}>
                 Explore room
               </Text>
-              <ArrowForwardIcon position="absolute" left="145px" bottom="8px" />
+              <ArrowForwardIcon position="absolute" left="115px" bottom="4px" />
             </Flex>
           </Flex>
           <Image
@@ -145,14 +145,14 @@ function RoomsDetails() {
             color="white"
             direction="column"
           >
-            <Text fontSize="3rem" fontFamily={"Noto Serif Display"}>
+            <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
               Suite
             </Text>
             <Flex position="relative" left="10px" _hover={{ color: "orange" }}>
-              <Text fontSize="1.5rem" fontFamily={"Open Sans"}>
+              <Text fontSize="1rem" fontFamily={"Open Sans"}>
                 Explore room
               </Text>
-              <ArrowForwardIcon position="absolute" left="145px" bottom="8px" />
+              <ArrowForwardIcon position="absolute" left="115px" bottom="4px" />
             </Flex>
           </Flex>
           <Image

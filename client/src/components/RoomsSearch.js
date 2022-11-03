@@ -66,11 +66,12 @@ function RoomsSearch() {
               Room Detail
             </Text>
             <Button
-              bg="#C14817"
+              bg="orange.600"
               color="white"
               size="lg"
               fontFamily={"Open Sans"}
               fontSize="lg"
+              _hover={{ background: "#E76B39" }}
             >
               Book Now
             </Button>
@@ -131,11 +132,12 @@ function RoomsSearch() {
               Room Detail
             </Text>
             <Button
-              bg="#C14817"
+              bg="orange.600"
               color="white"
               size="lg"
               fontFamily={"Open Sans"}
               fontSize="lg"
+              _hover={{ background: "#E76B39" }}
             >
               Book Now
             </Button>
@@ -196,11 +198,12 @@ function RoomsSearch() {
               Room Detail
             </Text>
             <Button
-              bg="#C14817"
+              bg="orange.600"
               color="white"
               size="lg"
               fontFamily={"Open Sans"}
               fontSize="lg"
+              _hover={{ background: "#E76B39" }}
             >
               Book Now
             </Button>
@@ -261,11 +264,12 @@ function RoomsSearch() {
               Room Detail
             </Text>
             <Button
-              bg="#C14817"
+              bg="orange.600"
               color="white"
               size="lg"
               fontFamily={"Open Sans"}
               fontSize="lg"
+              _hover={{ background: "#E76B39" }}
             >
               Book Now
             </Button>
