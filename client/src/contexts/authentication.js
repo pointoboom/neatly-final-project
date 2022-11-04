@@ -24,8 +24,14 @@ function AuthProvider(props) {
 
   // register the user
   const register = async (data) => {
-    await axios.post("http://localhost:4000/auth/register", data);
-    // navigate("/");
+    const result = await axios.post(
+      "http://localhost:4000/auth/register",
+      data
+    );
+    console.log(result.data.success);
+    if (result.data.success === true) {
+      navigate("/");
+    }
   };
 
   // clear the token in localStorage and the user data
