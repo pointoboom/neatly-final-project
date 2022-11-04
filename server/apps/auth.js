@@ -29,6 +29,9 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
     newUser.email,
   ]);
 
+  const salt = await bcrypt.genSalt(10);
+  newUser.password = await bcrypt.hash(newUser.password, salt);
+
   if (!checkEmail.rows[0] && !checkUsername.rows[0]) {
     // console.log("ไม่เจอemail และ user");
     await pool.query(
@@ -76,9 +79,6 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
     console.log("duplicate username or email");
     success = false;
   }
-
-  const salt = await bcrypt.genSalt(10);
-  newUser.password = await bcrypt.hash(newUser.password, salt);
 
   return res.json({
     message: message,
