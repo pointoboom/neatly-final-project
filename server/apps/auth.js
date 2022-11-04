@@ -40,21 +40,38 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
         newUser.username,
         newUser.email,
         newUser.password,
-        newUser.id_number,
-        newUser.date_of_birth,
+        newUser.idnumber,
+        newUser.dob,
         newUser.country,
         newUser.profile_picture,
         newUser.role,
-        newUser.card_number,
-        newUser.card_owner,
-        newUser.expiry_date,
-        newUser.cvc_cvv,
+        newUser.cardnum,
+        newUser.cardowner,
+        newUser.expdate,
+        newUser.cvc,
       ]
+      // [
+      //   newUser.fullname,
+      //   newUser.username,
+      //   newUser.email,
+      //   newUser.password,
+      //   newUser.id_number,
+      //   newUser.date_of_birth,
+      //   newUser.country,
+      //   newUser.profile_picture,
+      //   newUser.role,
+      //   newUser.card_number,
+      //   newUser.card_owner,
+      //   newUser.expiry_date,
+      //   newUser.cvc_cvv,
+      // ]
     );
     message = "User has been created.";
+    console.log("User has been created.");
   } else {
     // console.log("เจอemail หรือ user");
     message = "duplicate username or email";
+    console.log("duplicate username or email");
   }
 
   const salt = await bcrypt.genSalt(10);
