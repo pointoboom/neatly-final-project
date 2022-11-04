@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -16,4 +16,16 @@
 /* 
 .roomSearch_font {
   font-family: "Inter";
+} */
+/* .ant-select-selector:hover {
+  border-color: #d6d9e4 !important;
+}
+.ant-select-selector:focus-within {
+  border-color: #e76b39 !important;
+}
+.ant-picker:focus-within {
+  border-color: #e76b39 !important;
+}
+.ant-picker:hover {
+  border-color: #d6d9e4 !important;
 } */

@@ -5,6 +5,7 @@ import {
   Input,
   Divider,
   FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import { countryList } from "../data/country";
@@ -12,6 +13,7 @@ import { DatePicker, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import validator from "validator";
 import { useAuth } from "../contexts/authentication";
 
 function RegisterPage() {
@@ -28,7 +30,9 @@ function RegisterPage() {
   const [cvc, setCvc] = useState("");
   const [dob, setDob] = useState("");
   const [country, setCountry] = useState("");
+  const [isError, setError] = useState("false");
   const { register } = useAuth();
+
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -61,7 +65,7 @@ function RegisterPage() {
       cvc,
       dob,
       country,
-      role: "admin",
+      role: "user",
       profile_picture: "test",
     };
     // console.log(data);
@@ -132,6 +136,7 @@ function RegisterPage() {
                   onChange={(event) => {
                     setFullName(event.target.value);
                   }}
+                  focusBorderColor="orange.500"
                 ></Input>
               </Flex>
               <Flex>
@@ -155,6 +160,7 @@ function RegisterPage() {
                       onChange={(event) => {
                         setUsername(event.target.value);
                       }}
+                      focusBorderColor="orange.500"
                     ></Input>
                   </Flex>
                   <Flex
@@ -164,19 +170,41 @@ function RegisterPage() {
                     mb="40px"
                   >
                     <Text mb="15px">Password</Text>
-                    <Input
-                      placeholder="Enter your password"
-                      width="550px"
-                      fontFamily={"Inter"}
-                      fontSize="16px"
-                      id="password"
-                      name="password"
-                      type="password"
-                      value={password}
-                      onChange={(event) => {
-                        setPassword(event.target.value);
-                      }}
-                    ></Input>
+                    <FormControl isInvalid={isError}>
+                      <Input
+                        placeholder="Enter your password"
+                        width="550px"
+                        fontFamily={"Inter"}
+                        fontSize="16px"
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        isInvalid=""
+                        onChange={(event) => {
+                          setPassword(event.target.value);
+                          if (
+                            validator.isStrongPassword(event.target.value, {
+                              minLength: 8,
+                              minLowercase: 1,
+                              minUppercase: 1,
+                              minNumbers: 1,
+                              minSymbols: 1,
+                            }) === false
+                          ) {
+                            setError(true);
+                          } else {
+                            setError(false);
+                          }
+                        }}
+                        focusBorderColor="orange.500"
+                      ></Input>
+                      {isError === true ? (
+                        <FormErrorMessage>
+                          password must be complexity
+                        </FormErrorMessage>
+                      ) : null}
+                    </FormControl>
                   </Flex>
                   <Flex direction="column" fontFamily={"Inter"} fontSize="16px">
                     <Text mb="15px">Date of Birth</Text>
@@ -213,6 +241,7 @@ function RegisterPage() {
                       onChange={(event) => {
                         setEmail(event.target.value);
                       }}
+                      focusBorderColor="orange.500"
                     ></Input>
                   </Flex>
                   <Flex
@@ -234,6 +263,7 @@ function RegisterPage() {
                       onChange={(event) => {
                         setIdnumber(event.target.value);
                       }}
+                      focusBorderColor="orange.500"
                     ></Input>
                   </Flex>
                   <Flex direction="column" fontFamily={"Inter"} fontSize="16px">
@@ -322,6 +352,7 @@ function RegisterPage() {
                     onChange={(event) => {
                       setCardnum(event.target.value);
                     }}
+                    focusBorderColor="orange.500"
                   ></Input>
                 </Flex>
                 <Flex direction="column">
@@ -346,6 +377,7 @@ function RegisterPage() {
                     onChange={(event) => {
                       setCardowner(event.target.value);
                     }}
+                    focusBorderColor="orange.500"
                   ></Input>
                 </Flex>
               </Flex>
@@ -372,6 +404,7 @@ function RegisterPage() {
                     onChange={(event) => {
                       setExpdate(event.target.value);
                     }}
+                    focusBorderColor="orange.500"
                   ></Input>
                 </Flex>
                 <Flex direction="column">
@@ -396,6 +429,7 @@ function RegisterPage() {
                     onChange={(event) => {
                       setCvc(event.target.value);
                     }}
+                    focusBorderColor="orange.500"
                   ></Input>
                 </Flex>
               </Flex>

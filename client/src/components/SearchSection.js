@@ -1,8 +1,10 @@
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { DatePicker, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
 function SearchSection() {
+  const navigate = useNavigate();
   return (
     <Flex
       direction="column"
@@ -97,6 +99,9 @@ function SearchSection() {
             px="40px"
             fontFamily={"Inter"}
             _hover={{ background: "#E76B39" }}
+            onClick={() => {
+              navigate("/search");
+            }}
           >
             Search
           </Button>
