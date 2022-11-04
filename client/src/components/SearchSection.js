@@ -2,7 +2,7 @@ import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { DatePicker, Select } from "antd";
 import { useNavigate } from "react-router-dom";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 function SearchSection() {
   const navigate = useNavigate();
   return (

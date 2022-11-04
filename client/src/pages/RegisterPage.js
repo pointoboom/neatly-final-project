@@ -12,7 +12,7 @@ import { countryList } from "../data/country";
 import { DatePicker, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import validator from "validator";
 import { useAuth } from "../contexts/authentication";
 
@@ -32,6 +32,7 @@ function RegisterPage() {
   const [country, setCountry] = useState("");
   const [isError, setError] = useState("false");
   const { register } = useAuth();
+  const auth = useAuth();
 
   const uploadButton = (
     <div>
@@ -186,6 +187,7 @@ function RegisterPage() {
                           if (
                             validator.isStrongPassword(event.target.value, {
                               minLength: 8,
+                              maxLength: 16,
                               minLowercase: 1,
                               minUppercase: 1,
                               minNumbers: 1,
@@ -200,9 +202,7 @@ function RegisterPage() {
                         focusBorderColor="orange.500"
                       ></Input>
                       {isError === true ? (
-                        <FormErrorMessage>
-                          password must be complexity
-                        </FormErrorMessage>
+                        <FormErrorMessage>password not strong</FormErrorMessage>
                       ) : null}
                     </FormControl>
                   </Flex>
@@ -229,20 +229,27 @@ function RegisterPage() {
                     mb="40px"
                   >
                     <Text mb="15px">Email</Text>
-                    <Input
-                      placeholder="Enter your email"
-                      width="550px"
-                      fontFamily={"Inter"}
-                      fontSize="16px"
-                      id="email"
-                      name="email"
-                      type="text"
-                      value={email}
-                      onChange={(event) => {
-                        setEmail(event.target.value);
-                      }}
-                      focusBorderColor="orange.500"
-                    ></Input>
+                    <FormControl isInvalid={auth.emailRegistered}>
+                      <Input
+                        placeholder="Enter your email"
+                        width="550px"
+                        fontFamily={"Inter"}
+                        fontSize="16px"
+                        id="email"
+                        name="email"
+                        type="text"
+                        value={email}
+                        onChange={(event) => {
+                          setEmail(event.target.value);
+                        }}
+                        focusBorderColor="orange.500"
+                      ></Input>
+                      {auth.emailRegistered === true ? (
+                        <FormErrorMessage>
+                          This email has been registered
+                        </FormErrorMessage>
+                      ) : null}
+                    </FormControl>
                   </Flex>
                   <Flex
                     direction="column"
