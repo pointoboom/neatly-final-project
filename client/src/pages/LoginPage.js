@@ -6,8 +6,25 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
+import { useAuth } from "../contexts/authentication";
+import { useState } from "react";
 
 function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { login } = useAuth();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    login({
+      username,
+      password,
+    });
+    console.log(username);
+    console.log(password);
+  };
+
   return (
     <>
       <Navbar />;
@@ -68,18 +85,24 @@ function LoginPage() {
                   fontSize="16px"
                   placeholder="Enter your username or email"
                   mb="40px"
+                  value={username}
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
                 />
               </FormControl>
 
-              <FormControl>
-                <FormLabel fontSize="16px">Password</FormLabel>
-                <Input
-                  type="password"
-                  fontSize="16px"
-                  placeholder="Enter your password"
-                  mb="40px"
-                />
-              </FormControl>
+              <FormLabel fontSize="16px">Password</FormLabel>
+              <Input
+                type="password"
+                fontSize="16px"
+                placeholder="Enter your password"
+                mb="40px"
+                value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+              />
 
               <Button
                 fontFamily={"Open Sans"}
@@ -89,6 +112,9 @@ function LoginPage() {
                 mb="10px"
                 type="submit"
                 _hover={{ background: "rgba(193, 72, 23, 1)" }}
+                onClick={(event) => {
+                  handleSubmit(event);
+                }}
               >
                 Log In
               </Button>
