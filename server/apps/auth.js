@@ -18,6 +18,7 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
     ...req.body,
   };
   let message = "";
+  let success = Boolean;
 
   const checkUsername = await pool.query(
     "select * from users where username=$1",
@@ -68,10 +69,12 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
     );
     message = "User has been created.";
     console.log("User has been created.");
+    success = true;
   } else {
     // console.log("เจอemail หรือ user");
     message = "duplicate username or email";
     console.log("duplicate username or email");
+    success = false;
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -79,6 +82,8 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
 
   return res.json({
     message: message,
+    success: success,
   });
 });
+
 export default authRouter;
