@@ -10,6 +10,8 @@ function AuthProvider(props) {
     error: null,
     user: null,
   });
+  const [emailRegistered, setEmailRegis] = useState(false);
+  let isEmailRegistered = false;
   const navigate = useNavigate();
   // make a login request
   const login = async (data) => {
@@ -31,6 +33,8 @@ function AuthProvider(props) {
     console.log(result.data.success);
     if (result.data.success === true) {
       navigate("/");
+    } else {
+      setEmailRegis(true);
     }
   };
 
@@ -44,7 +48,15 @@ function AuthProvider(props) {
 
   return (
     <AuthContext.Provider
-      value={{ state, login, logout, register, isAuthenticated }}
+      value={{
+        state,
+        login,
+        logout,
+        register,
+        isAuthenticated,
+        isEmailRegistered,
+        emailRegistered,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

@@ -5,7 +5,7 @@ import { Flex, Box, Button } from "@chakra-ui/react";
 import React from "react";
 import { DatePicker, Select } from "antd";
 import useScrollDirection from "../hooks/useScrollDirection";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 
 function RoomSearchPage() {
   const scrollDirection = useScrollDirection();
