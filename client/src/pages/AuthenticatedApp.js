@@ -9,10 +9,6 @@ import NotFoundPage from "./NotFoundPage";
 import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomDetailPage from "./RoomDetailPage";
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f51998 (fix edit api)
 
 
 function AuthenticatedApp() {
