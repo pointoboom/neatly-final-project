@@ -3,12 +3,7 @@ import "../App.css";
 import HomePage from "./HomePage";
 import RegisterPage from "./RegisterPage";
 import RoomSearchPage from "./RoomSearchPage";
-import LoginPage from "./LoginPage";
-// import TestStep from "../components/TestStep";
-import ReservationPage from "./ReservationPage";
-import BookingSummaryPage from "./BookingSummaryPage";
-
-
+import RoomDetailPage from "./RoomDetailPage";
 function UnauthenticatedApp() {
   return (
     <div className="App">
@@ -21,9 +16,7 @@ function UnauthenticatedApp() {
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/test" element={<TestStep />} /> */}
         {/* <Route path="*" element={<LoginPage />} /> */}
-        <Route path="/reservation" element={<ReservationPage />} />
-        <Route path="/bookingsummary" element={<BookingSummaryPage />} />
-
+        {/* <Route path="/room-detail" element={<RoomDetailPage />} /> */}
       </Routes>
     </div>
   );
