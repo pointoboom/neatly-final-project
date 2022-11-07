@@ -20,11 +20,6 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
   let message = "";
   let success = Boolean;
 
-  const checkUsername = await pool.query(
-    "select * from users where username=$1",
-    [newUser.username]
-  );
-
   const checkEmail = await pool.query("select * from users where email=$1", [
     newUser.email,
   ]);
@@ -32,8 +27,8 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   newUser.password = await bcrypt.hash(newUser.password, salt);
 
-  if (!checkEmail.rows[0] && !checkUsername.rows[0]) {
-    // console.log("ไม่เจอemail และ user");
+  if (!checkEmail.rows[0]) {
+    // console.log("ไม่เจอemail);
     await pool.query(
       `insert into users
          (fullname, username, email, password, id_number, date_of_birth,
@@ -75,8 +70,8 @@ authRouter.post("/register", [validateRegisterData], async (req, res) => {
     success = true;
   } else {
     // console.log("เจอemail หรือ user");
-    message = "duplicate username or email";
-    console.log("duplicate username or email");
+    message = "duplicate email";
+    console.log("duplicate email");
     success = false;
   }
 
