@@ -21,12 +21,6 @@ function LoginPage() {
       username,
       password,
     });
-<<<<<<< HEAD
-    console.log(username);
-    console.log(password);
-=======
-    
->>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
   };
 
   return (
@@ -103,15 +97,9 @@ function LoginPage() {
                 placeholder="Enter your password"
                 mb="40px"
                 value={password}
-<<<<<<< HEAD
                 onChange={(event) => {
                   setPassword(event.target.value);
                 }}
-=======
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
->>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
               />
 
               <Button

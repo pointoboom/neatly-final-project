@@ -1,13 +1,9 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
 import { validateRegisterData } from "../middlewares/auth.validations.js";
-<<<<<<< HEAD
 import multer from "multer";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-=======
-import jwt from "jsonwebtoken";
->>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
 
 const authRouter = Router();
 const multerUpload = multer({ dest: "uploads/" });
@@ -69,8 +65,6 @@ authRouter.post("/login", async (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-=======
 authRouter.post("/login", async (req, res) => {
   const user = await pool.query("select * from users where username=$1", [
     req.body.username,
@@ -111,5 +105,4 @@ authRouter.post("/login", async (req, res) => {
   });
 });
 
->>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
 export default authRouter;
