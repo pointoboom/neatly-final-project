@@ -4,7 +4,20 @@ import { Flex } from "@chakra-ui/react";
 import { VStack, StackDivider } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 function RoomsSearch() {
+  const [roomDetails, setRoomDetails] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("http://localhost:4000/auth/roomdetails");
+      setRoomDetails(res.data.data);
+    };
+    getData();
+  }, []);
+
+  console.log(roomDetails);
+
   return (
     <VStack
       divider={<StackDivider borderColor="gray.200" />}
@@ -13,10 +26,82 @@ function RoomsSearch() {
       alignItems="center"
       margin="2rem"
     >
-      <Flex>
+      {roomDetails.map((data) => {
+        return (
+          <Flex>
+            <Flex>
+              <img
+                width="400px"
+                height="250px"
+                class="mr-12 my-6"
+                src={data.main_image_url}
+              />
+            </Flex>
+            <Flex direction="column" justify="center" ml="1rem" mb="2rem">
+              <Heading fontSize="2xl" fontFamily={"Inter"}>
+                {data.type_name}
+              </Heading>
+              <Text
+                fontSize="s"
+                color="gray.700"
+                fontWeight="thin"
+                my="1rem"
+                fontFamily={"Inter"}
+              >
+                {data.guest} Guests&ensp;|&ensp;{data.no_of_bed}&nbsp;
+                {data.bed_type}&ensp;|&ensp;
+                {data.room_size}
+              </Text>
+              <Text fontSize="s" fontFamily={"inter"} width="270px">
+                {data.description}
+              </Text>
+            </Flex>
+            <Flex direction="column" justify="center" mt="3rem">
+              <Text fontSize="s" as="s" textAlign="end" fontFamily={"Inter"}>
+                THB {data.price}
+              </Text>
+              <Heading fontSize="sm" textAlign="end" fontFamily={"Inter"}>
+                THB {data.promotion_price}
+              </Heading>
+              <Text
+                fontSize="s"
+                mt="1rem"
+                mb="3rem"
+                textAlign="end"
+                fontFamily={"Inter"}
+              >
+                Per Night <br /> (Including Taxes & Fees)
+              </Text>
+              <Flex align="center" mb="1rem" pt="1rem">
+                <Text
+                  color="orange.500"
+                  mr="2rem"
+                  fontWeight="semibold"
+                  fontFamily={"Open Sans"}
+                  fontSize="lg"
+                >
+                  Room Detail
+                </Text>
+                <Button
+                  bg="orange.600"
+                  color="white"
+                  size="lg"
+                  fontFamily={"Open Sans"}
+                  fontSize="lg"
+                  _hover={{ background: "#E76B39" }}
+                >
+                  Book Now
+                </Button>
+              </Flex>
+            </Flex>
+          </Flex>
+        );
+      })}
+      ;
+      {/* <Flex>
         <img
           class="mr-12 my-6"
-          src="./images/rooms_details/superior_garden_view.svg"
+          src="https://res.cloudinary.com/dah7lfmtx/image/upload/v1667902457/deluxe_q6z2jw.svg"
           width="400px"
           height="250px"
         />
@@ -77,9 +162,8 @@ function RoomsSearch() {
             </Button>
           </Flex>
         </Flex>
-      </Flex>
-
-      <Flex>
+      </Flex> */}
+      {/* <Flex>
         <img
           class="mr-12 my-6"
           src="./images/rooms_details/deluxe.svg"
@@ -273,9 +357,9 @@ function RoomsSearch() {
             >
               Book Now
             </Button>
-          </Flex>
+          </Flex>  
         </Flex>
-      </Flex>
+      </Flex> */}
     </VStack>
   );
 }
