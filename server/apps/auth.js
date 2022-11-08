@@ -1,10 +1,14 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
-import bcrypt from "bcrypt";
 import { validateRegisterData } from "../middlewares/auth.validations.js";
+import multer from "multer";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const authRouter = Router();
-
+const multerUpload = multer({ dest: "uploads/" });
+const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);
+import register from "../controllers/register.js";
 authRouter.get("/", async (req, res) => {
   const result = await pool.query("select * from users");
 
@@ -12,72 +16,92 @@ authRouter.get("/", async (req, res) => {
     data: result.rows,
   });
 });
+authRouter.post(
+  "/register",
+  avatarUpload,
+  [validateRegisterData],
+  (req, res) => {
+    register(req, res);
+  }
+);
 
-authRouter.post("/register", [validateRegisterData], async (req, res) => {
-  const newUser = {
-    ...req.body,
-  };
-  let message = "";
-  let success = Boolean;
-
-  const checkEmail = await pool.query("select * from users where email=$1", [
-    newUser.email,
+authRouter.post("/login", async (req, res) => {
+  const user = await pool.query("select * from users where username=$1", [
+    req.body.username,
   ]);
 
-  const salt = await bcrypt.genSalt(10);
-  newUser.password = await bcrypt.hash(newUser.password, salt);
-
-  if (!checkEmail.rows[0]) {
-    // console.log("ไม่เจอemail);
-    await pool.query(
-      `insert into users
-         (fullname, username, email, password, id_number, date_of_birth,
-         country, profile_picture, role, card_number, card_owner, expiry_date, cvc_cvv)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
-      [
-        newUser.fullname,
-        newUser.username,
-        newUser.email,
-        newUser.password,
-        newUser.idnumber,
-        newUser.dob,
-        newUser.country,
-        newUser.profile_picture,
-        newUser.role,
-        newUser.cardnum,
-        newUser.cardowner,
-        newUser.expdate,
-        newUser.cvc,
-      ]
-      // [
-      //   newUser.fullname,
-      //   newUser.username,
-      //   newUser.email,
-      //   newUser.password,
-      //   newUser.id_number,
-      //   newUser.date_of_birth,
-      //   newUser.country,
-      //   newUser.profile_picture,
-      //   newUser.role,
-      //   newUser.card_number,
-      //   newUser.card_owner,
-      //   newUser.expiry_date,
-      //   newUser.cvc_cvv,
-      // ]
-    );
-    message = "User has been created.";
-    console.log("User has been created.");
-    success = true;
-  } else {
-    // console.log("เจอemail หรือ user");
-    message = "duplicate email";
-    console.log("duplicate email");
-    success = false;
+  if (!user) {
+    return res.status(404).json({
+      message: "user not found",
+    });
   }
 
+  const isValidPassword = await bcrypt.compare(
+    req.body.password,
+    user.rows[0].password
+  );
+  console.log(isValidPassword);
+
+  if (!isValidPassword) {
+    return res.status(401).json({
+      message: "password not valid",
+    });
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.user_id,
+      fullname: user.fullname,
+    },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "900000",
+    }
+  );
+
   return res.json({
-    message: message,
-    success: success,
+    message: "login succesfully",
+    token,
+  });
+});
+
+authRouter.post("/login", async (req, res) => {
+  const user = await pool.query("select * from users where username=$1", [
+    req.body.username,
+  ]);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "user not found",
+    });
+  }
+
+  const isValidPassword = await bcrypt.compare(
+    req.body.password,
+    user.rows[0].password
+  );
+  console.log(isValidPassword);
+
+  if (!isValidPassword) {
+    return res.status(401).json({
+      message: "password not valid",
+    });
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.user_id,
+      fullname: user.fullname,
+    },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "900000",
+    }
+  );
+
+  return res.json({
+    message: "login succesfully",
+    token,
   });
 });
 

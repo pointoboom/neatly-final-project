@@ -28,9 +28,12 @@ function AuthProvider(props) {
   const register = async (data) => {
     const result = await axios.post(
       "http://localhost:4000/auth/register",
-      data
+      data,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
     );
-    console.log(result.data.success);
+
     if (result.data.success === true) {
       navigate("/");
     } else {
