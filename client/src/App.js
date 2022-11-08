@@ -6,6 +6,7 @@ import { Text } from "@chakra-ui/react";
 import SliderImage from "./components/SliderImage";
 import UnauthenticatedApp from "./pages/UnauthenticatedApp";
 
+
 function App() {
   return <UnauthenticatedApp />;
 }

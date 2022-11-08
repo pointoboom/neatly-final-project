@@ -6,6 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/authentication";
+import jwtInterceptor from "./utils/jwtInterceptor.js";
+
+jwtInterceptor();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
