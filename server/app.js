@@ -2,6 +2,7 @@ import authRouter from "./apps/auth.js";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+<<<<<<< HEAD
 import cloudinary from "cloudinary";
 import dotenv from "dotenv";
 async function init() {
@@ -12,6 +13,12 @@ async function init() {
     api_secret: process.env.API_SECRET,
     secure: true,
   });
+=======
+import dotenv from "dotenv";
+
+async function init() {
+  dotenv.config();
+>>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
   const app = express();
   const port = 4000;
 

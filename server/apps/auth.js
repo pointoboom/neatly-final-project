@@ -1,9 +1,13 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
 import { validateRegisterData } from "../middlewares/auth.validations.js";
+<<<<<<< HEAD
 import multer from "multer";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+=======
+import jwt from "jsonwebtoken";
+>>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
 
 const authRouter = Router();
 const multerUpload = multer({ dest: "uploads/" });
@@ -65,4 +69,47 @@ authRouter.post("/login", async (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+authRouter.post("/login", async (req, res) => {
+  const user = await pool.query("select * from users where username=$1", [
+    req.body.username,
+  ]);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "user not found",
+    });
+  }
+
+  const isValidPassword = await bcrypt.compare(
+    req.body.password,
+    user.rows[0].password
+  );
+  console.log(isValidPassword);
+
+  if (!isValidPassword) {
+    return res.status(401).json({
+      message: "password not valid",
+    });
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.user_id,
+      fullname: user.fullname,
+    },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "900000",
+    }
+  );
+
+  return res.json({
+    message: "login succesfully",
+    token,
+  });
+});
+
+>>>>>>> ebb4d7de06508d90ad442d76dbcd400da9a08ea4
 export default authRouter;
