@@ -51,4 +51,4 @@ async function register(req, res) {
     success: success,
   });
 }
-export default register();
+export default register;
