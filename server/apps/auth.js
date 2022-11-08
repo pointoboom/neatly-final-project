@@ -3,6 +3,7 @@ import { pool } from "../utils/db.js";
 import { validateRegisterData } from "../middlewares/auth.validations.js";
 import multer from "multer";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const authRouter = Router();
 const multerUpload = multer({ dest: "uploads/" });

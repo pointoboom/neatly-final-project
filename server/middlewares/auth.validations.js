@@ -4,7 +4,7 @@ export function validateRegisterData(req, res, next) {
     ...req.body,
   };
 
-  console.log(req.body)
+  console.log(req.body);
 
   var regularExpression = /^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
   console.log(validate.password);
