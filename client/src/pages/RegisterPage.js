@@ -15,7 +15,11 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.min.css";
 import validator from "validator";
 import { useAuth } from "../contexts/authentication";
-
+const getBase64 = (img, callback) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+};
 function RegisterPage() {
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
@@ -31,8 +35,22 @@ function RegisterPage() {
   const [dob, setDob] = useState("");
   const [country, setCountry] = useState("");
   const [isError, setError] = useState("false");
+  const [avatars, setAvatars] = useState({});
   const { register } = useAuth();
   const auth = useAuth();
+
+  const handleChange = (info) => {
+    getBase64(info.file.originFileObj, (url) => {
+      setLoading(false);
+      setImageUrl(url);
+    });
+    setAvatars({});
+    const uniqueId = Date.now();
+    setAvatars({
+      ...avatars,
+      [uniqueId]: info.file.originFileObj,
+    });
+  };
 
   const uploadButton = (
     <div>
@@ -54,23 +72,25 @@ function RegisterPage() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = {
-      username,
-      password,
-      fullname,
-      email,
-      idnumber,
-      cardnum,
-      cardowner,
-      expdate,
-      cvc,
-      dob,
-      country,
-      role: "user",
-      profile_picture: "test",
-    };
-    // console.log(data);
-    register(data);
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("fullname", fullname);
+    formData.append("email", email);
+    formData.append("idnumber", idnumber);
+    formData.append("cardnum", cardnum);
+    formData.append("cardowner", cardowner);
+    formData.append("expdate", expdate);
+    formData.append("cvc", cvc);
+    formData.append("dob", dob);
+    formData.append("country", country);
+    formData.append("role", "user");
+    for (let avatarKey in avatars) {
+      // console.log(avatars[avatarKey]);
+      formData.append("avatar", avatars[avatarKey]);
+    }
+    // console.log(formData);
+    register(formData);
   };
 
   return (
@@ -306,10 +326,12 @@ function RegisterPage() {
                 name="avatar"
                 listType="picture-card"
                 className="avatar-uploader"
-                showUploadList={false}
+                maxCount="1"
                 // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                showUploadList={false}
                 // beforeUpload={beforeUpload}
-                // onChange={handleChange}
+                onChange={handleChange}
+                // onPreview={onPreview}
               >
                 {imageUrl ? (
                   <img
