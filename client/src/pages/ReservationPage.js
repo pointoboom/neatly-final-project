@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { Input, Text, Flex, Button, Link, Box } from "@chakra-ui/react";
+import { Input, Text, Flex, Button, Link, Box, Img } from "@chakra-ui/react";
 import {
   FormControl,
   FormLabel,
@@ -13,7 +13,13 @@ import { DatePicker, Select, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { countryList } from "../data/country";
 import validator from "validator";
-import { Checkbox, CheckboxGroup, Stack, Textarea } from "@chakra-ui/react";
+import {
+  Checkbox,
+  CheckboxGroup,
+  Stack,
+  Textarea,
+  GridItem,
+} from "@chakra-ui/react";
 
 function ReservationPage() {
   const [imageUrl, setImageUrl] = useState();
@@ -117,15 +123,22 @@ function ReservationPage() {
               color="gray"
               bgColor="pink.300"
             >
-              <Tab _selected={{ color: "orange" }}>Basic Information</Tab>
+              <Tab _selected={{ color: "orange" }}><Button
+                  // boxSize="66px"
+                  mr="15px"
+                  bgColor="gray.100"
+                  _selected={{ colorScheme: "orange",bg: 'blue.500' }}
+                >
+                  1
+                </Button>Basic Information</Tab>
               <Tab _selected={{ color: "orange" }}>
                 <Box
                   boxSize="66px"
                   mr="15px"
                   bgColor="gray"
-                  _focus={{ bgColor: "orange" }}
+                  _focus={{ bgColor: "orange",bg: 'blue.500' }}
                 >
-                  1
+                  2
                 </Box>
                 Special Request
               </Tab>
@@ -133,177 +146,188 @@ function ReservationPage() {
             </TabList>
 
             <Flex
-              w="1122px"
+              // w="1122px"
               display="flex"
               direction="row"
-              justifyContent="center"
+              justifyContent="space-between"
               alignItems="flex-start"
               bgColor="yellow"
             >
-              <TabPanels>
-                <TabPanel className="first-page" display="flex" direction="row">
+              <TabPanels bgColor="blue">
+                <TabPanel className="first-page">
                   <Flex
                     w="740px"
                     className="info-form"
                     direction="column"
-                    bgColor="white"
-                    pl="40px"
+                    bgColor="gray"
+                    // pl="40px"
+                    // pt="40px"
                   >
-                    <Flex mb="40px">
-                      <Text
-                        fontFamily={"Inter"}
-                        fontSize="20px"
-                        color="gray.600"
-                        fontStyle="600"
-                      >
-                        Basic Information
-                      </Text>
-                    </Flex>
                     <Flex
+                      className="info-form"
+                      w="660px"
                       direction="column"
-                      fontFamily={"Inter"}
-                      fontSize="16px"
-                      mb="40px"
+                      bgColor="gray"
                     >
-                      <Text mb="15px">Fullname</Text>
-                      <Input
-                        placeholder="Enter your fullname"
-                        width="full"
-                        fontFamily={"Inter"}
-                        fontSize="16px"
-                        id="fullname"
-                        name="fullname"
-                        type="text"
-                        value={fullname}
-                        onChange={(event) => {
-                          setFullName(event.target.value);
-                        }}
-                        focusBorderColor="orange.500"
-                      ></Input>
-                    </Flex>
-
-                    <Flex direction="column">
-                      <Flex
-                        direction="column"
-                        fontFamily={"Inter"}
-                        fontSize="16px"
-                        mb="40px"
-                      >
-                        <Text mb="15px">Email</Text>
-                        <FormControl isInvalid={auth.emailRegistered}>
-                          <Input
-                            placeholder="Enter your email"
-                            width="660px"
-                            fontFamily={"Inter"}
-                            fontSize="16px"
-                            id="email"
-                            name="email"
-                            type="text"
-                            value={email}
-                            onChange={(event) => {
-                              setEmail(event.target.value);
-                            }}
-                            focusBorderColor="orange.500"
-                          ></Input>
-                          {auth.emailRegistered === true ? (
-                            <FormErrorMessage>
-                              This email has been registered
-                            </FormErrorMessage>
-                          ) : null}
-                        </FormControl>
+                      <Flex mb="40px">
+                        <Text
+                          fontFamily={"Inter"}
+                          fontSize="20px"
+                          color="gray.600"
+                          fontStyle="600"
+                        >
+                          Basic Information
+                        </Text>
                       </Flex>
+
                       <Flex
+                        className="input-form"
                         direction="column"
                         fontFamily={"Inter"}
                         fontSize="16px"
                         mb="40px"
                       >
-                        <Text mb="15px">Id Number</Text>
+                        <Text mb="15px">Fullname</Text>
                         <Input
-                          placeholder="Enter your ID Number"
-                          //   width="550px"
+                          placeholder="Enter your fullname"
+                          width="660px"
                           fontFamily={"Inter"}
                           fontSize="16px"
-                          id="idnumber"
-                          name="idnumber"
-                          type="number"
-                          value={idnumber}
+                          id="fullname"
+                          name="fullname"
+                          type="text"
+                          value={fullname}
                           onChange={(event) => {
-                            setIdnumber(event.target.value);
+                            setFullName(event.target.value);
                           }}
                           focusBorderColor="orange.500"
                         ></Input>
                       </Flex>
 
-                      <Flex>
+                      <Flex direction="column">
                         <Flex
                           direction="column"
                           fontFamily={"Inter"}
                           fontSize="16px"
                           mb="40px"
                         >
-                          <Text mb="15px">Date of Birth</Text>
-                          <DatePicker
-                            format="dd,DD MMM YYYY"
-                            style={{
-                              width: "550px",
-                              fontFamily: "Inter",
-                              fontSize: "30px",
-                              paddingLeft: "15px",
-                            }}
-                            onChange={onChangeDate}
-                            placeholder="Enter your birthday"
-                          />
+                          <Text mb="15px">Email</Text>
+                          <FormControl isInvalid={auth.emailRegistered}>
+                            <Input
+                              placeholder="Enter your email"
+                              width="660px"
+                              fontFamily={"Inter"}
+                              fontSize="16px"
+                              id="email"
+                              name="email"
+                              type="text"
+                              value={email}
+                              onChange={(event) => {
+                                setEmail(event.target.value);
+                              }}
+                              focusBorderColor="orange.500"
+                            ></Input>
+                            {auth.emailRegistered === true ? (
+                              <FormErrorMessage>
+                                This email has been registered
+                              </FormErrorMessage>
+                            ) : null}
+                          </FormControl>
                         </Flex>
-                      </Flex>
-
-                      <Flex
-                        direction="column"
-                        fontFamily={"Inter"}
-                        fontSize="16px"
-                        mb="40px"
-                      >
-                        <Text mb="15px">Country</Text>
-                        <Select
-                          placeholder="Select your country"
-                          options={countryList.map((item) => ({
-                            label: item.name,
-                            value: item.name,
-                          }))}
-                          style={{
-                            fontFamily: "Inter",
-                            fontSize: "16px",
-                          }}
-                          onChange={handleCountry}
-                        ></Select>
-                      </Flex>
-
-                      <Flex
-                        display="flex"
-                        direction="row"
-                        alignItems="center"
-                        justify="space-between"
-                      >
-                        <Button
-                          w="100px"
-                          h="48px"
+                        <Flex
+                          direction="column"
+                          fontFamily={"Inter"}
                           fontSize="16px"
-                          color="rgba(231, 107, 57, 1)"
-                          _hover={{ background: "#E76B39", color: "white" }}
-                          bg="white"
+                          mb="40px"
                         >
-                          Back
-                        </Button>
-                        <Button
-                          w="100px"
-                          h="48px"
+                          <Text mb="15px">Id Number</Text>
+                          <Input
+                            placeholder="Enter your ID Number"
+                            width="660px"
+                            fontFamily={"Inter"}
+                            fontSize="16px"
+                            id="idnumber"
+                            name="idnumber"
+                            type="number"
+                            value={idnumber}
+                            onChange={(event) => {
+                              setIdnumber(event.target.value);
+                            }}
+                            focusBorderColor="orange.500"
+                          ></Input>
+                        </Flex>
+
+                        <Flex>
+                          <Flex
+                            direction="column"
+                            fontFamily={"Inter"}
+                            fontSize="16px"
+                            mb="40px"
+                          >
+                            <Text mb="15px">Date of Birth</Text>
+                            <DatePicker
+                              format="dd,DD MMM YYYY"
+                              style={{
+                                width: "660px",
+                                fontFamily: "Inter",
+                                fontSize: "30px",
+                                paddingLeft: "15px",
+                              }}
+                              onChange={onChangeDate}
+                              placeholder="Enter your birthday"
+                            />
+                          </Flex>
+                        </Flex>
+
+                        <Flex
+                          direction="column"
+                          fontFamily={"Inter"}
                           fontSize="16px"
-                          color="white"
-                          bg="rgba(193, 72, 23, 1)"
-                          _hover={{ background: "#E76B39" }}
+                          mb="40px"
                         >
-                          Next
-                        </Button>
+                          <Text mb="15px">Country</Text>
+                          <Select
+                            placeholder="Select your country"
+                            options={countryList.map((item) => ({
+                              label: item.name,
+                              value: item.name,
+                            }))}
+                            style={{
+                              width: "660px",
+                              fontFamily: "Inter",
+                              fontSize: "16px",
+                            }}
+                            onChange={handleCountry}
+                          ></Select>
+                        </Flex>
+
+                        <Flex
+                          display="flex"
+                          direction="row"
+                          alignItems="center"
+                          justifyContent="space-between"
+                        >
+                          <Button
+                            w="100px"
+                            h="48px"
+                            fontSize="16px"
+                            color="rgba(231, 107, 57, 1)"
+                            _hover={{ background: "#E76B39", color: "white" }}
+                            bg="white"
+                          >
+                            Back
+                          </Button>
+                          <Button
+                            w="100px"
+                            h="48px"
+                            fontSize="16px"
+                            color="white"
+                            bg="rgba(193, 72, 23, 1)"
+                            _hover={{ background: "#E76B39" }}
+                          >
+                            Next
+                          </Button>
+                        </Flex>
                       </Flex>
                     </Flex>
                   </Flex>
@@ -314,7 +338,9 @@ function ReservationPage() {
                     w="740px"
                     className="info-form"
                     direction="column"
-                    bgColor="white"
+                    bgColor="gray"
+                    // pl="40px"
+                    // pt="40px"
                   >
                     <Flex mb="40px" direction="column">
                       <Text
@@ -491,15 +517,338 @@ function ReservationPage() {
                 </TabPanel>
 
                 <TabPanel className="third-page">
-                  <p>tdfffff!</p>
+                  <Flex
+                    w="740px"
+                    className="info-form"
+                    direction="column"
+                    // bgColor="gray"
+                    // pl="40px"
+                    // pt="40px"
+                  >
+                    <Flex
+                      className="info-form"
+                      w="660px"
+                      direction="column"
+                      // bgColor="gray"
+                    >
+                      <Flex mb="40px">
+                        <Text
+                          fontFamily={"Inter"}
+                          fontSize="20px"
+                          color="gray.600"
+                          fontStyle="600"
+                        >
+                          Credit Card
+                        </Text>
+                      </Flex>
+
+                      <Flex direction="column" mr="50px" mb="40px">
+                        <Text
+                          mb="15px"
+                          fontFamily={"Inter"}
+                          fontSize="16px"
+                          color="gray.900"
+                          fontStyle="400"
+                        >
+                          Card Number
+                        </Text>
+                        <Input
+                          placeholder="Enter your card number"
+                          width="660px"
+                          fontFamily={"Inter"}
+                          fontSize="16px"
+                          id="cardnumber"
+                          name="cardnumber"
+                          type="number"
+                          value={cardnum}
+                          onChange={(event) => {
+                            setCardnum(event.target.value);
+                          }}
+                          focusBorderColor="orange.500"
+                        ></Input>
+                      </Flex>
+
+                      <Flex direction="column" mb="40px">
+                        <Text
+                          mb="15px"
+                          fontFamily={"Inter"}
+                          fontSize="16px"
+                          color="gray.900"
+                          fontStyle="400"
+                        >
+                          Card Owner
+                        </Text>
+                        <Input
+                          placeholder="Enter your card name"
+                          width="660px"
+                          fontFamily={"Inter"}
+                          fontSize="16px"
+                          id="cardowner"
+                          name="cardowner"
+                          type="text"
+                          value={cardowner}
+                          onChange={(event) => {
+                            setCardowner(event.target.value);
+                          }}
+                          focusBorderColor="orange.500"
+                        ></Input>
+                      </Flex>
+
+                      <Flex mb="40px">
+                        <Flex direction="column" mr="50px">
+                          <Text
+                            mb="15px"
+                            fontFamily={"Inter"}
+                            fontSize="16px"
+                            color="gray.900"
+                            fontStyle="400"
+                          >
+                            Expire Date
+                          </Text>
+                          <Input
+                            placeholder="MM/YY"
+                            width="305px"
+                            fontFamily={"Inter"}
+                            fontSize="16px"
+                            id="expiredate"
+                            name="expiredate"
+                            type="text"
+                            value={expdate}
+                            onChange={(event) => {
+                              setExpdate(event.target.value);
+                            }}
+                            focusBorderColor="orange.500"
+                          ></Input>
+                        </Flex>
+                        <Flex direction="column">
+                          <Text
+                            mb="15px"
+                            fontFamily={"Inter"}
+                            fontSize="16px"
+                            color="gray.900"
+                            fontStyle="400"
+                          >
+                            CVC/CVV
+                          </Text>
+                          <Input
+                            placeholder="CVC/CVV"
+                            width="305px"
+                            fontFamily={"Inter"}
+                            fontSize="16px"
+                            id="cvc"
+                            name="cvc"
+                            type="text"
+                            value={cvc}
+                            onChange={(event) => {
+                              setCvc(event.target.value);
+                            }}
+                            focusBorderColor="orange.500"
+                          ></Input>
+                        </Flex>
+                      </Flex>
+
+                      <GridItem
+                        mb="24px"
+                        w="100%"
+                        h="1px"
+                        bg="rgba(228, 230, 237, 1)"
+                      />
+
+                      <Flex
+                        className="input-form"
+                        direction="column"
+                        fontFamily={"Inter"}
+                        fontSize="16px"
+                        mb="40px"
+                      >
+                        <Text mb="15px">Promotion Code</Text>
+                        <Input
+                          placeholder=""
+                          width="660px"
+                          fontFamily={"Inter"}
+                          fontSize="16px"
+                          id="promotion-code"
+                          name="promotion-code"
+                          type="text"
+                          focusBorderColor="orange.500"
+                        ></Input>
+                      </Flex>
+
+                      <Flex
+                        display="flex"
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Button
+                          w="100px"
+                          h="48px"
+                          fontSize="16px"
+                          color="rgba(231, 107, 57, 1)"
+                          _hover={{ background: "#E76B39", color: "white" }}
+                          bg="white"
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          w="194px"
+                          h="48px"
+                          fontSize="16px"
+                          color="white"
+                          bg="rgba(193, 72, 23, 1)"
+                          _hover={{ background: "#E76B39" }}
+                        >
+                          Confirm Booking
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  </Flex>
                 </TabPanel>
               </TabPanels>
+
               <Flex
                 className="booking-detail"
-                h="700px"
-                w="358px"
-                bgColor="green"
-              ></Flex>
+                display="flex"
+                direction="column"
+                alignItems="flex-start"
+                justifyContent="space-between"
+              >
+                <Flex
+                  className="booking-detail"
+                  display="flex"
+                  direction="column"
+                  alignItems="flex-start"
+                  h="700px"
+                  w="358px"
+                  bgColor="red"
+                  ml="20px"
+                  fontFamily={"Inter"}
+                >
+                  <Flex
+                    display="flex"
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="flex-start"
+                    w="full"
+                    h="62px"
+                    bg="rgba(47, 62, 53, 1)"
+                  >
+                    <Img
+                      src="./images/reservationpage/reservation-icon.svg"
+                      alt=""
+                      pl="30px"
+                    />
+                    <Text
+                      color="white"
+                      fontSize="20px"
+                      fontWeight="600"
+                      fontFamily={"Inter"}
+                      pl="10px"
+                    >
+                      Booking Detail
+                    </Text>
+                  </Flex>
+
+                  <Flex
+                    className="date"
+                    w="full"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-around"
+                    m="20px"
+                  >
+                    <Flex
+                      className="check-in-date"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="50%"
+                    >
+                      <Text
+                        color="white"
+                        fontSize="16px"
+                        fontWeight="600"
+                        fontFamily={"Inter"}
+                        
+                        mb="8px"
+                      >
+                        Check-in
+                      </Text>
+                      <Text
+                        color="white"
+                        fontSize="16px"
+                        fontWeight="400"
+                        fontFamily={"Inter"}
+                        
+                      >
+                        After 2:00 PM
+                      </Text>
+                    </Flex>
+
+                    <Flex
+                      className="check-out-date"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="50%"
+                    >
+                      <Text
+                        color="white"
+                        fontSize="16px"
+                        fontWeight="600"
+                        fontFamily={"Inter"}
+                        
+                        mb="8px"
+                      >
+                        Check-out
+                      </Text>
+                      <Text
+                        color="white"
+                        fontSize="16px"
+                        fontWeight="400"
+                        fontFamily={"Inter"}
+                        
+                      >
+                        Before 12:00 PM
+                      </Text>
+                    </Flex>
+                  </Flex>
+
+                  <Flex
+                    className="check-in-date"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                    w="100%"
+                    color="white"
+                    fontSize="16px"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    
+                    m="20px"
+                  >
+                    <Text>Th, 19 Oct 2022</Text>
+                    <Text> - </Text>
+                    <Text>Fri, 20 Oct 2022</Text>
+                  </Flex>
+                  <Text
+                    color="white"
+                    fontSize="16px"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    pl="10px"
+                    ml="20px"
+                  >
+                    2 Guests
+                  </Text>
+                </Flex>
+
+                <Flex className="refund-condition" bgColor="red"></Flex>
+              </Flex>
             </Flex>
           </Tabs>
         </Flex>
