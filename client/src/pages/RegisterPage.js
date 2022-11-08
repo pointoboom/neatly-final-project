@@ -86,10 +86,8 @@ function RegisterPage() {
     formData.append("country", country);
     formData.append("role", "user");
     for (let avatarKey in avatars) {
-      // console.log(avatars[avatarKey]);
       formData.append("avatar", avatars[avatarKey]);
     }
-    // console.log(formData);
     register(formData);
   };
 
@@ -327,11 +325,8 @@ function RegisterPage() {
                 listType="picture-card"
                 className="avatar-uploader"
                 maxCount="1"
-                // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 showUploadList={false}
-                // beforeUpload={beforeUpload}
                 onChange={handleChange}
-                // onPreview={onPreview}
               >
                 {imageUrl ? (
                   <img
