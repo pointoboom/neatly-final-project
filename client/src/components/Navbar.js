@@ -7,12 +7,18 @@ import {
   Spacer,
   Text,
   Avatar,
-  AvatarBadge,
-  AvatarGroup,
   Img,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
+import { AiOutlineUser, AiOutlineCreditCard } from "react-icons/ai";
+import { IoIosLogOut } from "react-icons/io";
+import { HiOutlineBriefcase } from "react-icons/hi";
 import { useAuth } from "../contexts/authentication";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 function Navbar() {
   const auth = useAuth();
   const { logout } = useAuth();
@@ -68,24 +74,6 @@ function Navbar() {
         </HStack>
         <Spacer />
         <HStack spacing={"30px"}>
-          <Button
-            w="143px"
-            h="48px"
-            bgColor="#C14817"
-            fontSize="16px"
-            textAlign="center"
-            lineHeight="16px"
-            fontFamily="Open Sans"
-            fontStyle="normal"
-            fontWeight="600px"
-            textColor="#FFFFFF"
-            _hover={{ background: "#E76B39" }}
-            onClick={() => {
-              logout();
-            }}
-          >
-            Log out
-          </Button>
           {auth.state.user === null ? (
             <>
               <Text
@@ -117,10 +105,32 @@ function Navbar() {
           ) : (
             <>
               <Img src="./images/Nav/noti.svg"></Img>
-              <Avatar
-                name="Dan Abrahmov"
-                src={auth.state.user.profile_picture}
-              />
+              <Menu>
+                <MenuButton>
+                  <Avatar
+                    name="Dan Abrahmov"
+                    src={auth.state.user.profile_picture}
+                  />
+                </MenuButton>
+                <MenuList color="gray.600">
+                  <MenuItem icon={<AiOutlineUser />}>Profile</MenuItem>
+                  <MenuItem icon={<AiOutlineCreditCard />}>
+                    Payment Method
+                  </MenuItem>
+                  <MenuItem icon={<HiOutlineBriefcase />}>
+                    Booking History
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem
+                    icon={<IoIosLogOut />}
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </>
           )}
         </HStack>

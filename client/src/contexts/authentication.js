@@ -19,7 +19,7 @@ function AuthProvider(props) {
     const token = result.data.token;
     localStorage.setItem("token", token);
     const DataFromToken = jwtDecode(token);
-    console.log(DataFromToken);
+
     setState({ ...state, user: DataFromToken });
     navigate("/");
   };
