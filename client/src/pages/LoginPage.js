@@ -52,6 +52,7 @@ function LoginPage() {
         >
           <Flex
             className="register-box"
+<<<<<<< HEAD
             display="flex"
             direction="column"
             align="flex-start"
@@ -61,6 +62,13 @@ function LoginPage() {
           >
             <Text
               className="login"
+=======
+            bgColor="rgba(100, 100, 251, 1)"
+            width="452px"
+            height="452px"
+          >
+            <Text
+>>>>>>> f93b2cd (feat: login page test)
               fontSize="68px"
               align="center"
               textColor="rgba(47, 62, 53, 1)"
@@ -69,6 +77,7 @@ function LoginPage() {
             >
               Log In
             </Text>
+<<<<<<< HEAD
 
             <Flex
               className="input"
@@ -131,6 +140,8 @@ function LoginPage() {
                 </Link>
               </Text>
             </Flex>
+=======
+>>>>>>> f93b2cd (feat: login page test)
           </Flex>
         </Flex>
       </Flex>
