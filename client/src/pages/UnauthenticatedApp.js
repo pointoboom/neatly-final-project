@@ -3,6 +3,9 @@ import "../App.css";
 import HomePage from "./HomePage";
 import RegisterPage from "./RegisterPage";
 import RoomSearchPage from "./RoomSearchPage";
+import ReservationPage from "./ReservationPage";
+
+
 function UnauthenticatedApp() {
   return (
     <div className="App">
@@ -13,6 +16,7 @@ function UnauthenticatedApp() {
         {/* <Route path="/createorder" element={<CreateOrders />} /> */}
         {/* <Route path="*" element={<HomePage />} /> */}
         {/* <Route path="*" element={<LoginPage />} /> */}
+        <Route path="/reservation" element={<ReservationPage />} />
       </Routes>
     </div>
   );
