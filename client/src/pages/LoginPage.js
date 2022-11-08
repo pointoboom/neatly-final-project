@@ -6,11 +6,8 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
-<<<<<<< HEAD
 import { useAuth } from "../contexts/authentication";
 import { useState } from "react";
-=======
->>>>>>> 2fefb6c (feat: (UI) login page)
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -55,33 +52,15 @@ function LoginPage() {
         >
           <Flex
             className="register-box"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2fefb6c (feat: (UI) login page)
             display="flex"
             direction="column"
             align="flex-start"
             justify="flex-start"
-<<<<<<< HEAD
             width="452px"
             height="600px"
           >
             <Text
               className="login"
-=======
-            bgColor="rgba(100, 100, 251, 1)"
-=======
->>>>>>> 2fefb6c (feat: (UI) login page)
-            width="452px"
-            height="600px"
-          >
-            <Text
-<<<<<<< HEAD
->>>>>>> f93b2cd (feat: login page test)
-=======
-              className="login"
->>>>>>> 2fefb6c (feat: (UI) login page)
               fontSize="68px"
               align="center"
               textColor="rgba(47, 62, 53, 1)"
@@ -90,10 +69,6 @@ function LoginPage() {
             >
               Log In
             </Text>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2fefb6c (feat: (UI) login page)
 
             <Flex
               className="input"
@@ -110,7 +85,6 @@ function LoginPage() {
                   fontSize="16px"
                   placeholder="Enter your username or email"
                   mb="40px"
-<<<<<<< HEAD
                   value={username}
                   onChange={(event) => {
                     setUsername(event.target.value);
@@ -125,24 +99,10 @@ function LoginPage() {
                 placeholder="Enter your password"
                 mb="40px"
                 value={password}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
               />
-=======
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel fontSize="16px">Password</FormLabel>
-                <Input
-                  type="password"
-                  fontSize="16px"
-                  placeholder="Enter your password"
-                  mb="40px"
-                />
-              </FormControl>
->>>>>>> 2fefb6c (feat: (UI) login page)
 
               <Button
                 fontFamily={"Open Sans"}
@@ -152,12 +112,9 @@ function LoginPage() {
                 mb="10px"
                 type="submit"
                 _hover={{ background: "rgba(193, 72, 23, 1)" }}
-<<<<<<< HEAD
                 onClick={(event) => {
                   handleSubmit(event);
                 }}
-=======
->>>>>>> 2fefb6c (feat: (UI) login page)
               >
                 Log In
               </Button>
@@ -174,11 +131,6 @@ function LoginPage() {
                 </Link>
               </Text>
             </Flex>
-<<<<<<< HEAD
-=======
->>>>>>> f93b2cd (feat: login page test)
-=======
->>>>>>> 2fefb6c (feat: (UI) login page)
           </Flex>
         </Flex>
       </Flex>
