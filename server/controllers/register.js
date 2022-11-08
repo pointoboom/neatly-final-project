@@ -2,6 +2,7 @@ import { cloudinaryUpload } from "../utils/upload.js";
 import { pool } from "../utils/db.js";
 import bcrypt from "bcrypt";
 async function register(req, res) {
+  console.log(req.files);
   const newUser = {
     ...req.body,
   };
@@ -19,9 +20,9 @@ async function register(req, res) {
   if (!checkEmail.rows[0]) {
     await pool.query(
       `insert into users
-           (fullname, username, email, password, id_number, date_of_birth,
-           country, profile_picture, role, card_number, card_owner, expiry_date, cvc_cvv)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+             (fullname, username, email, password, id_number, date_of_birth,
+             country, profile_picture, role, card_number, card_owner, expiry_date, cvc_cvv)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
       [
         newUser.fullname,
         newUser.username,

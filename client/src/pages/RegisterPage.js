@@ -47,11 +47,10 @@ function RegisterPage() {
     setAvatars({});
     const uniqueId = Date.now();
     setAvatars({
-      ...avatars,
       [uniqueId]: info.file.originFileObj,
     });
   };
-
+  console.log(avatars);
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -85,6 +84,7 @@ function RegisterPage() {
     formData.append("dob", dob);
     formData.append("country", country);
     formData.append("role", "user");
+
     for (let avatarKey in avatars) {
       formData.append("avatar", avatars[avatarKey]);
     }

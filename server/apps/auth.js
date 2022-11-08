@@ -4,11 +4,12 @@ import { validateRegisterData } from "../middlewares/auth.validations.js";
 import multer from "multer";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
+import register from "../controllers/register.js";
 const authRouter = Router();
 const multerUpload = multer({ dest: "uploads/" });
+
 const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);
-import register from "../controllers/register.js";
+
 authRouter.get("/", async (req, res) => {
   const result = await pool.query("select * from users");
 
@@ -26,7 +27,7 @@ authRouter.post(
 );
 
 authRouter.post("/login", async (req, res) => {
-  const user = await pool.query("select * from users where username=$1", [
+  const user = await pool.query("select * from users where email=$1", [
     req.body.username,
   ]);
 
@@ -40,7 +41,6 @@ authRouter.post("/login", async (req, res) => {
     req.body.password,
     user.rows[0].password
   );
-  console.log(isValidPassword);
 
   if (!isValidPassword) {
     return res.status(401).json({
@@ -50,48 +50,9 @@ authRouter.post("/login", async (req, res) => {
 
   const token = jwt.sign(
     {
-      id: user.user_id,
-      fullname: user.fullname,
-    },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: "900000",
-    }
-  );
-
-  return res.json({
-    message: "login succesfully",
-    token,
-  });
-});
-
-authRouter.post("/login", async (req, res) => {
-  const user = await pool.query("select * from users where username=$1", [
-    req.body.username,
-  ]);
-
-  if (!user) {
-    return res.status(404).json({
-      message: "user not found",
-    });
-  }
-
-  const isValidPassword = await bcrypt.compare(
-    req.body.password,
-    user.rows[0].password
-  );
-  console.log(isValidPassword);
-
-  if (!isValidPassword) {
-    return res.status(401).json({
-      message: "password not valid",
-    });
-  }
-
-  const token = jwt.sign(
-    {
-      id: user.user_id,
-      fullname: user.fullname,
+      id: user.rows[0].user_id,
+      fullname: user.rows[0].fullname,
+      profile_picture: user.rows[0].profile_picture,
     },
     process.env.SECRET_KEY,
     {
