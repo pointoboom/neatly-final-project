@@ -8,16 +8,19 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/authentication";
 import jwtInterceptor from "./utils/jwtInterceptor.js";
 
+import { HotelProvider } from "./contexts/hotel";
 jwtInterceptor();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
-      </AuthProvider>
+      <HotelProvider>
+        <AuthProvider>
+          <ChakraProvider>
+            <App />
+          </ChakraProvider>
+        </AuthProvider>
+      </HotelProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

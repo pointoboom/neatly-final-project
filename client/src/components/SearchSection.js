@@ -3,8 +3,15 @@ import React, { useState } from "react";
 import { DatePicker, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.min.css";
+
+import { useHotel } from "../contexts/hotel";
+import moment from "moment";
+const dateFormat = "dd,DD MMM YYYY";
+
 function SearchSection() {
   const navigate = useNavigate();
+  const { search, getCheckIn, getCheckOut, getRoom, getGuest } = useHotel();
+
   return (
     <Flex
       direction="column"
@@ -49,7 +56,14 @@ function SearchSection() {
           </Flex>
           <Flex direction="row">
             <Flex mr="25px" fontFamily={"Inter"} fontSize="16px">
-              <DatePicker format="dd,DD MMM YYYY" style={{ width: "170px" }} />
+              <DatePicker
+                format="dd,DD MMM YYYY"
+                style={{ width: "170px" }}
+                onChange={(date, dateString) => getCheckIn(dateString)}
+                defaultValue={
+                  search.checkIn ? moment(search.checkIn, dateFormat) : ""
+                }
+              />
             </Flex>
             <Box>-</Box>
           </Flex>
@@ -59,7 +73,14 @@ function SearchSection() {
             Check Out
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
-            <DatePicker format="dd,DD MMM YYYY" style={{ width: "170px" }} />
+            <DatePicker
+              format="dd,DD MMM YYYY"
+              style={{ width: "170px" }}
+              onChange={(date, dateString) => getCheckOut(dateString)}
+              defaultValue={
+                search.checkOut ? moment(search.checkOut, dateFormat) : ""
+              }
+            />
           </Flex>
         </Flex>
         <Flex direction="column" mr="50px">
@@ -68,23 +89,51 @@ function SearchSection() {
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
             <Select
-              placeholder="1 room,2 guests"
+              placeholder={`${search.room} room,${search.guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
                   <div className=" flex flex-row justify-between px-[5px]">
                     <div>Room</div>
                     <div className=" flex flex-row">
-                      <img src="./images/Search/minus.svg" alt="" />
-                      <div className="mx-[5px]">1</div>
-                      <img src="./images/Search/plus.svg" alt="" />
+                      <button
+                        onClick={() => {
+                          if (search.room === 1) getRoom(1);
+                          else getRoom(search.room - 1);
+                        }}
+                      >
+                        {" "}
+                        <img src="./images/Search/minus.svg" alt="" />
+                      </button>
+
+                      <div className="mx-[5px]">{search.room}</div>
+                      <button
+                        onClick={() => {
+                          getRoom(search.room + 1);
+                        }}
+                      >
+                        <img src="./images/Search/plus.svg" alt="" />
+                      </button>
                     </div>
                   </div>
                   <div className=" flex flex-row justify-between px-[5px]">
                     <div>Guest</div>
                     <div className=" flex flex-row">
-                      <img src="./images/Search/minus.svg" alt="" />
-                      <div className="mx-[5px]">2</div>
-                      <img src="./images/Search/plus.svg" alt="" />
+                      <button
+                        onClick={() => {
+                          if (search.guest === 1) getGuest(1);
+                          else getGuest(search.guest - 1);
+                        }}
+                      >
+                        <img src="./images/Search/minus.svg" alt="" />
+                      </button>
+                      <div className="mx-[5px]">{search.guest}</div>
+                      <button
+                        onClick={() => {
+                          getGuest(search.guest + 1);
+                        }}
+                      >
+                        <img src="./images/Search/plus.svg" alt="" />
+                      </button>
                     </div>
                   </div>
                 </div>

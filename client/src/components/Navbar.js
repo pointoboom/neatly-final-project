@@ -6,8 +6,17 @@ import {
   Image,
   Spacer,
   Text,
+  Avatar,
+  AvatarBadge,
+  AvatarGroup,
+  Img,
 } from "@chakra-ui/react";
+import { useAuth } from "../contexts/authentication";
+import React, { useState } from "react";
 function Navbar() {
+  const auth = useAuth();
+  const { logout } = useAuth();
+
   return (
     <Box
       color="#F7F7FB"
@@ -59,16 +68,6 @@ function Navbar() {
         </HStack>
         <Spacer />
         <HStack spacing={"30px"}>
-          <Text
-            textAlign="center"
-            lineHeight="16px"
-            fontFamily="Open Sans"
-            fontStyle="normal"
-            fontWeight="600px"
-            textColor="#E76B39"
-          >
-            Log in
-          </Text>
           <Button
             w="143px"
             h="48px"
@@ -81,9 +80,49 @@ function Navbar() {
             fontWeight="600px"
             textColor="#FFFFFF"
             _hover={{ background: "#E76B39" }}
+            onClick={() => {
+              logout();
+            }}
           >
-            Book Now
+            Log out
           </Button>
+          {auth.state.user === null ? (
+            <>
+              <Text
+                textAlign="center"
+                lineHeight="16px"
+                fontFamily="Open Sans"
+                fontStyle="normal"
+                fontWeight="600px"
+                textColor="#E76B39"
+              >
+                Log in
+              </Text>
+              <Button
+                w="143px"
+                h="48px"
+                bgColor="#C14817"
+                fontSize="16px"
+                textAlign="center"
+                lineHeight="16px"
+                fontFamily="Open Sans"
+                fontStyle="normal"
+                fontWeight="600px"
+                textColor="#FFFFFF"
+                _hover={{ background: "#E76B39" }}
+              >
+                Book Now
+              </Button>
+            </>
+          ) : (
+            <>
+              <Img src="./images/Nav/noti.svg"></Img>
+              <Avatar
+                name="Dan Abrahmov"
+                src={auth.state.user.profile_picture}
+              />
+            </>
+          )}
         </HStack>
       </Flex>
     </Box>

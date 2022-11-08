@@ -6,16 +6,16 @@ import React from "react";
 import { DatePicker, Select } from "antd";
 import useScrollDirection from "../hooks/useScrollDirection";
 import "antd/dist/antd.min.css";
+import { useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+import { useHotel } from "../contexts/hotel";
+import moment from "moment";
+const dateFormat = "dd,DD MMM YYYY";
 
 function RoomSearchPage() {
   const scrollDirection = useScrollDirection();
-
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
-  const [room, setRoom] = useState(1);
-  const [guest, setGuest] = useState(2);
+  const navigate = useNavigate();
+  const { search, getCheckIn, getCheckOut, getRoom, getGuest } = useHotel();
 
   return (
     <>
@@ -44,7 +44,10 @@ function RoomSearchPage() {
               <DatePicker
                 format="dd,DD MMM YYYY"
                 style={{ width: "170px" }}
-                onChange={(date, dateString) => setCheckIn(dateString)}
+                onChange={(date, dateString) => getCheckIn(dateString)}
+                defaultValue={
+                  search.checkIn ? moment(search.checkIn, dateFormat) : ""
+                }
               />
             </Flex>
             <Box>-</Box>
@@ -58,7 +61,10 @@ function RoomSearchPage() {
             <DatePicker
               format="dd,DD MMM YYYY"
               style={{ width: "170px" }}
-              onChange={(date, dateString) => setCheckOut(dateString)}
+              onChange={(date, dateString) => getCheckOut(dateString)}
+              defaultValue={
+                search.checkOut ? moment(search.checkOut, dateFormat) : ""
+              }
             />
           </Flex>
         </Flex>
@@ -68,7 +74,7 @@ function RoomSearchPage() {
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
             <Select
-              placeholder={`${room} room,${guest} guests`}
+              placeholder={`${search.room} room,${search.guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
                   <div className=" flex flex-row justify-between px-[5px]">
@@ -76,18 +82,18 @@ function RoomSearchPage() {
                     <div className=" flex flex-row">
                       <button
                         onClick={() => {
-                          if (room === 1) setRoom(1);
-                          else setRoom(room - 1);
+                          if (search.room === 1) getRoom(1);
+                          else getRoom(search.room - 1);
                         }}
                       >
                         {" "}
                         <img src="./images/Search/minus.svg" alt="" />
                       </button>
 
-                      <div className="mx-[5px]">{room}</div>
+                      <div className="mx-[5px]">{search.room}</div>
                       <button
                         onClick={() => {
-                          setRoom(room + 1);
+                          getRoom(search.room + 1);
                         }}
                       >
                         <img src="./images/Search/plus.svg" alt="" />
@@ -99,16 +105,16 @@ function RoomSearchPage() {
                     <div className=" flex flex-row">
                       <button
                         onClick={() => {
-                          if (guest === 1) setGuest(1);
-                          else setGuest(guest - 1);
+                          if (search.guest === 1) getGuest(1);
+                          else getGuest(search.guest - 1);
                         }}
                       >
                         <img src="./images/Search/minus.svg" alt="" />
                       </button>
-                      <div className="mx-[5px]">{guest}</div>
+                      <div className="mx-[5px]">{search.guest}</div>
                       <button
                         onClick={() => {
-                          setGuest(guest + 1);
+                          getGuest(search.guest + 1);
                         }}
                       >
                         <img src="./images/Search/plus.svg" alt="" />
@@ -128,9 +134,9 @@ function RoomSearchPage() {
             fontFamily={"Inter"}
             _hover={{ background: "#E76B39" }}
             onClick={() => {
-              console.log(checkIn, checkOut);
-              console.log(room, guest);
+              console.log(search);
               // navigate("/search");
+
             }}
           >
             Search
