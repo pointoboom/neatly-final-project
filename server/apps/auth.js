@@ -17,6 +17,16 @@ authRouter.get("/", async (req, res) => {
     data: result.rows,
   });
 });
+
+authRouter.get("/roomdetails", async (req, res) => {
+  const result = await pool.query("select * from room_types");
+  console.log(result);
+
+  return res.json({
+    data: result.rows,
+  });
+});
+
 authRouter.post(
   "/register",
   avatarUpload,
