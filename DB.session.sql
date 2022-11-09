@@ -1,1 +1,1 @@
-select * FROM users
+select * FROM room_types

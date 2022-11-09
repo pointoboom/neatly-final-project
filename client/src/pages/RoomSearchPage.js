@@ -15,7 +15,16 @@ const dateFormat = "dd,DD MMM YYYY";
 function RoomSearchPage() {
   const scrollDirection = useScrollDirection();
   const navigate = useNavigate();
-  const { search, getCheckIn, getCheckOut, getRoom, getGuest } = useHotel();
+  const {
+    checkIn,
+    setCheckIn,
+    checkOut,
+    setCheckOut,
+    room,
+    setRoom,
+    guest,
+    setGuest,
+  } = useHotel();
 
   return (
     <>
@@ -44,10 +53,8 @@ function RoomSearchPage() {
               <DatePicker
                 format="dd,DD MMM YYYY"
                 style={{ width: "170px" }}
-                onChange={(date, dateString) => getCheckIn(dateString)}
-                defaultValue={
-                  search.checkIn ? moment(search.checkIn, dateFormat) : ""
-                }
+                onChange={(date, dateString) => setCheckIn(dateString)}
+                defaultValue={checkIn ? moment(checkIn, dateFormat) : ""}
               />
             </Flex>
             <Box>-</Box>
@@ -61,10 +68,8 @@ function RoomSearchPage() {
             <DatePicker
               format="dd,DD MMM YYYY"
               style={{ width: "170px" }}
-              onChange={(date, dateString) => getCheckOut(dateString)}
-              defaultValue={
-                search.checkOut ? moment(search.checkOut, dateFormat) : ""
-              }
+              onChange={(date, dateString) => setCheckOut(dateString)}
+              defaultValue={checkOut ? moment(checkOut, dateFormat) : ""}
             />
           </Flex>
         </Flex>
@@ -74,7 +79,7 @@ function RoomSearchPage() {
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
             <Select
-              placeholder={`${search.room} room,${search.guest} guests`}
+              placeholder={`${room} room,${guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
                   <div className=" flex flex-row justify-between px-[5px]">
@@ -82,18 +87,18 @@ function RoomSearchPage() {
                     <div className=" flex flex-row">
                       <button
                         onClick={() => {
-                          if (search.room === 1) getRoom(1);
-                          else getRoom(search.room - 1);
+                          if (room === 1) setRoom(1);
+                          else setRoom(room - 1);
                         }}
                       >
                         {" "}
                         <img src="./images/Search/minus.svg" alt="" />
                       </button>
 
-                      <div className="mx-[5px]">{search.room}</div>
+                      <div className="mx-[5px]">{room}</div>
                       <button
                         onClick={() => {
-                          getRoom(search.room + 1);
+                          setRoom(room + 1);
                         }}
                       >
                         <img src="./images/Search/plus.svg" alt="" />
@@ -105,16 +110,16 @@ function RoomSearchPage() {
                     <div className=" flex flex-row">
                       <button
                         onClick={() => {
-                          if (search.guest === 1) getGuest(1);
-                          else getGuest(search.guest - 1);
+                          if (guest === 1) setGuest(1);
+                          else setGuest(guest - 1);
                         }}
                       >
                         <img src="./images/Search/minus.svg" alt="" />
                       </button>
-                      <div className="mx-[5px]">{search.guest}</div>
+                      <div className="mx-[5px]">{guest}</div>
                       <button
                         onClick={() => {
-                          getGuest(search.guest + 1);
+                          setGuest(guest + 1);
                         }}
                       >
                         <img src="./images/Search/plus.svg" alt="" />
@@ -134,9 +139,8 @@ function RoomSearchPage() {
             fontFamily={"Inter"}
             _hover={{ background: "#E76B39" }}
             onClick={() => {
-              console.log(search);
+   
               // navigate("/search");
-
             }}
           >
             Search
