@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { Input, Text, Flex, Button, Link, Box, Img } from "@chakra-ui/react";
+import { Input, Text, Flex, Button, Link, Box, Img,a } from "@chakra-ui/react";
 import {
   FormControl,
   FormLabel,
@@ -13,13 +13,23 @@ import { DatePicker, Select, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { countryList } from "../data/country";
 import validator from "validator";
+import useControllableState from "react";
 import {
   Checkbox,
   CheckboxGroup,
   Stack,
   Textarea,
   GridItem,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 
 function ReservationPage() {
   const [imageUrl, setImageUrl] = useState();
@@ -39,18 +49,6 @@ function ReservationPage() {
   const { register } = useAuth();
   const auth = useAuth();
 
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </div>
-  );
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -78,6 +76,22 @@ function ReservationPage() {
     register(data);
   };
 
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const handleTabsChange = (index) => {
+    setTabIndex(tabIndex + 1);
+  };
+
+  const handleTabsBack = (index) => {
+    setTabIndex(tabIndex - 1);
+  };
+
+const bgColorBox=(index)=>{
+  if(index===0){
+   
+  }
+}
+
   return (
     <>
       <Navbar />;
@@ -86,7 +100,7 @@ function ReservationPage() {
         width="100vw"
         height="100vh"
         fontFamily={"Inter"}
-        bgColor="orange.100"
+        bgColor="rgba(247, 247, 251, 1)"
         display="flex"
         direction="column"
         align="center"
@@ -97,7 +111,7 @@ function ReservationPage() {
           direction="column"
           align="flex-start"
           justify="center"
-          bgColor="pink"
+          // bgColor="pink"
         >
           <Text
             className="Booking"
@@ -107,12 +121,12 @@ function ReservationPage() {
             fontFamily={"Noto Serif Display"}
             paddingBottom="40px"
             mt="50px"
-            bgColor="pink.200"
+            // bgColor="pink.200"
           >
             Booking Room
           </Text>
 
-          <Tabs variant="unstyled">
+          <Tabs variant="unstyled" index={tabIndex}>
             <TabList
               w="100%"
               h="146px"
@@ -120,29 +134,43 @@ function ReservationPage() {
               direction="row"
               align="flex-start"
               justify="center"
-              color="gray"
-              bgColor="pink.300"
+              // color="gray"
+              // bgColor="pink.300"
             >
-              <Tab _selected={{ color: "orange" }}><Button
+              <Tab _selected={{ color: "orange" }} >
+              <Button
                   // boxSize="66px"
                   mr="15px"
                   bgColor="gray.100"
-                  _selected={{ colorScheme: "orange",bg: 'blue.500' }}
+                  _selected={{ colorScheme: "orange" }}
                 >
                   1
-                </Button>Basic Information</Tab>
+                </Button>
+                Basic Information
+              </Tab>
+
               <Tab _selected={{ color: "orange" }}>
-                <Box
-                  boxSize="66px"
+                <Button
+                  // boxSize="66px"
                   mr="15px"
-                  bgColor="gray"
-                  _focus={{ bgColor: "orange",bg: 'blue.500' }}
+                  bgColor={bgColorBox}
+                  _selected={{ colorScheme: "orange" }}
                 >
                   2
-                </Box>
+                </Button>
                 Special Request
               </Tab>
-              <Tab _selected={{ color: "orange" }}>Payment Method</Tab>
+              <Tab _selected={{ color: "orange" }}>
+                <Button
+                  // boxSize="66px"
+                  mr="15px"
+                  bgColor="gray.100"
+                  _selected={{ colorScheme: "orange" }}
+                >
+                  3
+                </Button>
+                Payment Method
+              </Tab>
             </TabList>
 
             <Flex
@@ -151,15 +179,15 @@ function ReservationPage() {
               direction="row"
               justifyContent="space-between"
               alignItems="flex-start"
-              bgColor="yellow"
+              // bgColor="yellow"
             >
-              <TabPanels bgColor="blue">
+              <TabPanels bgColor="white">
                 <TabPanel className="first-page">
                   <Flex
                     w="740px"
                     className="info-form"
                     direction="column"
-                    bgColor="gray"
+                    // bgColor="gray"
                     // pl="40px"
                     // pt="40px"
                   >
@@ -167,7 +195,7 @@ function ReservationPage() {
                       className="info-form"
                       w="660px"
                       direction="column"
-                      bgColor="gray"
+                      // bgColor="gray"
                     >
                       <Flex mb="40px">
                         <Text
@@ -324,6 +352,7 @@ function ReservationPage() {
                             color="white"
                             bg="rgba(193, 72, 23, 1)"
                             _hover={{ background: "#E76B39" }}
+                            onClick={handleTabsChange}
                           >
                             Next
                           </Button>
@@ -338,11 +367,11 @@ function ReservationPage() {
                     w="740px"
                     className="info-form"
                     direction="column"
-                    bgColor="gray"
+                    // bgColor="gray"
                     // pl="40px"
                     // pt="40px"
                   >
-                    <Flex mb="40px" direction="column">
+                    <Flex mb="45px" direction="column">
                       <Text
                         fontFamily={"Inter"}
                         fontSize="20px"
@@ -356,7 +385,7 @@ function ReservationPage() {
                         fontSize="14px"
                         color="gray.600"
                         fontStyle="600"
-                        mb="40px"
+                        mb="25px"
                       >
                         These requests are not confirmed (Depend on the
                         available room)
@@ -406,7 +435,7 @@ function ReservationPage() {
                       </CheckboxGroup>
                     </Flex>
 
-                    <Flex mb="40px" direction="column">
+                    <Flex mb="45px" direction="column">
                       <Text
                         fontFamily={"Inter"}
                         fontSize="20px"
@@ -420,7 +449,7 @@ function ReservationPage() {
                         fontSize="14px"
                         color="gray.600"
                         fontStyle="600"
-                        mb="40px"
+                        mb="25px"
                       >
                         Additional charge may apply
                       </Text>
@@ -499,6 +528,7 @@ function ReservationPage() {
                         color="rgba(231, 107, 57, 1)"
                         _hover={{ background: "#E76B39", color: "white" }}
                         bg="white"
+                        onClick={handleTabsBack}
                       >
                         Back
                       </Button>
@@ -509,6 +539,7 @@ function ReservationPage() {
                         color="white"
                         bg="rgba(193, 72, 23, 1)"
                         _hover={{ background: "#E76B39" }}
+                        onClick={handleTabsChange}
                       >
                         Next
                       </Button>
@@ -687,6 +718,7 @@ function ReservationPage() {
                           color="rgba(231, 107, 57, 1)"
                           _hover={{ background: "#E76B39", color: "white" }}
                           bg="white"
+                          onClick={handleTabsBack}
                         >
                           Back
                         </Button>
@@ -718,10 +750,11 @@ function ReservationPage() {
                   display="flex"
                   direction="column"
                   alignItems="flex-start"
-                  h="700px"
                   w="358px"
-                  bgColor="red"
+                  bgColor="#5d7b6a"
+                  borderRadius="4px"
                   ml="20px"
+                  mb="20px"
                   fontFamily={"Inter"}
                 >
                   <Flex
@@ -750,7 +783,7 @@ function ReservationPage() {
                   </Flex>
 
                   <Flex
-                    className="date"
+                    className="conditon-booking"
                     w="full"
                     display="flex"
                     direction="row"
@@ -759,19 +792,19 @@ function ReservationPage() {
                     m="20px"
                   >
                     <Flex
-                      className="check-in-date"
+                      className="check-in"
                       display="flex"
                       direction="column"
                       alignItems="flex-start"
                       justifyContent="space-between"
                       w="50%"
+                      mb="20px"
                     >
                       <Text
                         color="white"
                         fontSize="16px"
                         fontWeight="600"
                         fontFamily={"Inter"}
-                        
                         mb="8px"
                       >
                         Check-in
@@ -781,14 +814,13 @@ function ReservationPage() {
                         fontSize="16px"
                         fontWeight="400"
                         fontFamily={"Inter"}
-                        
                       >
                         After 2:00 PM
                       </Text>
                     </Flex>
 
                     <Flex
-                      className="check-out-date"
+                      className="check-out"
                       display="flex"
                       direction="column"
                       alignItems="flex-start"
@@ -800,7 +832,6 @@ function ReservationPage() {
                         fontSize="16px"
                         fontWeight="600"
                         fontFamily={"Inter"}
-                        
                         mb="8px"
                       >
                         Check-out
@@ -810,7 +841,6 @@ function ReservationPage() {
                         fontSize="16px"
                         fontWeight="400"
                         fontFamily={"Inter"}
-                        
                       >
                         Before 12:00 PM
                       </Text>
@@ -818,7 +848,7 @@ function ReservationPage() {
                   </Flex>
 
                   <Flex
-                    className="check-in-date"
+                    className="booking-date"
                     display="flex"
                     direction="row"
                     alignItems="flex-start"
@@ -828,7 +858,6 @@ function ReservationPage() {
                     fontSize="16px"
                     fontWeight="400"
                     fontFamily={"Inter"}
-                    
                     m="20px"
                   >
                     <Text>Th, 19 Oct 2022</Text>
@@ -840,14 +869,212 @@ function ReservationPage() {
                     fontSize="16px"
                     fontWeight="400"
                     fontFamily={"Inter"}
-                    pl="10px"
                     ml="20px"
+                    mb="40px"
                   >
                     2 Guests
                   </Text>
+
+                  <Flex
+                    className="room-booking"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    // bg="blue.100"
+                  >
+                    <Flex
+                      className="room-type"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="70%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      Superior Garden View Room
+                    </Flex>
+                    <Flex
+                      className="room-price"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      2500.00
+                    </Flex>
+                  </Flex>
+
+                  <Flex
+                    className="special-request"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    // bg="blue.100"
+                  >
+                    <Flex
+                      className="special-request-option"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="70%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      Airport tranfer
+                    </Flex>
+                    <Flex
+                      className="special-request-cost"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      200.00
+                    </Flex>
+                  </Flex>
+
+                  <Flex
+                    className="special-request"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    // bg="blue.100"
+                  >
+                    <Flex
+                      className="special-request-option"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="70%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      Promotion Code
+                    </Flex>
+                    <Flex
+                      className="special-request-cost"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      -400.00
+                    </Flex>
+                  </Flex>
+
+                  <GridItem
+                    w="310px"
+                    ml="20px"
+                    mr="20px"
+                    align="center"
+                    h="1px"
+                    bg="rgba(228, 230, 237, 1)"
+                  />
+
+                  <Flex
+                    className="special-request"
+                    display="flex"
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    mt="24px"
+                    // bg="blue.100"
+                  >
+                    <Flex
+                      className="special-request-option"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="30%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      Total
+                    </Flex>
+                    <Flex
+                      className="special-request-cost"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="20px"
+                    >
+                      THB 2,300.00
+                    </Flex>
+                  </Flex>
                 </Flex>
 
-                <Flex className="refund-condition" bgColor="red"></Flex>
+                <Flex
+                  className="booking-detail"
+                  w="358px"
+                  bgColor="rgba(228, 230, 237, 1)"
+                  borderRadius="4px"
+                  ml="20px"
+                  color="rgba(93, 123, 106, 1)"
+                  fontSize="12px"
+                  fontWeight="400"
+                  fontFamily={"Inter"}
+                  mb="20px"
+                  p="20px"
+                >
+                  <Flex
+                    className="check-in"
+                    display="flex"
+                    direction="column"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="100%"
+                  >
+                    <UnorderedList>
+                      <ListItem mb="20px">
+                        Cancel booking will get full refund if the cancelation
+                        occurs before 24 hours of the check-in date.
+                      </ListItem>
+                      <ListItem>
+                        Able to change check-in or check-out date booking within
+                        24 hours of the booking date
+                      </ListItem>
+                    </UnorderedList>
+                  </Flex>
+                </Flex>
               </Flex>
             </Flex>
           </Tabs>
