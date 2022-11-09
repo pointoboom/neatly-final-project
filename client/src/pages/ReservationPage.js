@@ -1,5 +1,9 @@
 import Navbar from "../components/Navbar";
+<<<<<<< HEAD
 import { Input, Text, Flex, Button, Link, Box, Img,a } from "@chakra-ui/react";
+=======
+import { Input, Text, Flex, Button, Link, Box, Img } from "@chakra-ui/react";
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
 import {
   FormControl,
   FormLabel,
@@ -13,13 +17,17 @@ import { DatePicker, Select, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { countryList } from "../data/country";
 import validator from "validator";
+<<<<<<< HEAD
 import useControllableState from "react";
+=======
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
 import {
   Checkbox,
   CheckboxGroup,
   Stack,
   Textarea,
   GridItem,
+<<<<<<< HEAD
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
@@ -30,6 +38,9 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+=======
+} from "@chakra-ui/react";
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
 
 function ReservationPage() {
   const [imageUrl, setImageUrl] = useState();
@@ -49,6 +60,21 @@ function ReservationPage() {
   const { register } = useAuth();
   const auth = useAuth();
 
+<<<<<<< HEAD
+=======
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -76,6 +102,7 @@ function ReservationPage() {
     register(data);
   };
 
+<<<<<<< HEAD
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabsChange = (index) => {
@@ -92,6 +119,8 @@ const bgColorBox=(index)=>{
   }
 }
 
+=======
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
   return (
     <>
       <Navbar />;
@@ -100,7 +129,11 @@ const bgColorBox=(index)=>{
         width="100vw"
         height="100vh"
         fontFamily={"Inter"}
+<<<<<<< HEAD
         bgColor="rgba(247, 247, 251, 1)"
+=======
+        bgColor="orange.100"
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
         display="flex"
         direction="column"
         align="center"
@@ -111,7 +144,11 @@ const bgColorBox=(index)=>{
           direction="column"
           align="flex-start"
           justify="center"
+<<<<<<< HEAD
           // bgColor="pink"
+=======
+          bgColor="pink"
+>>>>>>> b78068ecc3ebfd776495f713ecb169acaf1f47f9
         >
           <Text
             className="Booking"
