@@ -12,17 +12,11 @@ import { useHotel } from "../contexts/hotel";
 import moment from "moment";
 const dateFormat = "dd,DD MMM YYYY";
 
-import { useState } from "react";
 
 function RoomSearchPage() {
   const scrollDirection = useScrollDirection();
   const navigate = useNavigate();
   const { search, getCheckIn, getCheckOut, getRoom, getGuest } = useHotel();
-
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
-  const [room, setRoom] = useState(1);
-  const [guest, setGuest] = useState(2);
 
   return (
     <>
