@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import RegisterPage from "./RegisterPage";
 import RoomSearchPage from "./RoomSearchPage";
 import LoginPage from "./LoginPage";
+import StripeContainer from "../components/StripeContainer";
 
 function UnauthenticatedApp() {
   return (
@@ -15,6 +16,7 @@ function UnauthenticatedApp() {
         {/* <Route path="/createorder" element={<CreateOrders />} /> */}
         {/* <Route path="*" element={<HomePage />} /> */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/payment" element={<StripeContainer />} />
       </Routes>
     </div>
   );
