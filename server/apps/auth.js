@@ -26,6 +26,14 @@ authRouter.post(
   }
 );
 
+authRouter.get("/roomdetails", async (req, res) => {
+  const result = await pool.query("select * from room_types");
+
+  return res.json({
+    data: result.rows,
+  });
+});
+
 authRouter.post("/login", async (req, res) => {
   const user = await pool.query("select * from users where email=$1", [
     req.body.username,
