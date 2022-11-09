@@ -50,7 +50,7 @@ function RegisterPage() {
       [uniqueId]: info.file.originFileObj,
     });
   };
-  console.log(avatars);
+
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}

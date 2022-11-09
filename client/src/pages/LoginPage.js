@@ -12,9 +12,8 @@ import { useState } from "react";
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const { login } = useAuth();
-
+  const auth = useAuth();
   const handleSubmit = (event) => {
     event.preventDefault();
     login({
@@ -76,12 +75,12 @@ function LoginPage() {
               justify="flex-start"
               fontFamily={"Inter"}
             >
-              <FormControl>
-                <FormLabel fontSize="16px">Username or Email</FormLabel>
+              <FormControl isInvalid={!auth.loginfail}>
+                <FormLabel fontSize="16px">Email</FormLabel>
                 <Input
                   type="email"
                   fontSize="16px"
-                  placeholder="Enter your username or email"
+                  placeholder="Enter your email"
                   mb="40px"
                   value={username}
                   onChange={(event) => {
@@ -89,24 +88,29 @@ function LoginPage() {
                   }}
                 />
               </FormControl>
-
-              <FormLabel fontSize="16px">Password</FormLabel>
-              <Input
-                type="password"
-                fontSize="16px"
-                placeholder="Enter your password"
-                mb="40px"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-              />
+              <FormControl isInvalid={!auth.loginfail}>
+                <FormLabel fontSize="16px">Password</FormLabel>
+                <Input
+                  type="password"
+                  fontSize="16px"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(event) => {
+                    auth.loginfail = true;
+                    setPassword(event.target.value);
+                  }}
+                />
+                {auth.loginfail === false ? (
+                  <FormErrorMessage>Email or Password wrong</FormErrorMessage>
+                ) : null}
+              </FormControl>
 
               <Button
                 fontFamily={"Open Sans"}
                 bg="orange.600"
                 color="white"
                 width="450px"
+                mt="40px"
                 mb="10px"
                 type="submit"
                 _hover={{ background: "rgba(193, 72, 23, 1)" }}

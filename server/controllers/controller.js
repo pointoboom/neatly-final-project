@@ -1,7 +1,8 @@
 import { cloudinaryUpload } from "../utils/upload.js";
 import { pool } from "../utils/db.js";
 import bcrypt from "bcrypt";
-async function register(req, res) {
+import jwt from "jsonwebtoken";
+export async function register(req, res) {
   console.log(req.files);
   const newUser = {
     ...req.body,
@@ -52,4 +53,45 @@ async function register(req, res) {
     success: success,
   });
 }
-export default register;
+
+export async function login(req, res) {
+  const user = await pool.query("select * from users where email=$1", [
+    req.body.username,
+  ]);
+  let success = Boolean;
+
+  if (user.rows.length === 0) {
+    return res.json({
+      message: "user not found",
+      success: false,
+    });
+  }
+
+  const isValidPassword = await bcrypt.compare(
+    req.body.password,
+    user.rows[0].password
+  );
+
+  if (!isValidPassword) {
+    return res.status(401).json({
+      message: "password not valid",
+    });
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.rows[0].user_id,
+      fullname: user.rows[0].fullname,
+      profile_picture: user.rows[0].profile_picture,
+    },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "900000",
+    }
+  );
+  return res.json({
+    message: "login succesfully",
+    success: true,
+    token,
+  });
+}
