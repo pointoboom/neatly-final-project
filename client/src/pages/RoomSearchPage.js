@@ -11,10 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useHotel } from "../contexts/hotel";
 import moment from "moment";
 const dateFormat = "dd,DD MMM YYYY";
-<<<<<<< HEAD
-
-=======
->>>>>>> 2ecf7571fd6ff7cb7844b0a80dc0a5a84d039668
 
 function RoomSearchPage() {
   const scrollDirection = useScrollDirection();
