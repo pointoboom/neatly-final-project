@@ -6,9 +6,25 @@ import React from "react";
 import { DatePicker, Select } from "antd";
 import useScrollDirection from "../hooks/useScrollDirection";
 import "antd/dist/antd.min.css";
+import { useNavigate } from "react-router-dom";
+
+import { useHotel } from "../contexts/hotel";
+import moment from "moment";
+const dateFormat = "dd,DD MMM YYYY";
 
 function RoomSearchPage() {
   const scrollDirection = useScrollDirection();
+  const navigate = useNavigate();
+  const {
+    checkIn,
+    setCheckIn,
+    checkOut,
+    setCheckOut,
+    room,
+    setRoom,
+    guest,
+    setGuest,
+  } = useHotel();
 
   return (
     <>
@@ -34,7 +50,12 @@ function RoomSearchPage() {
           </Flex>
           <Flex direction="row">
             <Flex mr="25px" fontFamily={"Inter"} fontSize="16px">
-              <DatePicker format="dd,DD MMM YYYY" style={{ width: "170px" }} />
+              <DatePicker
+                format="dd,DD MMM YYYY"
+                style={{ width: "170px" }}
+                onChange={(date, dateString) => setCheckIn(dateString)}
+                defaultValue={checkIn ? moment(checkIn, dateFormat) : ""}
+              />
             </Flex>
             <Box>-</Box>
           </Flex>
@@ -44,7 +65,12 @@ function RoomSearchPage() {
             Check Out
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
-            <DatePicker format="dd,DD MMM YYYY" style={{ width: "170px" }} />
+            <DatePicker
+              format="dd,DD MMM YYYY"
+              style={{ width: "170px" }}
+              onChange={(date, dateString) => setCheckOut(dateString)}
+              defaultValue={checkOut ? moment(checkOut, dateFormat) : ""}
+            />
           </Flex>
         </Flex>
         <Flex direction="column" mr="50px">
@@ -53,23 +79,51 @@ function RoomSearchPage() {
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
             <Select
-              placeholder="1 room,2 guests"
+              placeholder={`${room} room,${guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
                   <div className=" flex flex-row justify-between px-[5px]">
                     <div>Room</div>
                     <div className=" flex flex-row">
-                      <img src="./images/Search/minus.svg" alt="" />
-                      <div className="mx-[5px]">1</div>
-                      <img src="./images/Search/plus.svg" alt="" />
+                      <button
+                        onClick={() => {
+                          if (room === 1) setRoom(1);
+                          else setRoom(room - 1);
+                        }}
+                      >
+                        {" "}
+                        <img src="./images/Search/minus.svg" alt="" />
+                      </button>
+
+                      <div className="mx-[5px]">{room}</div>
+                      <button
+                        onClick={() => {
+                          setRoom(room + 1);
+                        }}
+                      >
+                        <img src="./images/Search/plus.svg" alt="" />
+                      </button>
                     </div>
                   </div>
                   <div className=" flex flex-row justify-between px-[5px]">
                     <div>Guest</div>
                     <div className=" flex flex-row">
-                      <img src="./images/Search/minus.svg" alt="" />
-                      <div className="mx-[5px]">2</div>
-                      <img src="./images/Search/plus.svg" alt="" />
+                      <button
+                        onClick={() => {
+                          if (guest === 1) setGuest(1);
+                          else setGuest(guest - 1);
+                        }}
+                      >
+                        <img src="./images/Search/minus.svg" alt="" />
+                      </button>
+                      <div className="mx-[5px]">{guest}</div>
+                      <button
+                        onClick={() => {
+                          setGuest(guest + 1);
+                        }}
+                      >
+                        <img src="./images/Search/plus.svg" alt="" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -84,6 +138,10 @@ function RoomSearchPage() {
             px="40px"
             fontFamily={"Inter"}
             _hover={{ background: "#E76B39" }}
+            onClick={() => {
+   
+              // navigate("/search");
+            }}
           >
             Search
           </Button>
