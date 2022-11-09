@@ -5,10 +5,12 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import SliderImage from "./components/SliderImage";
 import UnauthenticatedApp from "./pages/UnauthenticatedApp";
-
+import { useAuth } from "./contexts/authentication";
+import AuthenticatedApp from "./pages/AuthenticatedApp";
 
 function App() {
-  return <UnauthenticatedApp />;
+  const auth = useAuth();
+  return auth.isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 }
 
 export default App;

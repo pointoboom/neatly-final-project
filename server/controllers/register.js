@@ -12,7 +12,7 @@ async function register(req, res) {
   const checkEmail = await pool.query("select * from users where email=$1", [
     newUser.email,
   ]);
-
+  console.log(checkEmail.rows[0]);
   const salt = await bcrypt.genSalt(10);
   newUser.password = await bcrypt.hash(newUser.password, salt);
   const avatarUrl = await cloudinaryUpload(req.files);

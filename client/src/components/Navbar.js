@@ -13,15 +13,25 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  Link,
 } from "@chakra-ui/react";
 import { AiOutlineUser, AiOutlineCreditCard } from "react-icons/ai";
 import { IoIosLogOut } from "react-icons/io";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import { useAuth } from "../contexts/authentication";
 import React, { useState, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 function Navbar() {
   const auth = useAuth();
   const { logout } = useAuth();
+  const [userdata, setUserdata] = useState(null);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      const userdata = jwtDecode(token);
+      setUserdata(userdata);
+    }
+  });
 
   return (
     <Box
@@ -74,18 +84,21 @@ function Navbar() {
         </HStack>
         <Spacer />
         <HStack spacing={"30px"}>
-          {auth.state.user === null ? (
+          {userdata === null ? (
             <>
-              <Text
-                textAlign="center"
-                lineHeight="16px"
-                fontFamily="Open Sans"
-                fontStyle="normal"
-                fontWeight="600px"
-                textColor="#E76B39"
-              >
-                Log in
-              </Text>
+              <Link href="/login" style={{ textDecoration: "none" }}>
+                <Text
+                  textAlign="center"
+                  lineHeight="16px"
+                  fontFamily="Open Sans"
+                  fontStyle="normal"
+                  fontWeight="600px"
+                  textColor="#E76B39"
+                >
+                  Log in
+                </Text>
+              </Link>
+
               <Button
                 w="143px"
                 h="48px"
@@ -107,10 +120,7 @@ function Navbar() {
               <Img src="./images/Nav/noti.svg"></Img>
               <Menu>
                 <MenuButton>
-                  <Avatar
-                    name="Dan Abrahmov"
-                    src={auth.state.user.profile_picture}
-                  />
+                  <Avatar name="Dan Abrahmov" src={userdata.profile_picture} />
                 </MenuButton>
                 <MenuList color="gray.600">
                   <MenuItem icon={<AiOutlineUser />}>Profile</MenuItem>
