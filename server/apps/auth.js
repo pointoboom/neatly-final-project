@@ -3,7 +3,7 @@ import { pool } from "../utils/db.js";
 import { validateRegisterData } from "../middlewares/auth.validations.js";
 import multer from "multer";
 import bcrypt from "bcrypt";
-import { register, login } from "../controllers/controller.js";
+import { register, login } from "../controllers/auth.controller.js";
 const authRouter = Router();
 const multerUpload = multer({ dest: "uploads/" });
 const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);

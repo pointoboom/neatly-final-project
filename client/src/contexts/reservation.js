@@ -5,19 +5,19 @@ import { useNavigate } from "react-router-dom";
 const hotelContext = React.createContext();
 
 function HotelProvider(props) {
-  // const [hotel, setHotel] = useState({
-  //   checkIn: null,
-  //   checkOut: null,
-  //   room: 1,
-  //   guest: 2,
-  // });
   const navigate = useNavigate();
-
   const [checkIn, setCheckIn] = usePersistedState("checkIn", null);
   const [checkOut, setCheckOut] = usePersistedState("checkOut", null);
   const [room, setRoom] = usePersistedState("room", 2);
   const [guest, setGuest] = usePersistedState("guest", 3);
+  const [tabIndex, setTabIndex] = useState(0);
+  const handleTabsChange = () => {
+    setTabIndex(tabIndex + 1);
+  };
 
+  const handleTabsBack = () => {
+    setTabIndex(tabIndex - 1);
+  };
   return (
     <hotelContext.Provider
       value={{
@@ -30,6 +30,9 @@ function HotelProvider(props) {
         setRoom,
         guest,
         setGuest,
+        tabIndex,
+        handleTabsBack,
+        handleTabsChange,
       }}
     >
       {props.children}

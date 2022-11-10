@@ -7,8 +7,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/authentication";
 import jwtInterceptor from "./utils/jwtInterceptor.js";
-
-import { HotelProvider } from "./contexts/hotel";
+import { HotelProvider } from "./contexts/reservation";
 jwtInterceptor();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

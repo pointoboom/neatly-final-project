@@ -8,7 +8,7 @@ import useScrollDirection from "../hooks/useScrollDirection";
 import "antd/dist/antd.min.css";
 import { useNavigate } from "react-router-dom";
 
-import { useHotel } from "../contexts/hotel";
+import { useHotel } from "../contexts/reservation";
 import moment from "moment";
 const dateFormat = "dd,DD MMM YYYY";
 
@@ -139,7 +139,6 @@ function RoomSearchPage() {
             fontFamily={"Inter"}
             _hover={{ background: "#E76B39" }}
             onClick={() => {
-   
               // navigate("/search");
             }}
           >
