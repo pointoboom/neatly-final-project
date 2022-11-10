@@ -1,3 +1,4 @@
+import usePersistedState from "use-persisted-state-hook";
 import {
   FormErrorMessage,
   FormControl,
@@ -7,11 +8,14 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker, Select } from "antd";
 import NextComponent from "./NextComponent";
 import { useHotel } from "../../contexts/reservation";
-function BasicInformation() {
+import jwtDecode from "jwt-decode";
+import moment from "moment";
+
+function BasicInformation(props) {
   const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -21,11 +25,33 @@ function BasicInformation() {
   const [cardowner, setCardowner] = useState("");
   const [expdate, setExpdate] = useState("");
   const [cvc, setCvc] = useState("");
-  const [dob, setDob] = useState("");
-  const [country, setCountry] = useState("");
+  // const [dob, setDob] = useState("");
+  // const [country, setCountry] = useState("");
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
+  const [dob, setDob] = usePersistedState("dob", null);
+  const [country, setCountry] = usePersistedState("country", null);
+
+  const dateFormat = "dd,DD MMM YYYY";
+
+  const { checkIn } = useHotel();
+
+  const [userdata, setUserdata] = useState(null);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      const userdata = jwtDecode(token);
+      setUserdata(userdata);
+      // setDob(moment(userdata.dob).format("dd,DD MMM YYYY"));
+      setDob(moment(userdata.dob).format("dd,DD MMM YYYY"));
+      setFullName(userdata.fullname);
+      setEmail(userdata.email);
+      setIdnumber(userdata.idnumber);
+      setCountry(userdata.country);
+    }
+  }, []);
+
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -104,6 +130,7 @@ function BasicInformation() {
               onChange={(event) => {
                 setFullName(event.target.value);
               }}
+              disabled
               focusBorderColor="orange.500"
             ></Input>
           </Flex>
@@ -129,6 +156,7 @@ function BasicInformation() {
                   onChange={(event) => {
                     setEmail(event.target.value);
                   }}
+                  disabled
                   focusBorderColor="orange.500"
                 ></Input>
                 {auth.emailRegistered === true ? (
@@ -157,6 +185,7 @@ function BasicInformation() {
                 onChange={(event) => {
                   setIdnumber(event.target.value);
                 }}
+                disabled
                 focusBorderColor="orange.500"
               ></Input>
             </Flex>
@@ -179,6 +208,8 @@ function BasicInformation() {
                   }}
                   onChange={onChangeDate}
                   placeholder="Enter your birthday"
+                  defaultValue={dob ? moment(dob, dateFormat) : ""}
+                  disabled
                 />
               </Flex>
             </Flex>
@@ -198,6 +229,8 @@ function BasicInformation() {
                   fontSize: "16px",
                 }}
                 onChange={handleCountry}
+                defaultValue={country}
+                disabled
               ></Select>
             </Flex>
             <NextComponent />

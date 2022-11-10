@@ -6,6 +6,8 @@ import LoginPage from "./LoginPage";
 import TestStep from "../components/TestStep";
 import "../App.css";
 import NotFoundPage from "./NotFoundPage";
+import ReservationPage from "./ReservationPage";
+
 function AuthenticatedApp() {
   return (
     <div className="App">
@@ -17,6 +19,7 @@ function AuthenticatedApp() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/test" element={<TestStep />} />
+        <Route path="/reservation" element={<ReservationPage />} />
       </Routes>
     </div>
   );

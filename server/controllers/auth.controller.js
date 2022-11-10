@@ -83,6 +83,10 @@ export async function login(req, res) {
       id: user.rows[0].user_id,
       fullname: user.rows[0].fullname,
       profile_picture: user.rows[0].profile_picture,
+      email: user.rows[0].email,
+      idnumber: user.rows[0].id_number,
+      dob: user.rows[0].date_of_birth,
+      country: user.rows[0].country,
     },
     process.env.SECRET_KEY,
     {
