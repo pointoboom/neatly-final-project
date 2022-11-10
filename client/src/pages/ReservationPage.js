@@ -90,7 +90,7 @@ function ReservationPage() {
             className="Booking"
             fontSize="68px"
             align="center"
-            // textColor="rgba(47, 62, 53, 1)"
+            textColor="rgba(47, 62, 53, 1)"
             fontFamily={"Noto Serif Display"}
             paddingBottom="40px"
             mt="50px"
@@ -107,7 +107,7 @@ function ReservationPage() {
               direction="row"
               align="flex-start"
               justify="center"
-              // color="gray"
+              color="gray"
               // bgColor="pink.300"
             >
               <Tab _selected={{ color: "orange" }}>
@@ -124,9 +124,8 @@ function ReservationPage() {
 
               <Tab _selected={{ color: "orange" }}>
                 <Button
-                  // boxSize="66px"
                   mr="15px"
-                  bgColor={bgColorBox}
+                  bgColor="gray.100"
                   _selected={{ colorScheme: "orange" }}
                 >
                   2
@@ -135,7 +134,6 @@ function ReservationPage() {
               </Tab>
               <Tab _selected={{ color: "orange" }}>
                 <Button
-                  // boxSize="66px"
                   mr="15px"
                   bgColor="gray.100"
                   _selected={{ colorScheme: "orange" }}
