@@ -11,6 +11,10 @@ function HotelProvider(props) {
   const [room, setRoom] = usePersistedState("room", 2);
   const [guest, setGuest] = usePersistedState("guest", 3);
   const [tabIndex, setTabIndex] = useState(0);
+  const [roomId, setRoomId] = usePersistedState("roomID", null);
+  const handleSetRoomId = (id) => {
+    setRoomId(id);
+  };
   const handleTabsChange = () => {
     setTabIndex(tabIndex + 1);
   };
@@ -33,6 +37,9 @@ function HotelProvider(props) {
         tabIndex,
         handleTabsBack,
         handleTabsChange,
+        roomId,
+        setRoomId,
+        handleSetRoomId,
       }}
     >
       {props.children}

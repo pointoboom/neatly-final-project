@@ -10,12 +10,13 @@ import {
 } from "@chakra-ui/react";
 import {} from "@chakra-ui/react";
 import { useAuth } from "../contexts/authentication";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BasicInformation from "../components/ReservationPage/BasicInformmation";
 import SpecialRequest from "../components/ReservationPage/SpecialRequest";
 import PaymentNethod from "../components/ReservationPage/PaymentMethod";
 import BookingDetail from "../components/ReservationPage/BookingDetail";
 import { useHotel } from "../contexts/reservation";
+import axios from "axios";
 
 function ReservationPage() {
   const [username, setUsername] = useState("");
@@ -29,40 +30,22 @@ function ReservationPage() {
   const [cvc, setCvc] = useState("");
   const [dob, setDob] = useState("");
   const [country, setCountry] = useState("");
+  const [user, setUserdata] = useState({
+    fullname: "",
+  });
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
-  const onChangeDate = (value) => {
-    setDob(value._d);
+  const getData = async () => {
+    const res = await axios.get(
+      `http://localhost:4000/auth/${auth.state.user.id}`
+    );
+    setUserdata(res.data.data[0]);
   };
-  const handleCountry = (value) => {
-    setCountry(value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = {
-      username,
-      password,
-      fullname,
-      email,
-      idnumber,
-      cardnum,
-      cardowner,
-      expdate,
-      cvc,
-      dob,
-      country,
-      role: "user",
-      profile_picture: "test",
-    };
-    // console.log(data);
-    register(data);
-  };
-
-  const bgColorBox = (index) => {
-    if (index === 0) {
-    }
-  };
+  console.log(user);
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -153,12 +136,12 @@ function ReservationPage() {
               // bgColor="yellow"
             >
               <TabPanels bgColor="white">
-                <BasicInformation />
+                <BasicInformation userData={user} />
                 <SpecialRequest />
-                <PaymentNethod />
+                <PaymentNethod userData={user} setdata={setUserdata} />
               </TabPanels>
 
-              <BookingDetail />
+              {/* <BookingDetail /> */}
             </Flex>
           </Tabs>
         </Flex>

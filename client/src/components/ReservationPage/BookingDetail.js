@@ -1,7 +1,21 @@
 import { GridItem, Text, Flex, Img } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
+import { useHotel } from "../../contexts/reservation";
+import axios from "axios";
+
 function BookingDetail() {
+  const [reserveDetail, setReserveDetail] = useState([]);
+  const searchDetail = useHotel();
+  const { roomId } = useHotel();
+  const getData = async () => {
+    const res = await axios.get(`http://localhost:4000/rooms/${roomId}`);
+    setReserveDetail(res.data.data);
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Flex
       className="booking-detail"
@@ -126,7 +140,7 @@ function BookingDetail() {
           m="20px"
         >
           <Text>Th, 19 Oct 2022</Text>
-          <Text> - </Text>
+          <Text mx="5px"> - </Text>
           <Text>Fri, 20 Oct 2022</Text>
         </Flex>
         <Text
@@ -154,29 +168,35 @@ function BookingDetail() {
           mb="24px"
           // bg="blue.100"
         >
-          <Flex
-            className="room-type"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="space-between"
-            w="70%"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            Superior Garden View Room
-          </Flex>
-          <Flex
-            className="room-price"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            2500.00
-          </Flex>
+          {reserveDetail.map((room) => {
+            return (
+              <>
+                <Flex
+                  className="room-type"
+                  display="flex"
+                  direction="column"
+                  alignItems="flex-start"
+                  justifyContent="space-between"
+                  w="70%"
+                  // bg="blue.200"
+                  fontSize="16px"
+                >
+                  {room.type_name}
+                </Flex>
+                <Flex
+                  className="room-price"
+                  display="flex"
+                  direction="column"
+                  alignItems="flex-start"
+                  justifyContent="flex-start"
+                  // bg="blue.200"
+                  fontSize="16px"
+                >
+                  {room.promotion_price}.00
+                </Flex>
+              </>
+            );
+          })}
         </Flex>
 
         <Flex

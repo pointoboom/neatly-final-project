@@ -7,16 +7,20 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
-function PaymentNethod() {
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+function PaymentNethod(props) {
   const [cardnum, setCardnum] = useState("");
   const [cardowner, setCardowner] = useState("");
   const [expdate, setExpdate] = useState("");
   const [cvc, setCvc] = useState("");
+  const [user, setUserdata] = useState(null);
   const auth = useAuth();
   const tab = useHotel();
   const { handleTabsBack } = useHotel();
+  console.log(props.userData);
   const bgColorBox = (index) => {
     if (index === 0) {
     }
@@ -59,6 +63,7 @@ function PaymentNethod() {
             >
               Card Number
             </Text>
+
             <Input
               placeholder="Enter your card number"
               width="660px"
@@ -67,9 +72,12 @@ function PaymentNethod() {
               id="cardnumber"
               name="cardnumber"
               type="number"
-              value={cardnum}
+              value={props.userData.card_number}
               onChange={(event) => {
-                setCardnum(event.target.value);
+                props.setdata({
+                  ...props.userData,
+                  ["card_number"]: event.target.value,
+                });
               }}
               focusBorderColor="orange.500"
             ></Input>
@@ -93,7 +101,7 @@ function PaymentNethod() {
               id="cardowner"
               name="cardowner"
               type="text"
-              value={cardowner}
+              value={props.userData.card_owner}
               onChange={(event) => {
                 setCardowner(event.target.value);
               }}
@@ -120,7 +128,7 @@ function PaymentNethod() {
                 id="expiredate"
                 name="expiredate"
                 type="text"
-                value={expdate}
+                value={props.userData.expiry_date}
                 onChange={(event) => {
                   setExpdate(event.target.value);
                 }}
@@ -145,7 +153,7 @@ function PaymentNethod() {
                 id="cvc"
                 name="cvc"
                 type="text"
-                value={cvc}
+                value={props.userData.cvc_cvv}
                 onChange={(event) => {
                   setCvc(event.target.value);
                 }}

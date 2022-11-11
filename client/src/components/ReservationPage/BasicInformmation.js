@@ -11,7 +11,8 @@ import React, { useState } from "react";
 import { DatePicker, Select } from "antd";
 import NextComponent from "./NextComponent";
 import { useHotel } from "../../contexts/reservation";
-function BasicInformation() {
+import { countryList } from "../../data/country";
+function BasicInformation(props) {
   const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,7 @@ function BasicInformation() {
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
+  console.log(props.userData);
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -49,7 +51,7 @@ function BasicInformation() {
       role: "user",
       profile_picture: "test",
     };
-    // console.log(data);
+
     register(data);
   };
 
@@ -96,11 +98,12 @@ function BasicInformation() {
               placeholder="Enter your fullname"
               width="660px"
               fontFamily={"Inter"}
+              disabled
               fontSize="16px"
               id="fullname"
               name="fullname"
               type="text"
-              value={fullname}
+              value={props.userData.fullname}
               onChange={(event) => {
                 setFullName(event.target.value);
               }}
@@ -119,13 +122,14 @@ function BasicInformation() {
               <FormControl isInvalid={auth.emailRegistered}>
                 <Input
                   placeholder="Enter your email"
+                  disabled
                   width="660px"
                   fontFamily={"Inter"}
                   fontSize="16px"
                   id="email"
                   name="email"
                   type="text"
-                  value={email}
+                  value={props.userData.email}
                   onChange={(event) => {
                     setEmail(event.target.value);
                   }}
@@ -153,11 +157,12 @@ function BasicInformation() {
                 id="idnumber"
                 name="idnumber"
                 type="number"
-                value={idnumber}
+                value={props.userData.id_number}
                 onChange={(event) => {
                   setIdnumber(event.target.value);
                 }}
                 focusBorderColor="orange.500"
+                disabled
               ></Input>
             </Flex>
 
@@ -192,12 +197,18 @@ function BasicInformation() {
               <Text mb="15px">Country</Text>
               <Select
                 placeholder="Select your country"
+                options={countryList.map((item) => ({
+                  label: item.name,
+                  value: item.name,
+                }))}
                 style={{
                   width: "660px",
                   fontFamily: "Inter",
                   fontSize: "16px",
                 }}
+                value={props.userData.country}
                 onChange={handleCountry}
+                disabled
               ></Select>
             </Flex>
             <NextComponent />
