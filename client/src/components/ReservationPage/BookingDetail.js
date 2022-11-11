@@ -4,10 +4,12 @@ import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { useHotel } from "../../contexts/reservation";
 import axios from "axios";
 
-function BookingDetail() {
+function BookingDetail(props) {
   const [reserveDetail, setReserveDetail] = useState([]);
+  const [listReq, setlist] = useState();
   const searchDetail = useHotel();
   const { roomId } = useHotel();
+  console.log(props.userData);
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms/${roomId}`);
     setReserveDetail(res.data.data);
@@ -139,9 +141,9 @@ function BookingDetail() {
           fontFamily={"Inter"}
           m="20px"
         >
-          <Text>Th, 19 Oct 2022</Text>
+          <Text>{searchDetail.checkIn}</Text>
           <Text mx="5px"> - </Text>
-          <Text>Fri, 20 Oct 2022</Text>
+          <Text>{searchDetail.checkOut}</Text>
         </Flex>
         <Text
           color="white"
@@ -151,7 +153,7 @@ function BookingDetail() {
           ml="20px"
           mb="40px"
         >
-          2 Guests
+          {searchDetail.guest} Guest
         </Text>
 
         <Flex
@@ -273,7 +275,7 @@ function BookingDetail() {
             // bg="blue.200"
             fontSize="16px"
           >
-            -400.00
+            000.00
           </Flex>
         </Flex>
 

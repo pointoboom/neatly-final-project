@@ -12,6 +12,7 @@ import { DatePicker, Select } from "antd";
 import NextComponent from "./NextComponent";
 import { useHotel } from "../../contexts/reservation";
 import { countryList } from "../../data/country";
+import moment from "moment";
 function BasicInformation(props) {
   const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
@@ -27,7 +28,8 @@ function BasicInformation(props) {
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
-  console.log(props.userData);
+  const dateFormat = "dd,DD MMM YYYY";
+  // console.log(props.userData);
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -184,6 +186,13 @@ function BasicInformation(props) {
                   }}
                   onChange={onChangeDate}
                   placeholder="Enter your birthday"
+                  defaultValue={moment(
+                    moment(props.userData.date_of_birth).format(
+                      "dd,DD MMM YYYY"
+                    ),
+                    dateFormat
+                  )}
+                  disabled
                 />
               </Flex>
             </Flex>

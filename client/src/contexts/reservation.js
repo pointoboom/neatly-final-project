@@ -20,7 +20,12 @@ function HotelProvider(props) {
   };
 
   const handleTabsBack = () => {
-    setTabIndex(tabIndex - 1);
+    if (tabIndex === 0) {
+      navigate("/search");
+      // setTabIndex(1);
+    } else {
+      setTabIndex(tabIndex - 1);
+    }
   };
   return (
     <hotelContext.Provider

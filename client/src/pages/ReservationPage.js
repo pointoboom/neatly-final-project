@@ -31,7 +31,7 @@ function ReservationPage() {
   const [dob, setDob] = useState("");
   const [country, setCountry] = useState("");
   const [user, setUserdata] = useState({
-    fullname: "",
+    request: "",
   });
   const { register } = useAuth();
   const auth = useAuth();
@@ -40,9 +40,9 @@ function ReservationPage() {
     const res = await axios.get(
       `http://localhost:4000/auth/${auth.state.user.id}`
     );
-    setUserdata(res.data.data[0]);
+    setUserdata({ ...res.data.data[0], ["request"]: [] });
   };
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     getData();
   }, []);
@@ -137,11 +137,11 @@ function ReservationPage() {
             >
               <TabPanels bgColor="white">
                 <BasicInformation userData={user} />
-                <SpecialRequest />
+                <SpecialRequest userData={user} setdata={setUserdata} />
                 <PaymentNethod userData={user} setdata={setUserdata} />
               </TabPanels>
 
-              {/* <BookingDetail /> */}
+              <BookingDetail userData={user} />
             </Flex>
           </Tabs>
         </Flex>

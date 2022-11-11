@@ -20,7 +20,7 @@ function PaymentNethod(props) {
   const auth = useAuth();
   const tab = useHotel();
   const { handleTabsBack } = useHotel();
-  console.log(props.userData);
+  // console.log(props.userData);
   const bgColorBox = (index) => {
     if (index === 0) {
     }
@@ -103,7 +103,10 @@ function PaymentNethod(props) {
               type="text"
               value={props.userData.card_owner}
               onChange={(event) => {
-                setCardowner(event.target.value);
+                props.setdata({
+                  ...props.userData,
+                  ["card_owner"]: event.target.value,
+                });
               }}
               focusBorderColor="orange.500"
             ></Input>
@@ -130,7 +133,10 @@ function PaymentNethod(props) {
                 type="text"
                 value={props.userData.expiry_date}
                 onChange={(event) => {
-                  setExpdate(event.target.value);
+                  props.setdata({
+                    ...props.userData,
+                    ["expiry_date"]: event.target.value,
+                  });
                 }}
                 focusBorderColor="orange.500"
               ></Input>
@@ -155,7 +161,10 @@ function PaymentNethod(props) {
                 type="text"
                 value={props.userData.cvc_cvv}
                 onChange={(event) => {
-                  setCvc(event.target.value);
+                  props.setdata({
+                    ...props.userData,
+                    ["cvc_cvv"]: event.target.value,
+                  });
                 }}
                 focusBorderColor="orange.500"
               ></Input>

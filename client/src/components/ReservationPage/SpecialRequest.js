@@ -11,7 +11,56 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import NextComponent from "./NextComponent";
-function SpecialRequest() {
+function SpecialRequest(props) {
+  console.log(props.userData.request);
+  const handleCheck = (check, price) => {
+    console.log(props.userData);
+    console.log(props.userData.request.length);
+    if (props.userData.request.length === 0) {
+      props.setdata({
+        ...props.userData,
+        request: [
+          ...props.userData.request,
+          { ["req"]: check, ["price"]: price },
+        ],
+      });
+    } else {
+      for (let i of props.userData.request) {
+        const index = props.userData.request.indexOf(i);
+        if (i.req === check) {
+          props.userData.request.splice(index, 1);
+        } else {
+          props.setdata({
+            ...props.userData,
+            request: [
+              ...props.userData.request,
+              { ["req"]: check, ["price"]: price },
+            ],
+          });
+        }
+      }
+    }
+    // props.setdata({
+    //   ...props.userData,
+    //   request: [
+    //     ...props.userData.request,
+    //     { ["req"]: check, ["price"]: price },
+    //   ],
+    // });
+    // for (let i of props.userData.request) {
+    //   const index = props.userData.request.indexOf(i);
+
+    //   if (i["req"] === check) {
+    //     props.userData.request.splice(index, 1);
+    //     console.log(props.userData);
+    //   } else {
+    //     props.setdata({
+    //       ...props.userData,
+    //       request: [...i, ...{ ["req"]: check, ["price"]: price }],
+    //     });
+    //   }
+    // }
+  };
   const bgColorBox = (index) => {
     if (index === 0) {
     }
@@ -51,22 +100,49 @@ function SpecialRequest() {
             defaultValue={[]}
           >
             <Stack spacing="20px" direction={["column"]} color="#646D89">
-              <Checkbox value="Early check-in" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Early check-in"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("earlyCheckin", event.target.value);
+                }}
+              >
                 Early check-in
               </Checkbox>
-              <Checkbox value="Late check-out" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Late check-out"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("lateCheckin", event.target.value);
+                }}
+              >
                 Late check-out
               </Checkbox>
-              <Checkbox value="Non-smoking room" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Non-smoking room"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("nonSmoke", event.target.value);
+                }}
+              >
                 Non-smoking room
               </Checkbox>
               <Checkbox
                 value="A room on the high floor"
                 _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("highFloor", event.target.value);
+                }}
               >
                 A room on the high floor
               </Checkbox>
-              <Checkbox value="A quiet room" _checked={{ color: "black" }}>
+              <Checkbox
+                value="A quiet room"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("quietRoom", event.target.value);
+                }}
+              >
                 A quiet room
               </Checkbox>
             </Stack>
@@ -98,25 +174,58 @@ function SpecialRequest() {
             defaultValue={[]}
           >
             <Stack spacing="20px" direction={["column"]} color="#646D89">
-              <Checkbox value="Baby cot" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Baby cot"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("babyCot", 400);
+                }}
+              >
                 Baby cot (+THB 400)
               </Checkbox>
-              <Checkbox value="Airport transfer" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Airport transfer"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("airport", 200);
+                }}
+              >
                 Airport transfer (+THB 200)
               </Checkbox>
-              <Checkbox value="Extra bed" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Extra bed"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("extraBed", 500);
+                }}
+              >
                 Extra bed (+THB 500)
               </Checkbox>
-              <Checkbox value="Extra pillows" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Extra pillows"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("extraPillow", 100);
+                }}
+              >
                 Extra pillows (+THB 100)
               </Checkbox>
               <Checkbox
                 value="Phone chargers and adapters"
                 _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("charger", 100);
+                }}
               >
                 Phone chargers and adapters (+THB 100)
               </Checkbox>
-              <Checkbox value="Breakfast" _checked={{ color: "black" }}>
+              <Checkbox
+                value="Breakfast"
+                _checked={{ color: "black" }}
+                onChange={(event) => {
+                  handleCheck("breakfast", 150);
+                }}
+              >
                 Breakfast (+150)
               </Checkbox>
             </Stack>
