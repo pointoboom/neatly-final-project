@@ -19,20 +19,15 @@ import { useHotel } from "../contexts/reservation";
 import axios from "axios";
 
 function ReservationPage() {
-  const [username, setUsername] = useState("");
-  const [fullname, setFullName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [idnumber, setIdnumber] = useState("");
-  const [cardnum, setCardnum] = useState("");
-  const [cardowner, setCardowner] = useState("");
-  const [expdate, setExpdate] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [dob, setDob] = useState("");
-  const [country, setCountry] = useState("");
   const [user, setUserdata] = useState({
     request: "",
   });
+  const [specialRequest, setSpecialRequest] = useState([]);
+  const [standardRequest, setStandardRequest] = useState([]);
+  const [reserveDetail, setReserveDetail] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const searchDetail = useHotel();
+  const { roomId } = useHotel();
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
@@ -41,6 +36,11 @@ function ReservationPage() {
       `http://localhost:4000/auth/${auth.state.user.id}`
     );
     setUserdata({ ...res.data.data[0], ["request"]: [] });
+    const result = await axios.get(`http://localhost:4000/rooms/${roomId}`);
+    setReserveDetail(result.data.data);
+    // setTotalPrice(
+    //   Number(reserveDetail[0].promotion_price) * Number(searchDetail.guest)
+    // );
   };
   // console.log(user);
   useEffect(() => {
@@ -137,11 +137,26 @@ function ReservationPage() {
             >
               <TabPanels bgColor="white">
                 <BasicInformation userData={user} />
-                <SpecialRequest userData={user} setdata={setUserdata} />
+                <SpecialRequest
+                  userData={user}
+                  setdata={setUserdata}
+                  specialRequest={specialRequest}
+                  setSpecialRequest={setSpecialRequest}
+                  standardRequest={standardRequest}
+                  setStandardRequest={setStandardRequest}
+                  totalPrice={totalPrice}
+                  setTotalPrice={setTotalPrice}
+                />
                 <PaymentNethod userData={user} setdata={setUserdata} />
               </TabPanels>
 
-              <BookingDetail userData={user} />
+              <BookingDetail
+                userData={user}
+                specialRequest={specialRequest}
+                reserveDetail={reserveDetail}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
+              />
             </Flex>
           </Tabs>
         </Flex>

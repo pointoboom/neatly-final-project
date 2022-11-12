@@ -8,12 +8,13 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
 import React, { useState } from "react";
-import { DatePicker, Select } from "antd";
+import { DatePicker, Select, Form } from "antd";
 import NextComponent from "./NextComponent";
 import { useHotel } from "../../contexts/reservation";
 import { countryList } from "../../data/country";
 import moment from "moment";
 function BasicInformation(props) {
+  const date = moment(props.userData.date_of_birth).format("YYYY-MM-DD");
   const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +30,9 @@ function BasicInformation(props) {
   const auth = useAuth();
   const tab = useHotel();
   const dateFormat = "dd,DD MMM YYYY";
-  // console.log(props.userData);
+
+  // console.log(String(moment().format("YYYY-MM-DD")));
+
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -176,24 +179,35 @@ function BasicInformation(props) {
                 mb="40px"
               >
                 <Text mb="15px">Date of Birth</Text>
-                <DatePicker
-                  format="dd,DD MMM YYYY"
-                  style={{
-                    width: "660px",
-                    fontFamily: "Inter",
-                    fontSize: "30px",
-                    paddingLeft: "15px",
-                  }}
-                  onChange={onChangeDate}
-                  placeholder="Enter your birthday"
-                  defaultValue={moment(
-                    moment(props.userData.date_of_birth).format(
-                      "dd,DD MMM YYYY"
-                    ),
-                    dateFormat
-                  )}
-                  disabled
-                />
+                <Form>
+                  <Form.Item>
+                    <DatePicker
+                      format="dd,DD MMM YYYY"
+                      onSelect={moment(date)}
+                      style={{
+                        width: "660px",
+                        fontFamily: "Inter",
+                        fontSize: "30px",
+                        paddingLeft: "15px",
+                      }}
+                      onChange={onChangeDate}
+                      placeholder="Enter your birthday"
+                      // defaultValue={moment()}
+                      defaultValue={moment(
+                        moment(props.userData.date_of_birth).format(
+                          "YYYY-MM-DD"
+                        )
+                      )}
+                      // defaultValue={moment(
+                      //   moment(props.userData.date_of_birth).format(
+                      //     "dd,DD MMM YYYY"
+                      //   ),
+                      //   dateFormat
+                      // )}
+                      disabled
+                    />
+                  </Form.Item>
+                </Form>
               </Flex>
             </Flex>
 

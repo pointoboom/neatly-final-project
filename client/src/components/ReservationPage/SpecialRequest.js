@@ -12,54 +12,44 @@ import {
 import React, { useState } from "react";
 import NextComponent from "./NextComponent";
 function SpecialRequest(props) {
-  console.log(props.userData.request);
-  const handleCheck = (check, price) => {
-    console.log(props.userData);
-    console.log(props.userData.request.length);
-    if (props.userData.request.length === 0) {
-      props.setdata({
-        ...props.userData,
-        request: [
-          ...props.userData.request,
-          { ["req"]: check, ["price"]: price },
-        ],
+  const handleCheck = (check, price, event) => {
+    event.preventDefault();
+    const hasRequest = props.specialRequest.find((item) => item.req === check);
+    if (hasRequest) {
+      const newRequest = props.specialRequest.filter((item) => {
+        return item.req !== check;
       });
+      props.setSpecialRequest(newRequest);
+      const sum = props.specialRequest.reduce((acc, item) => {
+        return acc + item.price;
+      }, 0);
+      props.setTotalPrice(props.totalPrice - sum);
     } else {
-      for (let i of props.userData.request) {
-        const index = props.userData.request.indexOf(i);
-        if (i.req === check) {
-          props.userData.request.splice(index, 1);
-        } else {
-          props.setdata({
-            ...props.userData,
-            request: [
-              ...props.userData.request,
-              { ["req"]: check, ["price"]: price },
-            ],
-          });
-        }
-      }
+      props.setSpecialRequest([
+        ...props.specialRequest,
+        { ["req"]: check, ["price"]: price },
+      ]);
+      const sum = props.specialRequest.reduce((acc, item) => {
+        return acc + item.price;
+      }, 0);
+      props.setTotalPrice(props.totalPrice + sum);
     }
-    // props.setdata({
-    //   ...props.userData,
-    //   request: [
-    //     ...props.userData.request,
-    //     { ["req"]: check, ["price"]: price },
-    //   ],
-    // });
-    // for (let i of props.userData.request) {
-    //   const index = props.userData.request.indexOf(i);
+  };
+  const handleCheckStandard = (check, event) => {
+    event.preventDefault();
+    const hasRequest = props.standardRequest.find((item) => item.req === check);
+    if (hasRequest) {
+      const newRequest = props.standardRequest.filter((item) => {
+        return item.req !== check;
+      });
 
-    //   if (i["req"] === check) {
-    //     props.userData.request.splice(index, 1);
-    //     console.log(props.userData);
-    //   } else {
-    //     props.setdata({
-    //       ...props.userData,
-    //       request: [...i, ...{ ["req"]: check, ["price"]: price }],
-    //     });
-    //   }
-    // }
+      props.setStandardRequest(newRequest);
+    } else {
+      props.setStandardRequest([
+        ...props.standardRequest,
+        { ["standard_req"]: check },
+      ]);
+    }
   };
   const bgColorBox = (index) => {
     if (index === 0) {
@@ -104,7 +94,7 @@ function SpecialRequest(props) {
                 value="Early check-in"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("earlyCheckin", event.target.value);
+                  handleCheckStandard("Early check-in", event);
                 }}
               >
                 Early check-in
@@ -113,7 +103,7 @@ function SpecialRequest(props) {
                 value="Late check-out"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("lateCheckin", event.target.value);
+                  handleCheckStandard("Late check-out", event);
                 }}
               >
                 Late check-out
@@ -122,7 +112,7 @@ function SpecialRequest(props) {
                 value="Non-smoking room"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("nonSmoke", event.target.value);
+                  handleCheckStandard("Non-smoking room", event);
                 }}
               >
                 Non-smoking room
@@ -131,7 +121,7 @@ function SpecialRequest(props) {
                 value="A room on the high floor"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("highFloor", event.target.value);
+                  handleCheckStandard("A room on the high floor", event);
                 }}
               >
                 A room on the high floor
@@ -140,7 +130,7 @@ function SpecialRequest(props) {
                 value="A quiet room"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("quietRoom", event.target.value);
+                  handleCheckStandard("A quiet room", event);
                 }}
               >
                 A quiet room
@@ -178,7 +168,7 @@ function SpecialRequest(props) {
                 value="Baby cot"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("babyCot", 400);
+                  handleCheck("Baby cot", 400, event);
                 }}
               >
                 Baby cot (+THB 400)
@@ -187,7 +177,7 @@ function SpecialRequest(props) {
                 value="Airport transfer"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("airport", 200);
+                  handleCheck("Airport transfer", 200, event);
                 }}
               >
                 Airport transfer (+THB 200)
@@ -196,7 +186,7 @@ function SpecialRequest(props) {
                 value="Extra bed"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("extraBed", 500);
+                  handleCheck("Extra bed", 500, event);
                 }}
               >
                 Extra bed (+THB 500)
@@ -205,7 +195,7 @@ function SpecialRequest(props) {
                 value="Extra pillows"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("extraPillow", 100);
+                  handleCheck("Extra pillows", 100, event);
                 }}
               >
                 Extra pillows (+THB 100)
@@ -214,7 +204,7 @@ function SpecialRequest(props) {
                 value="Phone chargers and adapters"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("charger", 100);
+                  handleCheck("Phone chargers and adapters", 100, event);
                 }}
               >
                 Phone chargers and adapters (+THB 100)
@@ -223,7 +213,7 @@ function SpecialRequest(props) {
                 value="Breakfast"
                 _checked={{ color: "black" }}
                 onChange={(event) => {
-                  handleCheck("breakfast", 150);
+                  handleCheck("Breakfast", 150, event);
                 }}
               >
                 Breakfast (+150)

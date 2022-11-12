@@ -1,23 +1,11 @@
 import { GridItem, Text, Flex, Img } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { useHotel } from "../../contexts/reservation";
-import axios from "axios";
+import moment from "moment";
 
 function BookingDetail(props) {
-  const [reserveDetail, setReserveDetail] = useState([]);
-  const [listReq, setlist] = useState();
   const searchDetail = useHotel();
-  const { roomId } = useHotel();
-  console.log(props.userData);
-  const getData = async () => {
-    const res = await axios.get(`http://localhost:4000/rooms/${roomId}`);
-    setReserveDetail(res.data.data);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-
   return (
     <Flex
       className="booking-detail"
@@ -170,7 +158,7 @@ function BookingDetail(props) {
           mb="24px"
           // bg="blue.100"
         >
-          {reserveDetail.map((room) => {
+          {props.reserveDetail.map((room) => {
             return (
               <>
                 <Flex
@@ -200,45 +188,50 @@ function BookingDetail(props) {
             );
           })}
         </Flex>
-
-        <Flex
-          className="special-request"
-          display="flex"
-          direction="row"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          w="310px"
-          color="white"
-          fontWeight="400"
-          fontFamily={"Inter"}
-          ml="20px"
-          mb="24px"
-          // bg="blue.100"
-        >
-          <Flex
-            className="special-request-option"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="space-between"
-            w="70%"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            Airport tranfer
-          </Flex>
-          <Flex
-            className="special-request-cost"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            200.00
-          </Flex>
-        </Flex>
+        {props.specialRequest.length === 0
+          ? null
+          : props.specialRequest.map((data) => {
+              return (
+                <Flex
+                  className="special-request"
+                  display="flex"
+                  direction="row"
+                  alignItems="flex-start"
+                  justifyContent="space-between"
+                  w="310px"
+                  color="white"
+                  fontWeight="400"
+                  fontFamily={"Inter"}
+                  ml="20px"
+                  mb="24px"
+                  // bg="blue.100"
+                >
+                  <Flex
+                    className="special-request-option"
+                    display="flex"
+                    direction="column"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="70%"
+                    // bg="blue.200"
+                    fontSize="16px"
+                  >
+                    {data.req}
+                  </Flex>
+                  <Flex
+                    className="special-request-cost"
+                    display="flex"
+                    direction="column"
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                    // bg="blue.200"
+                    fontSize="16px"
+                  >
+                    {data.price}.00
+                  </Flex>
+                </Flex>
+              );
+            })}
 
         <Flex
           className="special-request"
@@ -324,7 +317,19 @@ function BookingDetail(props) {
             // bg="blue.200"
             fontSize="20px"
           >
-            THB 2,300.00
+            THB{" "}
+            {props.reserveDetail.reduce((acc, item) => {
+              return (
+                acc +
+                Number(item.promotion_price) *
+                  (Number(moment(searchDetail.checkOut).format("DD")) -
+                    Number(moment(searchDetail.checkIn).format("DD")))
+              );
+            }, 0) +
+              props.specialRequest.reduce((acc, item) => {
+                return acc + item.price;
+              }, 0)}
+            .00
           </Flex>
         </Flex>
       </Flex>
