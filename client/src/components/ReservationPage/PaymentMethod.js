@@ -29,13 +29,18 @@ function PaymentNethod(props) {
         return (
           acc +
           Number(item.promotion_price) *
-            (Number(moment(searchDetail.checkOut).format("DD")) -
-              Number(moment(searchDetail.checkIn).format("DD")))
+            Number(
+              moment(searchDetail.checkOut).diff(
+                moment(searchDetail.checkIn),
+                "days"
+              )
+            )
         );
       }, 0) +
       props.specialRequest.reduce((acc, item) => {
         return acc + item.price;
       }, 0);
+    const amountRoom = searchDetail.room;
     const data = {
       checkIn,
       checkOut,
@@ -45,6 +50,7 @@ function PaymentNethod(props) {
       specialRequest,
       standardRequest,
       sumPrice,
+      amountRoom,
     };
 
     reserveRooms(data);

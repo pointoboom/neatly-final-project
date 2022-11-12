@@ -20,7 +20,6 @@ function RoomsSearch() {
     getData();
   }, []);
   const { roomId, setRoomId } = useHotel();
-  console.log(roomDetails);
 
   return (
     <VStack

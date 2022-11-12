@@ -17,7 +17,6 @@ authRouter.get("/", async (req, res) => {
 });
 authRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   const result = await pool.query("select * from users where user_id = $1", [
     id,
   ]);
