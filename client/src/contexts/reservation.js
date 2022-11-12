@@ -49,6 +49,7 @@ function HotelProvider(props) {
         setRoomId,
         handleSetRoomId,
         reserveRooms,
+        setTabIndex,
       }}
     >
       {props.children}
