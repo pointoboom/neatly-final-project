@@ -37,10 +37,12 @@ function SpecialRequest(props) {
   };
   const handleCheckStandard = (check, event) => {
     event.preventDefault();
-    const hasRequest = props.standardRequest.find((item) => item.req === check);
+    const hasRequest = props.standardRequest.find(
+      (item) => item.standard_req === check
+    );
     if (hasRequest) {
       const newRequest = props.standardRequest.filter((item) => {
-        return item.req !== check;
+        return item.standard_req !== check;
       });
 
       props.setStandardRequest(newRequest);
