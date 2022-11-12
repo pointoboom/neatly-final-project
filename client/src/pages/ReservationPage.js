@@ -147,12 +147,23 @@ function ReservationPage() {
                   totalPrice={totalPrice}
                   setTotalPrice={setTotalPrice}
                 />
-                <PaymentNethod userData={user} setdata={setUserdata} />
+                <PaymentNethod
+                  userData={user}
+                  setdata={setUserdata}
+                  specialRequest={specialRequest}
+                  setSpecialRequest={setSpecialRequest}
+                  standardRequest={standardRequest}
+                  setStandardRequest={setStandardRequest}
+                  totalPrice={totalPrice}
+                  setTotalPrice={setTotalPrice}
+                  reserveDetail={reserveDetail}
+                />
               </TabPanels>
 
               <BookingDetail
                 userData={user}
                 specialRequest={specialRequest}
+                standardRequest={standardRequest}
                 reserveDetail={reserveDetail}
                 totalPrice={totalPrice}
                 setTotalPrice={setTotalPrice}

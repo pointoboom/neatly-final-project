@@ -1,5 +1,6 @@
 import authRouter from "./apps/auth.js";
 import roomRouter from "./apps/room.js";
+import reserveRouter from "./apps/reservation.js";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -20,6 +21,7 @@ async function init() {
   app.use(bodyParser.json());
   app.use("/auth", authRouter);
   app.use("/rooms", roomRouter);
+  app.use("/reserve", reserveRouter);
 
   app.get("/", (req, res) => {
     res.send("Hello World!");

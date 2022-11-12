@@ -9,21 +9,45 @@ import {
 import { useAuth } from "../../contexts/authentication";
 import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
+import moment from "moment";
 function PaymentNethod(props) {
-  const [cardnum, setCardnum] = useState("");
-  const [cardowner, setCardowner] = useState("");
-  const [expdate, setExpdate] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [user, setUserdata] = useState(null);
   const auth = useAuth();
-  const tab = useHotel();
-  const { handleTabsBack } = useHotel();
-  // console.log(props.userData);
-  const bgColorBox = (index) => {
-    if (index === 0) {
-    }
+  const { handleTabsBack, reserveRooms } = useHotel();
+
+  const searchDetail = useHotel();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const checkIn = searchDetail.checkIn;
+    const checkOut = searchDetail.checkOut;
+    const guest = searchDetail.guest;
+    const userId = auth.state.user.id;
+    const roomId = searchDetail.roomId;
+    const specialRequest = props.specialRequest;
+    const standardRequest = props.standardRequest;
+    const sumPrice =
+      props.reserveDetail.reduce((acc, item) => {
+        return (
+          acc +
+          Number(item.promotion_price) *
+            (Number(moment(searchDetail.checkOut).format("DD")) -
+              Number(moment(searchDetail.checkIn).format("DD")))
+        );
+      }, 0) +
+      props.specialRequest.reduce((acc, item) => {
+        return acc + item.price;
+      }, 0);
+    const data = {
+      checkIn,
+      checkOut,
+      guest,
+      userId,
+      roomId,
+      specialRequest,
+      standardRequest,
+      sumPrice,
+    };
+
+    reserveRooms(data);
   };
 
   return (
@@ -217,6 +241,9 @@ function PaymentNethod(props) {
               color="white"
               bg="rgba(193, 72, 23, 1)"
               _hover={{ background: "#E76B39" }}
+              onClick={(event) => {
+                handleSubmit(event);
+              }}
             >
               Confirm Booking
             </Button>

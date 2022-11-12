@@ -27,6 +27,9 @@ function HotelProvider(props) {
       setTabIndex(tabIndex - 1);
     }
   };
+  const reserveRooms = async (data) => {
+    const result = await axios.post("http://localhost:4000/reserve/", data);
+  };
   return (
     <hotelContext.Provider
       value={{
@@ -45,6 +48,7 @@ function HotelProvider(props) {
         roomId,
         setRoomId,
         handleSetRoomId,
+        reserveRooms,
       }}
     >
       {props.children}

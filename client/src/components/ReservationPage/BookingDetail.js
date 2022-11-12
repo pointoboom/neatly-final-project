@@ -2,10 +2,45 @@ import { GridItem, Text, Flex, Img } from "@chakra-ui/react";
 import React from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { useHotel } from "../../contexts/reservation";
+import { useAuth } from "../../contexts/authentication";
 import moment from "moment";
 
 function BookingDetail(props) {
   const searchDetail = useHotel();
+  const auth = useAuth();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const checkIn = searchDetail.checkIn;
+    const checkOut = searchDetail.checkOut;
+    const guest = searchDetail.guest;
+    const userId = auth.state.user.id;
+    const roomId = searchDetail.roomId;
+    const specialRequest = props.specialRequest;
+    const standardRequest = props.standardRequest;
+    const sumPrice =
+      props.reserveDetail.reduce((acc, item) => {
+        return (
+          acc +
+          Number(item.promotion_price) *
+            (Number(moment(searchDetail.checkOut).format("DD")) -
+              Number(moment(searchDetail.checkIn).format("DD")))
+        );
+      }, 0) +
+      props.specialRequest.reduce((acc, item) => {
+        return acc + item.price;
+      }, 0);
+    const data = {
+      checkIn,
+      checkOut,
+      guest,
+      userId,
+      roomId,
+      specialRequest,
+      standardRequest,
+      sumPrice,
+    };
+    console.log(data);
+  };
   return (
     <Flex
       className="booking-detail"
