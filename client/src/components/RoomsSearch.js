@@ -1,12 +1,16 @@
 import { Button, Text } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
-// import { Image } from "@chakra-ui/react";
 import { VStack, StackDivider } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useHotel } from "../contexts/reservation";
 
 function RoomsSearch() {
+  const navigate = useNavigate();
+  const room = useHotel();
+  const { handleSetRoomId } = useHotel();
   const [roomDetails, setRoomDetails] = useState([]);
   useEffect(() => {
     const getData = async () => {
@@ -15,8 +19,7 @@ function RoomsSearch() {
     };
     getData();
   }, []);
-
-  console.log(roomDetails);
+  const { roomId, setRoomId } = useHotel();
 
   return (
     <VStack
@@ -89,6 +92,10 @@ function RoomsSearch() {
                   fontFamily={"Open Sans"}
                   fontSize="lg"
                   _hover={{ background: "#E76B39" }}
+                  onClick={() => {
+                    setRoomId(data.room_types_id);
+                    navigate("/reservation");
+                  }}
                 >
                   Book Now
                 </Button>

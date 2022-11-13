@@ -1,7 +1,14 @@
 import { GridItem, Text, Flex, Img } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
-function BookingDetail() {
+import { useHotel } from "../../contexts/reservation";
+import { useAuth } from "../../contexts/authentication";
+import moment from "moment";
+
+function BookingDetail(props) {
+  const searchDetail = useHotel();
+  const auth = useAuth();
+
   return (
     <Flex
       className="booking-detail"
@@ -125,9 +132,9 @@ function BookingDetail() {
           fontFamily={"Inter"}
           m="20px"
         >
-          <Text>Th, 19 Oct 2022</Text>
-          <Text> - </Text>
-          <Text>Fri, 20 Oct 2022</Text>
+          <Text>{searchDetail.checkIn}</Text>
+          <Text mx="5px"> - </Text>
+          <Text>{searchDetail.checkOut}</Text>
         </Flex>
         <Text
           color="white"
@@ -137,7 +144,7 @@ function BookingDetail() {
           ml="20px"
           mb="40px"
         >
-          2 Guests
+          {searchDetail.guest} Guest
         </Text>
 
         <Flex
@@ -154,69 +161,80 @@ function BookingDetail() {
           mb="24px"
           // bg="blue.100"
         >
-          <Flex
-            className="room-type"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="space-between"
-            w="70%"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            Superior Garden View Room
-          </Flex>
-          <Flex
-            className="room-price"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            2500.00
-          </Flex>
+          {props.reserveDetail.map((room) => {
+            return (
+              <>
+                <Flex
+                  className="room-type"
+                  display="flex"
+                  direction="column"
+                  alignItems="flex-start"
+                  justifyContent="space-between"
+                  w="70%"
+                  // bg="blue.200"
+                  fontSize="16px"
+                >
+                  {room.type_name}
+                </Flex>
+                <Flex
+                  className="room-price"
+                  display="flex"
+                  direction="column"
+                  alignItems="flex-start"
+                  justifyContent="flex-start"
+                  // bg="blue.200"
+                  fontSize="16px"
+                >
+                  {room.promotion_price}.00
+                </Flex>
+              </>
+            );
+          })}
         </Flex>
-
-        <Flex
-          className="special-request"
-          display="flex"
-          direction="row"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          w="310px"
-          color="white"
-          fontWeight="400"
-          fontFamily={"Inter"}
-          ml="20px"
-          mb="24px"
-          // bg="blue.100"
-        >
-          <Flex
-            className="special-request-option"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="space-between"
-            w="70%"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            Airport tranfer
-          </Flex>
-          <Flex
-            className="special-request-cost"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            200.00
-          </Flex>
-        </Flex>
+        {props.specialRequest.length === 0
+          ? null
+          : props.specialRequest.map((data) => {
+              return (
+                <Flex
+                  className="special-request"
+                  display="flex"
+                  direction="row"
+                  alignItems="flex-start"
+                  justifyContent="space-between"
+                  w="310px"
+                  color="white"
+                  fontWeight="400"
+                  fontFamily={"Inter"}
+                  ml="20px"
+                  mb="24px"
+                  // bg="blue.100"
+                >
+                  <Flex
+                    className="special-request-option"
+                    display="flex"
+                    direction="column"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="70%"
+                    // bg="blue.200"
+                    fontSize="16px"
+                  >
+                    {data.req}
+                  </Flex>
+                  <Flex
+                    className="special-request-cost"
+                    display="flex"
+                    direction="column"
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                    // bg="blue.200"
+                    fontSize="16px"
+                  >
+                    {data.price}.00
+                  </Flex>
+                </Flex>
+              );
+            })}
 
         <Flex
           className="special-request"
@@ -253,7 +271,7 @@ function BookingDetail() {
             // bg="blue.200"
             fontSize="16px"
           >
-            -400.00
+            000.00
           </Flex>
         </Flex>
 
@@ -302,7 +320,23 @@ function BookingDetail() {
             // bg="blue.200"
             fontSize="20px"
           >
-            THB 2,300.00
+            THB{" "}
+            {props.reserveDetail.reduce((acc, item) => {
+              return (
+                acc +
+                Number(item.promotion_price) *
+                  Number(
+                    moment(searchDetail.checkOut).diff(
+                      moment(searchDetail.checkIn),
+                      "days"
+                    )
+                  )
+              );
+            }, 0) +
+              props.specialRequest.reduce((acc, item) => {
+                return acc + item.price;
+              }, 0)}
+            .00
           </Flex>
         </Flex>
       </Flex>

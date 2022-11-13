@@ -11,12 +11,24 @@ function HotelProvider(props) {
   const [room, setRoom] = usePersistedState("room", 2);
   const [guest, setGuest] = usePersistedState("guest", 3);
   const [tabIndex, setTabIndex] = useState(0);
+  const [roomId, setRoomId] = usePersistedState("roomID", null);
+  const handleSetRoomId = (id) => {
+    setRoomId(id);
+  };
   const handleTabsChange = () => {
     setTabIndex(tabIndex + 1);
   };
 
   const handleTabsBack = () => {
-    setTabIndex(tabIndex - 1);
+    if (tabIndex === 0) {
+      navigate("/search");
+      // setTabIndex(1);
+    } else {
+      setTabIndex(tabIndex - 1);
+    }
+  };
+  const reserveRooms = async (data) => {
+    const result = await axios.post("http://localhost:4000/reserve/", data);
   };
   return (
     <hotelContext.Provider
@@ -33,6 +45,11 @@ function HotelProvider(props) {
         tabIndex,
         handleTabsBack,
         handleTabsChange,
+        roomId,
+        setRoomId,
+        handleSetRoomId,
+        reserveRooms,
+        setTabIndex,
       }}
     >
       {props.children}

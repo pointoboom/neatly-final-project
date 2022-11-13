@@ -12,6 +12,7 @@ import { countryList } from "../data/country";
 import { DatePicker, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import ImgCrop from "antd-img-crop";
 import "antd/dist/antd.min.css";
 import validator from "validator";
 import { useAuth } from "../contexts/authentication";
@@ -320,26 +321,28 @@ function RegisterPage() {
                   Profile Picture
                 </Text>
               </Flex>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                maxCount="1"
-                showUploadList={false}
-                onChange={handleChange}
-              >
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="avatar"
-                    style={{
-                      width: "100%",
-                    }}
-                  />
-                ) : (
-                  uploadButton
-                )}
-              </Upload>
+              <ImgCrop rotate>
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  maxCount="1"
+                  showUploadList={false}
+                  onChange={handleChange}
+                >
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="avatar"
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
+                </Upload>
+              </ImgCrop>
             </Flex>
             <Divider mb="2.5rem" />
             <Flex className="card-form" direction="column" mb="60px">

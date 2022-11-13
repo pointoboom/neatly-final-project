@@ -31,7 +31,7 @@ function Navbar() {
       const userdata = jwtDecode(token);
       setUserdata(userdata);
     }
-  });
+  }, []);
 
   return (
     <Box
@@ -120,7 +120,7 @@ function Navbar() {
               <Img src="./images/Nav/noti.svg"></Img>
               <Menu>
                 <MenuButton>
-                  <Avatar name="Dan Abrahmov" src={userdata.profile_picture} />
+                  <Avatar src={userdata.profile_picture} />
                 </MenuButton>
                 <MenuList color="gray.600">
                   <MenuItem icon={<AiOutlineUser />}>Profile</MenuItem>

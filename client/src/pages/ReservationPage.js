@@ -10,59 +10,42 @@ import {
 } from "@chakra-ui/react";
 import {} from "@chakra-ui/react";
 import { useAuth } from "../contexts/authentication";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BasicInformation from "../components/ReservationPage/BasicInformmation";
 import SpecialRequest from "../components/ReservationPage/SpecialRequest";
 import PaymentNethod from "../components/ReservationPage/PaymentMethod";
 import BookingDetail from "../components/ReservationPage/BookingDetail";
 import { useHotel } from "../contexts/reservation";
+import axios from "axios";
 
 function ReservationPage() {
-  const [username, setUsername] = useState("");
-  const [fullname, setFullName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [idnumber, setIdnumber] = useState("");
-  const [cardnum, setCardnum] = useState("");
-  const [cardowner, setCardowner] = useState("");
-  const [expdate, setExpdate] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [dob, setDob] = useState("");
-  const [country, setCountry] = useState("");
+  const [user, setUserdata] = useState({
+    request: "",
+  });
+  const [specialRequest, setSpecialRequest] = useState([]);
+  const [standardRequest, setStandardRequest] = useState([]);
+  const [reserveDetail, setReserveDetail] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const searchDetail = useHotel();
+  const { roomId } = useHotel();
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
-  const onChangeDate = (value) => {
-    setDob(value._d);
+  const getData = async () => {
+    const res = await axios.get(
+      `http://localhost:4000/auth/${auth.state.user.id}`
+    );
+    setUserdata({ ...res.data.data[0], ["request"]: [] });
+    const result = await axios.get(`http://localhost:4000/rooms/${roomId}`);
+    setReserveDetail(result.data.data);
+    // setTotalPrice(
+    //   Number(reserveDetail[0].promotion_price) * Number(searchDetail.guest)
+    // );
   };
-  const handleCountry = (value) => {
-    setCountry(value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = {
-      username,
-      password,
-      fullname,
-      email,
-      idnumber,
-      cardnum,
-      cardowner,
-      expdate,
-      cvc,
-      dob,
-      country,
-      role: "user",
-      profile_picture: "test",
-    };
-    // console.log(data);
-    register(data);
-  };
-
-  const bgColorBox = (index) => {
-    if (index === 0) {
-    }
-  };
+  // console.log(user);
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -153,12 +136,39 @@ function ReservationPage() {
               // bgColor="yellow"
             >
               <TabPanels bgColor="white">
-                <BasicInformation />
-                <SpecialRequest />
-                <PaymentNethod />
+                <BasicInformation userData={user} />
+                <SpecialRequest
+                  userData={user}
+                  setdata={setUserdata}
+                  specialRequest={specialRequest}
+                  setSpecialRequest={setSpecialRequest}
+                  standardRequest={standardRequest}
+                  setStandardRequest={setStandardRequest}
+                  totalPrice={totalPrice}
+                  setTotalPrice={setTotalPrice}
+                />
+
+                <PaymentNethod
+                  userData={user}
+                  setdata={setUserdata}
+                  specialRequest={specialRequest}
+                  setSpecialRequest={setSpecialRequest}
+                  standardRequest={standardRequest}
+                  setStandardRequest={setStandardRequest}
+                  totalPrice={totalPrice}
+                  setTotalPrice={setTotalPrice}
+                  reserveDetail={reserveDetail}
+                />
               </TabPanels>
 
-              <BookingDetail />
+              <BookingDetail
+                userData={user}
+                specialRequest={specialRequest}
+                standardRequest={standardRequest}
+                reserveDetail={reserveDetail}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
+              />
             </Flex>
           </Tabs>
         </Flex>

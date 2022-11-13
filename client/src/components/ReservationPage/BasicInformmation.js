@@ -8,10 +8,13 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
 import React, { useState } from "react";
-import { DatePicker, Select } from "antd";
+import { DatePicker, Select, Form } from "antd";
 import NextComponent from "./NextComponent";
 import { useHotel } from "../../contexts/reservation";
-function BasicInformation() {
+import { countryList } from "../../data/country";
+import moment from "moment";
+function BasicInformation(props) {
+  const date = moment(props.userData.date_of_birth).format("YYYY-MM-DD");
   const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +29,10 @@ function BasicInformation() {
   const { register } = useAuth();
   const auth = useAuth();
   const tab = useHotel();
+  const dateFormat = "dd,DD MMM YYYY";
+
+  // console.log(String(moment().format("YYYY-MM-DD")));
+
   const onChangeDate = (value) => {
     setDob(value._d);
   };
@@ -49,7 +56,7 @@ function BasicInformation() {
       role: "user",
       profile_picture: "test",
     };
-    // console.log(data);
+
     register(data);
   };
 
@@ -96,11 +103,12 @@ function BasicInformation() {
               placeholder="Enter your fullname"
               width="660px"
               fontFamily={"Inter"}
+              disabled
               fontSize="16px"
               id="fullname"
               name="fullname"
               type="text"
-              value={fullname}
+              value={props.userData.fullname}
               onChange={(event) => {
                 setFullName(event.target.value);
               }}
@@ -119,13 +127,14 @@ function BasicInformation() {
               <FormControl isInvalid={auth.emailRegistered}>
                 <Input
                   placeholder="Enter your email"
+                  disabled
                   width="660px"
                   fontFamily={"Inter"}
                   fontSize="16px"
                   id="email"
                   name="email"
                   type="text"
-                  value={email}
+                  value={props.userData.email}
                   onChange={(event) => {
                     setEmail(event.target.value);
                   }}
@@ -153,11 +162,12 @@ function BasicInformation() {
                 id="idnumber"
                 name="idnumber"
                 type="number"
-                value={idnumber}
+                value={props.userData.id_number}
                 onChange={(event) => {
                   setIdnumber(event.target.value);
                 }}
                 focusBorderColor="orange.500"
+                disabled
               ></Input>
             </Flex>
 
@@ -169,17 +179,35 @@ function BasicInformation() {
                 mb="40px"
               >
                 <Text mb="15px">Date of Birth</Text>
-                <DatePicker
-                  format="dd,DD MMM YYYY"
-                  style={{
-                    width: "660px",
-                    fontFamily: "Inter",
-                    fontSize: "30px",
-                    paddingLeft: "15px",
-                  }}
-                  onChange={onChangeDate}
-                  placeholder="Enter your birthday"
-                />
+                <Form>
+                  <Form.Item>
+                    <DatePicker
+                      format="dd,DD MMM YYYY"
+                      onSelect={moment(date)}
+                      style={{
+                        width: "660px",
+                        fontFamily: "Inter",
+                        fontSize: "30px",
+                        paddingLeft: "15px",
+                      }}
+                      onChange={onChangeDate}
+                      placeholder="Enter your birthday"
+                      // defaultValue={moment()}
+                      defaultValue={moment(
+                        moment(props.userData.date_of_birth).format(
+                          "YYYY-MM-DD"
+                        )
+                      )}
+                      // defaultValue={moment(
+                      //   moment(props.userData.date_of_birth).format(
+                      //     "dd,DD MMM YYYY"
+                      //   ),
+                      //   dateFormat
+                      // )}
+                      disabled
+                    />
+                  </Form.Item>
+                </Form>
               </Flex>
             </Flex>
 
@@ -192,12 +220,18 @@ function BasicInformation() {
               <Text mb="15px">Country</Text>
               <Select
                 placeholder="Select your country"
+                options={countryList.map((item) => ({
+                  label: item.name,
+                  value: item.name,
+                }))}
                 style={{
                   width: "660px",
                   fontFamily: "Inter",
                   fontSize: "16px",
                 }}
+                value={props.userData.country}
                 onChange={handleCountry}
+                disabled
               ></Select>
             </Flex>
             <NextComponent />

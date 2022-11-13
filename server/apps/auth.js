@@ -15,7 +15,15 @@ authRouter.get("/", async (req, res) => {
     data: result.rows,
   });
 });
-
+authRouter.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const result = await pool.query("select * from users where user_id = $1", [
+    id,
+  ]);
+  return res.json({
+    data: result.rows,
+  });
+});
 authRouter.post(
   "/register",
   avatarUpload,

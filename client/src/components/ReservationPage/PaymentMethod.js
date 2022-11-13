@@ -7,19 +7,75 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
-function PaymentNethod() {
-  const [cardnum, setCardnum] = useState("");
-  const [cardowner, setCardowner] = useState("");
-  const [expdate, setExpdate] = useState("");
-  const [cvc, setCvc] = useState("");
+import moment from "moment";
+
+function PaymentNethod(props) {
   const auth = useAuth();
-  const tab = useHotel();
-  const { handleTabsBack } = useHotel();
-  const bgColorBox = (index) => {
-    if (index === 0) {
-    }
+  const { handleTabsBack, reserveRooms } = useHotel();
+
+  const searchDetail = useHotel();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const checkIn = searchDetail.checkIn;
+    const checkOut = searchDetail.checkOut;
+    const guest = searchDetail.guest;
+    const userId = auth.state.user.id;
+    const roomId = searchDetail.roomId;
+    const specialRequest = props.specialRequest;
+    const standardRequest = props.standardRequest;
+    const cardNumber = props.userData.card_number;
+    const cardOwner = props.userData.card_owner;
+    const cvc = props.userData.cvc_cvv;
+    const exp_month = props.userData.expiry_date.slice(0, 2);
+    const exp_year = props.userData.expiry_date.slice(3);
+    const sumPrice =
+      props.reserveDetail.reduce((acc, item) => {
+        return (
+          acc +
+          Number(item.promotion_price) *
+            Number(
+              moment(searchDetail.checkOut).diff(
+                moment(searchDetail.checkIn),
+                "days"
+              )
+            )
+        );
+      }, 0) +
+      props.specialRequest.reduce((acc, item) => {
+        return acc + item.price;
+      }, 0);
+    const amountRoom = searchDetail.room;
+    const data = {
+      checkIn,
+      checkOut,
+      guest,
+      userId,
+      roomId,
+      specialRequest,
+      standardRequest,
+      sumPrice,
+      amountRoom,
+      cardNumber,
+      cardOwner,
+      cvc,
+      exp_month,
+      exp_year,
+    };
+    reserveRooms(data);
+    // const { error } = await stripe.createPaymentMethod({
+    //   type: "card",
+    //   card: { number, exp_month, exp_year, cvc },
+    // });
+
+    // if (!error) {
+    //   try {
+    //     reserveRooms(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
   };
 
   return (
@@ -59,6 +115,7 @@ function PaymentNethod() {
             >
               Card Number
             </Text>
+
             <Input
               placeholder="Enter your card number"
               width="660px"
@@ -67,9 +124,12 @@ function PaymentNethod() {
               id="cardnumber"
               name="cardnumber"
               type="number"
-              value={cardnum}
+              value={props.userData.card_number}
               onChange={(event) => {
-                setCardnum(event.target.value);
+                props.setdata({
+                  ...props.userData,
+                  ["card_number"]: event.target.value,
+                });
               }}
               focusBorderColor="orange.500"
             ></Input>
@@ -93,9 +153,12 @@ function PaymentNethod() {
               id="cardowner"
               name="cardowner"
               type="text"
-              value={cardowner}
+              value={props.userData.card_owner}
               onChange={(event) => {
-                setCardowner(event.target.value);
+                props.setdata({
+                  ...props.userData,
+                  ["card_owner"]: event.target.value,
+                });
               }}
               focusBorderColor="orange.500"
             ></Input>
@@ -120,9 +183,12 @@ function PaymentNethod() {
                 id="expiredate"
                 name="expiredate"
                 type="text"
-                value={expdate}
+                value={props.userData.expiry_date}
                 onChange={(event) => {
-                  setExpdate(event.target.value);
+                  props.setdata({
+                    ...props.userData,
+                    ["expiry_date"]: event.target.value,
+                  });
                 }}
                 focusBorderColor="orange.500"
               ></Input>
@@ -145,9 +211,12 @@ function PaymentNethod() {
                 id="cvc"
                 name="cvc"
                 type="text"
-                value={cvc}
+                value={props.userData.cvc_cvv}
                 onChange={(event) => {
-                  setCvc(event.target.value);
+                  props.setdata({
+                    ...props.userData,
+                    ["cvc_cvv"]: event.target.value,
+                  });
                 }}
                 focusBorderColor="orange.500"
               ></Input>
@@ -200,6 +269,9 @@ function PaymentNethod() {
               color="white"
               bg="rgba(193, 72, 23, 1)"
               _hover={{ background: "#E76B39" }}
+              onClick={(event) => {
+                handleSubmit(event);
+              }}
             >
               Confirm Booking
             </Button>
