@@ -31,7 +31,7 @@ function Navbar() {
       const userdata = jwtDecode(token);
       setUserdata(userdata);
     }
-  });
+  }, []);
 
   return (
     <Box
@@ -47,7 +47,7 @@ function Navbar() {
     >
       <Flex>
         <HStack spacing={"42px"}>
-          <Image src="./images/logo.svg" alt="Neatly Logo" w="167px" h="45px" />
+          <Image src="/images/logo.svg" alt="Neatly Logo" w="167px" h="45px" />
           <Text
             textAlign="center"
             h="16px"
@@ -117,7 +117,7 @@ function Navbar() {
             </>
           ) : (
             <>
-              <Img src="./images/Nav/noti.svg"></Img>
+              <Img src="/images/Nav/noti.svg"></Img>
               <Menu>
                 <MenuButton>
                   <Avatar name="Dan Abrahmov" src={userdata.profile_picture} />

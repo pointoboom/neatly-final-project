@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import RegisterPage from "./RegisterPage";
 import RoomSearchPage from "./RoomSearchPage";
 import RoomDetailPage from "./RoomDetailPage";
+import LoginPage from "./LoginPage";
 function UnauthenticatedApp() {
   return (
     <div className="App">
@@ -16,7 +17,7 @@ function UnauthenticatedApp() {
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/test" element={<TestStep />} /> */}
         {/* <Route path="*" element={<LoginPage />} /> */}
-        {/* <Route path="/room-detail" element={<RoomDetailPage />} /> */}
+        <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
       </Routes>
     </div>
   );
