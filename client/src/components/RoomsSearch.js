@@ -10,6 +10,7 @@ import { useHotel } from "../contexts/reservation";
 function RoomsSearch() {
   const navigate = useNavigate();  
   const [roomDetails, setRoomDetails] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get("http://localhost:4000/rooms");
@@ -29,12 +30,12 @@ function RoomsSearch() {
     >
       {roomDetails.map((data) => {
         return (
-          <Flex>
+          <Flex key={data.room_types_id}>
             <Flex>
               <img
                 width="400px"
                 height="250px"
-                class="mr-12 my-6"
+                className="mr-12 my-6"
                 src={data.main_image_url}
               />
             </Flex>
@@ -74,15 +75,21 @@ function RoomsSearch() {
                 Per Night <br /> (Including Taxes & Fees)
               </Text>
               <Flex align="center" mb="1rem" pt="1rem">
-                <Text
+                <Button
                   color="orange.500"
                   mr="2rem"
                   fontWeight="semibold"
                   fontFamily={"Open Sans"}
                   fontSize="lg"
+                  onClick={() => {
+                    console.log(data.room_types_id);
+                    // navigate(`/room-detail/`);
+                    navigate(`/room-detail/${data.room_types_id}`);
+                  }}
+                  bg="white"
                 >
                   Room Detail
-                </Text>
+                </Button>
                 <Button
                   bg="orange.600"
                   color="white"

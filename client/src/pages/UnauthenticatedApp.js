@@ -9,6 +9,7 @@ import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 
 import RoomDetailPage from "./RoomDetailPage";
+import LoginPage from "./LoginPage";
 function UnauthenticatedApp() {
   return (
     <div className="App">
@@ -23,7 +24,7 @@ function UnauthenticatedApp() {
         <Route path="*" element={<LoginPage />} />
         <Route path="/bookingsummary" element={<BookingSummaryPage />} />
         {/* <Route path="*" element={<LoginPage />} /> */}
-        {/* <Route path="/room-detail" element={<RoomDetailPage />} /> */}
+        <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
       </Routes>
     </div>
   );
