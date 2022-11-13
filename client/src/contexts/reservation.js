@@ -2,6 +2,7 @@ import usePersistedState from "use-persisted-state-hook";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDisclosure } from "@chakra-ui/react";
 const hotelContext = React.createContext();
 
 function HotelProvider(props) {
@@ -12,6 +13,9 @@ function HotelProvider(props) {
   const [guest, setGuest] = usePersistedState("guest", 3);
   const [tabIndex, setTabIndex] = useState(0);
   const [roomId, setRoomId] = usePersistedState("roomID", null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isProcess, setProcess] = useState(true);
+  const [isSuccess, setSucess] = useState(false);
   const handleSetRoomId = (id) => {
     setRoomId(id);
   };
@@ -28,8 +32,16 @@ function HotelProvider(props) {
     }
   };
   const reserveRooms = async (data) => {
+    onOpen();
     const result = await axios.post("http://localhost:4000/reserve/", data);
+    if (result) {
+      setProcess(false);
+      if (result.data.success === true) {
+        setSucess(true);
+      }
+    }
   };
+
   return (
     <hotelContext.Provider
       value={{
@@ -50,6 +62,12 @@ function HotelProvider(props) {
         handleSetRoomId,
         reserveRooms,
         setTabIndex,
+        isOpen,
+        onClose,
+        isProcess,
+        isSuccess,
+        setProcess,
+        setSucess,
       }}
     >
       {props.children}

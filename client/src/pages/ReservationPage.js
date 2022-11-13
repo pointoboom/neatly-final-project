@@ -7,7 +7,16 @@ import {
   Text,
   Flex,
   Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  Icon,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Spinner,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import {} from "@chakra-ui/react";
 import { useAuth } from "../contexts/authentication";
 import React, { useEffect, useState } from "react";
@@ -16,9 +25,11 @@ import SpecialRequest from "../components/ReservationPage/SpecialRequest";
 import PaymentNethod from "../components/ReservationPage/PaymentMethod";
 import BookingDetail from "../components/ReservationPage/BookingDetail";
 import { useHotel } from "../contexts/reservation";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import axios from "axios";
 
 function ReservationPage() {
+  const navigate = useNavigate();
   const [user, setUserdata] = useState({
     request: "",
   });
@@ -29,6 +40,7 @@ function ReservationPage() {
   const searchDetail = useHotel();
   const { roomId } = useHotel();
   const { register } = useAuth();
+  const { onClose } = useHotel();
   const auth = useAuth();
   const tab = useHotel();
   const getData = async () => {
@@ -172,6 +184,86 @@ function ReservationPage() {
             </Flex>
           </Tabs>
         </Flex>
+        {/* <Button onClick={onOpen}>Open Modal</Button> */}
+
+        <Modal isOpen={tab.isOpen} isCentered onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent pt="50px" pl="50px">
+            <ModalBody display="flex" direction="row" alignItems="center">
+              {tab.isProcess === true ? (
+                <>
+                  <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="orange.500"
+                    size="xl"
+                    mr="40px"
+                  />
+                  <Text fontFamily={"Inter"} textColor="rgba(47, 62, 53, 1)">
+                    Payment Processing
+                  </Text>
+                </>
+              ) : tab.isSuccess === true ? (
+                <>
+                  <Icon
+                    w={12}
+                    h={12}
+                    as={AiOutlineCheckCircle}
+                    color="green"
+                    mr="40px"
+                  />
+                  <Text fontFamily={"Inter"} textColor="rgba(47, 62, 53, 1)">
+                    Payment Complete
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Icon
+                    w={12}
+                    h={12}
+                    as={AiOutlineCloseCircle}
+                    color="red"
+                    mr="40px"
+                  />
+                  <Text fontFamily={"Inter"} textColor="rgba(47, 62, 53, 1)">
+                    Payment fail. Please check credit card detail
+                  </Text>
+                </>
+              )}
+            </ModalBody>
+
+            <ModalFooter>
+              {tab.isProcess === false ? (
+                <>
+                  <Button
+                    backgroundColor="orange.600"
+                    mr={3}
+                    onClick={() => {
+                      onClose();
+                      if (tab.isSuccess === true) {
+                        navigate("/");
+                        tab.setProcess(true);
+                        tab.setSuccess(false);
+                        tab.setTabIndex(0);
+                        onClose();
+                      } else {
+                        tab.setProcess(true);
+                        tab.setSuccess(false);
+                        onClose();
+                      }
+                    }}
+                    textColor="white"
+                    _hover={{ background: "#E76B39" }}
+                    fontFamily={"Inter"}
+                  >
+                    Close
+                  </Button>
+                </>
+              ) : null}
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Flex>
     </>
   );

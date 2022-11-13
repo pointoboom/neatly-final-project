@@ -142,9 +142,18 @@ function BookingDetail(props) {
           fontWeight="400"
           fontFamily={"Inter"}
           ml="20px"
-          mb="40px"
         >
           {searchDetail.guest} Guest
+        </Text>
+        <Text
+          color="white"
+          fontSize="16px"
+          fontWeight="400"
+          fontFamily={"Inter"}
+          ml="20px"
+          mb="40px"
+        >
+          {searchDetail.room} Room
         </Text>
 
         <Flex
