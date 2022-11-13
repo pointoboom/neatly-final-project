@@ -10,12 +10,13 @@ import { useAuth } from "../../contexts/authentication";
 import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
 import moment from "moment";
+
 function PaymentNethod(props) {
   const auth = useAuth();
   const { handleTabsBack, reserveRooms } = useHotel();
 
   const searchDetail = useHotel();
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const checkIn = searchDetail.checkIn;
     const checkOut = searchDetail.checkOut;
@@ -24,6 +25,11 @@ function PaymentNethod(props) {
     const roomId = searchDetail.roomId;
     const specialRequest = props.specialRequest;
     const standardRequest = props.standardRequest;
+    const cardNumber = props.userData.card_number;
+    const cardOwner = props.userData.card_owner;
+    const cvc = props.userData.cvc_cvv;
+    const exp_month = props.userData.expiry_date.slice(0, 2);
+    const exp_year = props.userData.expiry_date.slice(3);
     const sumPrice =
       props.reserveDetail.reduce((acc, item) => {
         return (
@@ -51,9 +57,25 @@ function PaymentNethod(props) {
       standardRequest,
       sumPrice,
       amountRoom,
+      cardNumber,
+      cardOwner,
+      cvc,
+      exp_month,
+      exp_year,
     };
-
     reserveRooms(data);
+    // const { error } = await stripe.createPaymentMethod({
+    //   type: "card",
+    //   card: { number, exp_month, exp_year, cvc },
+    // });
+
+    // if (!error) {
+    //   try {
+    //     reserveRooms(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
   };
 
   return (

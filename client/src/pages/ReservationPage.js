@@ -147,6 +147,7 @@ function ReservationPage() {
                   totalPrice={totalPrice}
                   setTotalPrice={setTotalPrice}
                 />
+
                 <PaymentNethod
                   userData={user}
                   setdata={setUserdata}
