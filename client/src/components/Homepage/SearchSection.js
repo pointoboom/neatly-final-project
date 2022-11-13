@@ -4,7 +4,7 @@ import { DatePicker, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.min.css";
 
-import { useHotel } from "../contexts/reservation";
+import { useHotel } from "../../contexts/reservation";
 import moment from "moment";
 const dateFormat = "dd,DD MMM YYYY";
 

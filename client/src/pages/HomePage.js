@@ -1,28 +1,23 @@
 import React from "react";
-import About from "../components/About";
-import CustomerCarousel from "../components/CustomerCarousel";
-import SliderImage from "../components/SliderImage";
-import SearchSection from "../components/SearchSection";
-import Service from "../components/Service";
-import RoomsDetails from "../components/RoomsDetails";
+import About from "../components/Homepage/About";
+import CustomerCarousel from "../components/Homepage/CustomerCarousel";
+import SliderImage from "../components/Homepage/SliderImage";
+import SearchSection from "../components/Homepage/SearchSection";
+import Service from "../components/Homepage/Service";
+import RoomsDetails from "../components/Homepage/RoomsDetails";
 import Navbar from "../components/Navbar";
 import Footerbar from "../components/Footerbar";
 
 function HomePage() {
   return (
     <>
-      {/* // kwan navbar  */}
       <Navbar />
       <SearchSection />
       <About />
       <SliderImage />
-      {/* // nan service  */}
       <Service />
-      {/* // boy room */}
       <RoomsDetails />
-
       <CustomerCarousel />
-      {/* // nan footer */}
       <Footerbar />
     </>
   );
