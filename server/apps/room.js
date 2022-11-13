@@ -51,5 +51,4 @@ roomRouter.get("/room-detail//:roomId", async (req, res) => {
 });
 
 
-
 export default roomRouter;

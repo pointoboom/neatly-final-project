@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 00f1202 (feat: show room random other rooms)
 
@@ -25,4 +26,13 @@ LIMIT 2
 >>>>>>> 7a57157c651a23fedacbe16a278d1c4a6724ba0d
 =======
 >>>>>>> 00f1202 (feat: show room random other rooms)
+<<<<<<< HEAD
 >>>>>>> bbff7f2 (feat: show room random other rooms)
+=======
+=======
+SELECT * FROM public.room_types
+WHERE room_types_id <> 1
+ORDER BY RANDOM()
+LIMIT 2
+>>>>>>> 6534462 (feat: show room random other rooms)
+>>>>>>> df80e2a (feat: show room random other rooms)
