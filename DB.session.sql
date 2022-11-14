@@ -1,16 +1,1 @@
-create table users (
-    user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    fullname VARCHAR (30),
-    username VARCHAR (30),
-    email VARCHAR (50),
-    password VARCHAR (255),
-    id_number VARCHAR (255),
-    date_of_birth VARCHAR (50),
-    country VARCHAR (30),
-    profile_picture text,
-    role VARCHAR (10),
-    card_number VARCHAR (50),
-    card_owner VARCHAR (50),
-    expiry_date VARCHAR (50),
-    cvc_cvv INT,
-);
+select * from users

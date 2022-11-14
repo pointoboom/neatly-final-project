@@ -88,7 +88,7 @@ reserveRouter.post("/", async (req, res) => {
         let req_id;
         if (item.standard_req === "Early check-in") req_id = 1;
         else if (item.standard_req === "Late check-out") req_id = 2;
-        else if (item.standard_req === " Non-smoking room") req_id = 3;
+        else if (item.standard_req === "Non-smoking room") req_id = 3;
         else if (item.standard_req === "A room on the high floor") req_id = 4;
         else if (item.standard_req === "A quiet room") req_id = 5;
 
