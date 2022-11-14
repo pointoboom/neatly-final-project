@@ -1,10 +1,16 @@
-SELECT * FROM reservations
-LEFT  JOIN reservations_request 
-ON reservations.reservation_id = reservations_request.reservation_id
-LEFT  JOIN request
-ON reservations_request.request_id = request.request_id
-LEFT  JOIN bills
-ON reservations.reservation_id = bills.reservation_id
-where reservations.reservation_id = 27
-
-
+create table users (
+    user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    fullname VARCHAR (30),
+    username VARCHAR (30),
+    email VARCHAR (50),
+    password VARCHAR (255),
+    id_number VARCHAR (255),
+    date_of_birth VARCHAR (50),
+    country VARCHAR (30),
+    profile_picture text,
+    role VARCHAR (10),
+    card_number VARCHAR (50),
+    card_owner VARCHAR (50),
+    expiry_date VARCHAR (50),
+    cvc_cvv INT,
+);
