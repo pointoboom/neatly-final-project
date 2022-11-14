@@ -7,20 +7,45 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+
 function PaymentNethod() {
   const [cardnum, setCardnum] = useState("");
   const [cardowner, setCardowner] = useState("");
   const [expdate, setExpdate] = useState("");
   const [cvc, setCvc] = useState("");
+  const [user, setUser] = useState(null);
   const auth = useAuth();
   const tab = useHotel();
-  const { handleTabsBack } = useHotel();
+  const { handleTabsBack, getUserFromToken } = useHotel();
   const bgColorBox = (index) => {
     if (index === 0) {
     }
   };
+
+  useEffect(() => {
+    tab.getDataFromToken();
+    console.log(tab.userFromToken);
+    // const getCardDetails = async () => {
+    //   const id = tab.userFromToken.id;
+    //   console.log(id);
+    //   const res = await axios.get(
+    //     `http://localhost:4000/auth/carddetails/${id}`
+    //   );
+    //   setUser(res.data.data);
+    // };
+    // getCardDetails();
+  }, []);
+
+  // const getData = async () => {
+  //   const id = tab.userFromToken.id;
+  //   console.log(id);
+  //   const res = await axios.get(`http://localhost:4000/auth/carddetails/${id}`);
+  //   setUser(res.data.data);
+  // };
 
   return (
     <TabPanel className="third-page">

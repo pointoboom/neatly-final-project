@@ -2,6 +2,7 @@ import usePersistedState from "use-persisted-state-hook";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const hotelContext = React.createContext();
 
 function HotelProvider(props) {
@@ -11,6 +12,8 @@ function HotelProvider(props) {
   const [room, setRoom] = usePersistedState("room", 2);
   const [guest, setGuest] = usePersistedState("guest", 3);
   const [tabIndex, setTabIndex] = useState(0);
+  const [userFromToken, setUserFromToken] = useState(null);
+
   const handleTabsChange = () => {
     setTabIndex(tabIndex + 1);
   };
@@ -18,6 +21,15 @@ function HotelProvider(props) {
   const handleTabsBack = () => {
     setTabIndex(tabIndex - 1);
   };
+
+  const getDataFromToken = () => {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      const userFromToken = jwtDecode(token);
+      setUserFromToken(userFromToken);
+    }
+  };
+
   return (
     <hotelContext.Provider
       value={{
@@ -31,8 +43,10 @@ function HotelProvider(props) {
         guest,
         setGuest,
         tabIndex,
+        userFromToken,
         handleTabsBack,
         handleTabsChange,
+        getDataFromToken,
       }}
     >
       {props.children}

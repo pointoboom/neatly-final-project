@@ -31,7 +31,7 @@ function Navbar() {
       const userdata = jwtDecode(token);
       setUserdata(userdata);
     }
-  });
+  }, []);
 
   return (
     <Box
