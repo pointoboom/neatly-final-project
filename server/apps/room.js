@@ -27,7 +27,7 @@ roomRouter.get("/:roomid", async (req, res) => {
   }
 });
 
-roomRouter.get("/:roomId", async (req, res) => {
+roomRouter.get("/room-detail//:roomId", async (req, res) => {
   const roomId = req.params.roomId;
   const random = req.query.random;
 

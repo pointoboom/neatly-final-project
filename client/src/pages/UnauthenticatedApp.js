@@ -9,7 +9,7 @@ import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 
 import RoomDetailPage from "./RoomDetailPage";
-import LoginPage from "./LoginPage";
+
 function UnauthenticatedApp() {
   return (
     <div className="App">

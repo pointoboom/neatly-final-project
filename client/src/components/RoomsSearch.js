@@ -10,7 +10,7 @@ import { useHotel } from "../contexts/reservation";
 function RoomsSearch() {
   const navigate = useNavigate();  
   const [roomDetails, setRoomDetails] = useState([]);
-  const navigate = useNavigate();
+
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get("http://localhost:4000/rooms");
