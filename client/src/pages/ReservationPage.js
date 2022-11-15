@@ -20,9 +20,9 @@ import { useNavigate } from "react-router-dom";
 import {} from "@chakra-ui/react";
 import { useAuth } from "../contexts/authentication";
 import React, { useEffect, useState } from "react";
-import BasicInformation from "../components/ReservationPage/BasicInformmation";
+import BasicInformation from "../components/ReservationPage/BasicInformation";
 import SpecialRequest from "../components/ReservationPage/SpecialRequest";
-import PaymentNethod from "../components/ReservationPage/PaymentMethod";
+import PaymentMethod from "../components/ReservationPage/PaymentMethod";
 import BookingDetail from "../components/ReservationPage/BookingDetail";
 import { useHotel } from "../contexts/reservation";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
@@ -160,7 +160,7 @@ function ReservationPage() {
                   setTotalPrice={setTotalPrice}
                 />
 
-                <PaymentNethod
+                <PaymentMethod
                   userData={user}
                   setdata={setUserdata}
                   specialRequest={specialRequest}

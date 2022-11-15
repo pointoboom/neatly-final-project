@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
 import moment from "moment";
 
-function PaymentNethod(props) {
+function PaymentMethod(props) {
   const auth = useAuth();
   const { handleTabsBack, reserveRooms } = useHotel();
 
@@ -282,4 +282,4 @@ function PaymentNethod(props) {
   );
 }
 
-export default PaymentNethod;
+export default PaymentMethod;

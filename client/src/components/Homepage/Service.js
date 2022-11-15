@@ -3,6 +3,7 @@ import { Image, Stack, Text, Flex } from "@chakra-ui/react";
 function Service() {
   return (
     <Flex
+      id="service"
       display="flex"
       direction="column"
       justify="center"

@@ -5,16 +5,19 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 function RoomsDetails() {
   return (
-    <Flex direction="column" align="center" my="100px">
-      <Text
-        fontSize="6xl"
-        color="#2F3E35"
-        textAlign="center"
-        fontFamily={"Noto Serif Display"}
-        mb="30px"
-      >
-        Rooms & Suits
-      </Text>
+    <Flex direction="column" align="center">
+      <Flex id="roomssuits">
+        <Text
+          mt="100px"
+          fontSize="6xl"
+          color="#2F3E35"
+          textAlign="center"
+          fontFamily={"Noto Serif Display"}
+          mb="30px"
+        >
+          Rooms & Suits
+        </Text>
+      </Flex>
       <Flex position="relative">
         <Flex
           zIndex="popover"

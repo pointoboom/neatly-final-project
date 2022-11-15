@@ -2,6 +2,7 @@ import { Box, Text } from "@chakra-ui/react";
 function About() {
   return (
     <Box
+      id="about"
       display="flex"
       justifyContent="center"
       flexDirection="column"
