@@ -156,16 +156,14 @@ reserveRouter.post("/", async (req, res) => {
 });
 
 reserveRouter.get("/:id", async (req, res) => {
-  const roomid = req.params.id;
-  console.log(roomid);
+  const reserveid = req.params.id;
 
   const result = await pool.query(
     "SELECT *  FROM reservations LEFT  JOIN reservations_request ON reservations.reservation_id = reservations_request.reservation_id LEFT  JOIN request ON reservations_request.request_id = request.request_id LEFT  JOIN bills ON reservations.reservation_id = bills.reservation_id LEFT  JOIN users_reservations ON users_reservations.reservation_id = reservations.reservation_id LEFT  JOIN users ON users_reservations.user_id = users.user_id LEFT JOIN room_types ON room_types.room_types_id = reservations.room_type_id where reservations.reservation_id = $1",
-    [roomid]
+    [reserveid]
   );
   return res.json({
     data: result.rows,
-    totalPrice: result.rows[0].total_price,
   });
 });
 export default reserveRouter;
