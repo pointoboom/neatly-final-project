@@ -146,6 +146,7 @@ reserveRouter.post("/", async (req, res) => {
     });
   }
 });
+
 reserveRouter.get("/:reservationid", async (req, res) => {
     const reservation_id = req.params.reservationid;
   
@@ -157,6 +158,7 @@ reserveRouter.get("/:reservationid", async (req, res) => {
       data: result.rows,
     });
   });
+
 reserveRouter.get("/:roomid", async (req, res) => {
   const roomid = req.params.roomid;
 
