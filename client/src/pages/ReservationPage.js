@@ -242,7 +242,7 @@ function ReservationPage() {
                     onClick={() => {
                       onClose();
                       if (tab.isSuccess === true) {
-                        navigate("/");
+                        navigate(`/bookingsummary/${tab.reserveId}`);
                         tab.setProcess(true);
                         tab.setSuccess(false);
                         tab.setTabIndex(0);

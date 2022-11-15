@@ -7,6 +7,7 @@ import TestStep from "../components/TestStep";
 import "../App.css";
 import NotFoundPage from "./NotFoundPage";
 import ReservationPage from "./ReservationPage";
+import BookingSummaryPage from "./BookingSummaryPage";
 
 function AuthenticatedApp() {
   return (
@@ -19,6 +20,7 @@ function AuthenticatedApp() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reservation" element={<ReservationPage />} />
         <Route path="/test" element={<TestStep />} />
+        <Route path="/bookingsummary/:reserveId" element={<BookingSummaryPage />} />
       </Routes>
     </div>
   );

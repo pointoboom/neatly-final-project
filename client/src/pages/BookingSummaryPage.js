@@ -1,7 +1,8 @@
 import Navbar from "../components/Navbar";
 import { Text, Flex, Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import axios from "axios";
 import { GridItem } from "@chakra-ui/react";
 import {
   List,
@@ -12,7 +13,18 @@ import {
 } from "@chakra-ui/react";
 
 function BookingSummaryPage() {
+  const params = useParams()
   const navigate = useNavigate();
+  
+  const getReserveDetail = async () => {
+    const results = await axios(`http://localhost:4000/bookingsummary/${tab.reserveId}`);
+    setPost(results.data.data);
+    };
+    
+    useEffect(() => {
+    getPost();
+    }, []);
+
   return (
     <>
       <Navbar />;

@@ -15,7 +15,8 @@ function HotelProvider(props) {
   const [roomId, setRoomId] = usePersistedState("roomID", null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isProcess, setProcess] = useState(true);
-  const [isSuccess, setSucess] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
+  const [reserveId, setReserveId] = useState("");
   const handleSetRoomId = (id) => {
     setRoomId(id);
   };
@@ -37,9 +38,10 @@ function HotelProvider(props) {
     if (result) {
       setProcess(false);
       if (result.data.success === true) {
-        setSucess(true);
+        setSuccess(true);
       }
     }
+    setReserveId(result.data.reservationsid);
   };
 
   return (
@@ -67,7 +69,8 @@ function HotelProvider(props) {
         isProcess,
         isSuccess,
         setProcess,
-        setSucess,
+        setSuccess,
+        reserveId,
       }}
     >
       {props.children}
