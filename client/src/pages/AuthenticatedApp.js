@@ -20,7 +20,10 @@ function AuthenticatedApp() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reservation" element={<ReservationPage />} />
         <Route path="/test" element={<TestStep />} />
-        <Route path="/bookingsummary/:reserveId" element={<BookingSummaryPage />} />
+        <Route
+          path="/bookingsummary/:reserveId"
+          element={<BookingSummaryPage />}
+        />
       </Routes>
     </div>
   );

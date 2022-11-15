@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import { Text, Flex, Button } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { GridItem } from "@chakra-ui/react";
 import { useHotel } from "../contexts/reservation";
@@ -14,18 +14,20 @@ import {
 } from "@chakra-ui/react";
 
 function BookingSummaryPage() {
-  const params = useParams()
+  const params = useParams();
   const navigate = useNavigate();
-  const [reserveData, setReserveData] = useState([])
+  const [reserveData, setReserveData] = useState([]);
   const tab = useHotel();
   const getReserveDetail = async () => {
-    const results = await axios(`http://localhost:4000/reserve/${params.reserveId}`);
+    const results = await axios(
+      `http://localhost:4000/reserve/${params.reserveId}`
+    );
     setReserveData(results.data.data);
-    };
-    console.log(reserveData)
-    useEffect(() => {
+  };
+  console.log(reserveData);
+  useEffect(() => {
     getReserveDetail();
-    }, []);
+  }, []);
 
   return (
     <>
@@ -229,29 +231,34 @@ function BookingSummaryPage() {
                 2,500.00
               </Text>
             </Flex>
-
-            <Flex
-              className="spacial-req-cost"
-              display="flex"
-              direction="row"
-              alignItems="flex-start"
-              justifyContent="space-between"
-              color="white"
-              fontWeight="400"
-              mb="24px"
-              fontSize="16px"
-            >
-              <Text
-                className="spacial-req-option"
-                dispyContent="space-between"
-                color="rgba(213, 223, 218, 1)"
-              >
-                Airport tranfer
-              </Text>
-              <Text className="spacial-req-price" fontWeight="600">
-                200.00
-              </Text>
-            </Flex>
+            {reserveData.map((data) => {
+              return (
+                <>
+                  <Flex
+                    className="spacial-req-cost"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    color="white"
+                    fontWeight="400"
+                    mb="24px"
+                    fontSize="16px"
+                  >
+                    <Text
+                      className="spacial-req-option"
+                      dispyContent="space-between"
+                      color="rgba(213, 223, 218, 1)"
+                    >
+                      {data.have}
+                    </Text>
+                    <Text className="spacial-req-price" fontWeight="600">
+                      {data.price}.00
+                    </Text>
+                  </Flex>
+                </>
+              );
+            })}
 
             <Flex
               className="promotion-discount"
@@ -272,7 +279,7 @@ function BookingSummaryPage() {
                 Promotion Code
               </Text>
               <Text className="discount-price" fontWeight="600">
-                -400.00
+                00.00
               </Text>
             </Flex>
 
@@ -283,29 +290,40 @@ function BookingSummaryPage() {
               bg="rgba(228, 230, 237, 1)"
               mb="20px"
             />
-
-            <Flex
-              className="total"
-              display="flex"
-              direction="row"
-              alignItems="flex-start"
-              justifyContent="space-between"
-              color="white"
-              fontWeight="400"
-              mb="24px"
-            >
-              <Text
-                className="total-text"
-                dispyContent="space-between"
-                fontSize="16px"
-                color="rgba(213, 223, 218, 1)"
-              >
-                Total
-              </Text>
-              <Text className="total-price" fontSize="20px" fontWeight="600">
-                THB 2,300.00
-              </Text>
-            </Flex>
+            {reserveData.map((data) => {
+              if (reserveData.indexOf(data) === 0) {
+                return (
+                  <>
+                    <Flex
+                      className="total"
+                      display="flex"
+                      direction="row"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      color="white"
+                      fontWeight="400"
+                      mb="24px"
+                    >
+                      <Text
+                        className="total-text"
+                        dispyContent="space-between"
+                        fontSize="16px"
+                        color="rgba(213, 223, 218, 1)"
+                      >
+                        Total
+                      </Text>
+                      <Text
+                        className="total-price"
+                        fontSize="20px"
+                        fontWeight="600"
+                      >
+                        THB {data.total_price}.00
+                      </Text>
+                    </Flex>
+                  </>
+                );
+              }
+            })}
           </Flex>
         </Flex>
 
