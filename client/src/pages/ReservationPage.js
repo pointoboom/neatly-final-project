@@ -27,6 +27,7 @@ import BookingDetail from "../components/ReservationPage/BookingDetail";
 import { useHotel } from "../contexts/reservation";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 function ReservationPage() {
   const navigate = useNavigate();
@@ -44,17 +45,14 @@ function ReservationPage() {
   const auth = useAuth();
   const tab = useHotel();
   const getData = async () => {
-    const res = await axios.get(
-      `http://localhost:4000/auth/${auth.state.user.id}`
-    );
+    const token = localStorage.getItem("token");
+    const userdata = jwtDecode(token);
+    const res = await axios.get(`http://localhost:4000/auth/${userdata.id}`);
     setUserdata({ ...res.data.data[0], ["request"]: [] });
     const result = await axios.get(`http://localhost:4000/rooms/${roomId}`);
     setReserveDetail(result.data.data);
-    // setTotalPrice(
-    //   Number(reserveDetail[0].promotion_price) * Number(searchDetail.guest)
-    // );
   };
-  // console.log(user);
+
   useEffect(() => {
     getData();
   }, []);

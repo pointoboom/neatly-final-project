@@ -10,16 +10,17 @@ import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
 
-function AuthenticatedApp() {
+function AdminApp() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/search" element={<RoomSearchPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        {/* <Route path="/login" element={<LoginPage />} /> */}
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/reservation" element={<ReservationPage />} />
         <Route path="/test" element={<TestStep />} />
+        <Route path="/admin" element={<RoomManagement />} />
         <Route
           path="/bookingsummary/:reserveId"
           element={<BookingSummaryPage />}
@@ -29,4 +30,4 @@ function AuthenticatedApp() {
   );
 }
 
-export default AuthenticatedApp;
+export default AdminApp;

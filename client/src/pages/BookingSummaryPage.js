@@ -12,6 +12,7 @@ import {
   OrderedList,
   UnorderedList,
 } from "@chakra-ui/react";
+import moment from "moment";
 
 function BookingSummaryPage() {
   const params = useParams();
@@ -22,9 +23,17 @@ function BookingSummaryPage() {
     const results = await axios(
       `http://localhost:4000/reserve/${params.reserveId}`
     );
-    setReserveData(results.data.data);
+    const data = results.data.data.map((data) => {
+      const check_in_date = moment(data.check_in_date).format("dd,DD MMM YYYY");
+      const check_out_date = moment(data.check_out_date).format(
+        "dd,DD MMM YYYY"
+      );
+
+      data = { ...data, check_in_date, check_out_date };
+      return data;
+    });
+    setReserveData(data);
   };
-  console.log(reserveData);
   useEffect(() => {
     getReserveDetail();
   }, []);
@@ -123,11 +132,16 @@ function BookingSummaryPage() {
               pt="20px"
               fontSize="16px"
             >
-              <Flex color="white" fontWeight="600" m="20px">
-                <Text>Th, 19 Oct 2022</Text>
-                <Text mx="10px">-</Text>
-                <Text>Fri, 20 Oct 2022</Text>
-              </Flex>
+              {reserveData.map((data) => {
+                return (
+                  <Flex color="white" fontWeight="600" m="20px">
+                    <Text>{data.check_in_date}</Text>
+                    <Text mx="10px">-</Text>
+                    <Text>{tab.checkOut}</Text>
+                  </Flex>
+                );
+              })}
+
               <Flex>
                 <Text color="white" fontWeight="400" ml="20px" mb="40px">
                   2 Guests

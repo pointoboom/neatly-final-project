@@ -93,5 +93,6 @@ export async function login(req, res) {
     message: "login succesfully",
     success: true,
     token,
+    role: user.rows[0].role,
   });
 }

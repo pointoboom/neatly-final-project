@@ -16,6 +16,7 @@ function AuthProvider(props) {
   });
   const [emailRegistered, setEmailRegis] = useState(false);
   const [loginfail, setLoginSuccess] = useState(true);
+  const [isAdmin, setIsAdmin] = usePersistedState("admin", false);
   let isEmailRegistered = false;
   const navigate = useNavigate();
   // make a login request
@@ -27,7 +28,12 @@ function AuthProvider(props) {
       const DataFromToken = jwtDecode(token);
       setState({ ...state, user: DataFromToken });
       setLoginSuccess(true);
-      navigate("/");
+      if (result.data.role === "admin") {
+        setIsAdmin(true);
+        navigate("/");
+      } else {
+        navigate("/");
+      }
     } else {
       setLoginSuccess(false);
     }
@@ -54,6 +60,7 @@ function AuthProvider(props) {
   const logout = () => {
     localStorage.removeItem("token");
     setState({ ...state, user: null });
+    setIsAdmin(false);
     tab.setTabIndex(0);
     navigate("/login");
   };
@@ -71,6 +78,7 @@ function AuthProvider(props) {
         isEmailRegistered,
         emailRegistered,
         loginfail,
+        isAdmin,
       }}
     >
       {props.children}
