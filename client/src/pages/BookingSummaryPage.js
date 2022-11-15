@@ -1,9 +1,10 @@
 import Navbar from "../components/Navbar";
 import { Text, Flex, Button } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { GridItem } from "@chakra-ui/react";
+import { useHotel } from "../contexts/reservation";
 import {
   List,
   ListItem,
@@ -15,14 +16,15 @@ import {
 function BookingSummaryPage() {
   const params = useParams()
   const navigate = useNavigate();
-  
+  const [reserveData, setReserveData] = useState([])
+  const tab = useHotel();
   const getReserveDetail = async () => {
-    const results = await axios(`http://localhost:4000/bookingsummary/${tab.reserveId}`);
-    setPost(results.data.data);
+    const results = await axios(`http://localhost:4000/reserve/${params.reserveId}`);
+    setReserveData(results.data.data);
     };
-    
+    console.log(reserveData)
     useEffect(() => {
-    getPost();
+    getReserveDetail();
     }, []);
 
   return (
