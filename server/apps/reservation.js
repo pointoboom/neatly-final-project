@@ -5,6 +5,7 @@ const stripe = new Stripe(
   "sk_test_51M3GnmJPsAkb5CJr0bn5EbkjmC74103qjI3F5nR5iOTGdkEoWfgzw0DASleURWLOwC2ojBNX5RAS2c5iFiLuihDY00oj8F1qLs"
 );
 const reserveRouter = Router();
+import moment from "moment";
 
 reserveRouter.post("/", async (req, res) => {
   try {
@@ -33,9 +34,11 @@ reserveRouter.post("/", async (req, res) => {
         ...req.body,
         booking_date: new Date(),
         payment_method: "credit card",
+        created_at: new Date(),
       };
 
       console.log("newReservations", newReservations);
+
       //1
       const reservationsid = await pool.query(
         `insert into reservations
@@ -43,8 +46,8 @@ reserveRouter.post("/", async (req, res) => {
              VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
         [
           newReservations.booking_date,
-          newReservations.checkIn,
-          newReservations.checkOut,
+          moment(newReservations.checkIn).format(),
+          moment(newReservations.checkOut).format(),
           newReservations.roomId,
           newReservations.amountRoom,
           newReservations.guest,
@@ -52,7 +55,7 @@ reserveRouter.post("/", async (req, res) => {
         ]
       );
 
-      console.log("reservation_id",reservationsid.rows[0].reservation_id);
+      console.log("reservation_id", reservationsid.rows[0].reservation_id);
       // console.log(reservationsid.rows[0].userId);
 
       newReservations.specialRequest.map(async (item) => {
@@ -115,9 +118,13 @@ reserveRouter.post("/", async (req, res) => {
       //2
       await pool.query(
         `insert into bills
-         (reservation_id, total_price)
-         VALUES ($1, $2) `,
-        [reservationsid.rows[0].reservation_id, newReservations.sumPrice]
+         (reservation_id, total_price,created_at)
+         VALUES ($1, $2, $3) `,
+        [
+          reservationsid.rows[0].reservation_id,
+          newReservations.sumPrice,
+          newReservations.created_at,
+        ]
       );
 
       //3
@@ -152,7 +159,7 @@ reserveRouter.get("/:roomid", async (req, res) => {
   const roomid = req.params.roomid;
 
   const result = await pool.query(
-    "select type_name,promotion_price from room_types where room_types_id = $1",
+    "SELECT * FROM reservations LEFT  JOIN reservations_request ON reservations.reservation_id = reservations_request.reservation_id LEFT  JOIN request ON reservations_request.request_id = request.request_id LEFT  JOIN bills ON reservations.reservation_id = bills.reservation_id LEFT  JOIN users_reservations ON users_reservations.reservation_id = reservations.reservation_idLEFT  JOIN users ON users_reservations.user_id = users.user_id LEFT JOIN room_types ON room_types.room_types_id = reservations.room_type_id where reservations.reservation_id = $1",
     [roomid]
   );
   return res.json({
