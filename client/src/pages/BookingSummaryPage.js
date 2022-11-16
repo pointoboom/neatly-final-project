@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import { Text, Flex, Button } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { GridItem } from "@chakra-ui/react";
 import { useHotel } from "../contexts/reservation";
@@ -12,20 +12,34 @@ import {
   OrderedList,
   UnorderedList,
 } from "@chakra-ui/react";
+import moment from "moment";
 
-function BookingSummaryPage() {
-  const params = useParams()
+function BookingSummaryPage(props) {
+  const params = useParams();
   const navigate = useNavigate();
-  const [reserveData, setReserveData] = useState([])
+  const [reserveData, setReserveData] = useState([]);
   const tab = useHotel();
+
   const getReserveDetail = async () => {
-    const results = await axios(`http://localhost:4000/reserve/${params.reserveId}`);
-    setReserveData(results.data.data);
-    };
-    console.log(reserveData)
-    useEffect(() => {
+    const results = await axios(
+      `http://localhost:4000/reserve/${params.reserveId}`
+    );
+    const data = results.data.data.map((data) => {
+      const check_in_date = moment(data.check_in_date).format("dd,DD MMM YYYY");
+      const check_out_date = moment(data.check_out_date).format(
+        "dd,DD MMM YYYY"
+      );
+
+      data = { ...data, check_in_date, check_out_date };
+      return data;
+    });
+    setReserveData(data);
+  };
+  console.log(reserveData);
+
+  useEffect(() => {
     getReserveDetail();
-    }, []);
+  }, []);
 
   return (
     <>
@@ -117,21 +131,36 @@ function BookingSummaryPage() {
               direction="column"
               alignItems="flex-start"
               justifyContent="flex-start"
-              w="50%"
+              w="60%"
               pt="20px"
               fontSize="16px"
             >
-              <Flex color="white" fontWeight="600" m="20px">
-                <Text>Th, 19 Oct 2022</Text>
-                <Text mx="10px">-</Text>
-                <Text>Fri, 20 Oct 2022</Text>
-              </Flex>
-              <Flex>
-                <Text color="white" fontWeight="400" ml="20px" mb="40px">
-                  2 Guests
-                </Text>
-              </Flex>
+              {reserveData.map((data) => {
+                if (reserveData.indexOf(data) === 0) {
+                  return (
+                    <>
+                      <Flex color="white" fontWeight="600" m="20px">
+                        <Text>{data.check_in_date}</Text>
+                        <Text mx="10px">-</Text>
+                        <Text>{data.check_out_date}</Text>
+                      </Flex>
+
+                      <Flex>
+                        <Text
+                          color="white"
+                          fontWeight="400"
+                          ml="20px"
+                          mb="40px"
+                        >
+                          {data.guest_no} Guests
+                        </Text>
+                      </Flex>
+                    </>
+                  );
+                }
+              })}
             </Flex>
+
             <Flex
               className="booking-date-cond"
               display="flex"
@@ -140,39 +169,93 @@ function BookingSummaryPage() {
               justifyContent="center"
               w="50%"
             >
-              <Flex
-                className="check-in-cond"
-                display="flex"
-                direction="column"
-                alignItems="flex-start"
-                justifyContent="space-between"
-                mb="20px"
-                p="20px"
-                color="white"
-                fontSize="16px"
-              >
-                <Text fontWeight="600" mb="8px">
-                  Check-in
-                </Text>
-                <Text fontWeight="400">After 2:00 PM</Text>
-              </Flex>
+              {reserveData.map((room, index) => {
+                return (
+                  <>
+                    {room.type == "standardRequest" ? (
+                      room.have === "Early check-in" ? (
+                        <Flex
+                          className="check-in-cond"
+                          display="flex"
+                          direction="column"
+                          alignItems="flex-start"
+                          justifyContent="space-between"
+                          mb="20px"
+                          p="10px"
+                          color="white"
+                          fontSize="16px"
+                        >
+                          <Text fontWeight="600" mb="8px">
+                            Check-in
+                          </Text>
+                          <Text fontWeight="400">{room.have}</Text>
+                        </Flex>
+                      ) : null
+                    ) : reserveData.indexOf(room) === reserveData.length - 1 ? (
+                      <Flex
+                        className="check-in-cond"
+                        display="flex"
+                        direction="column"
+                        alignItems="flex-start"
+                        justifyContent="space-between"
+                        mb="20px"
+                        p="10px"
+                        color="white"
+                        fontSize="16px"
+                      >
+                        <Text fontWeight="600" mb="8px">
+                          Check-in
+                        </Text>
+                        <Text fontWeight="400">After 2:00 PM</Text>
+                      </Flex>
+                    ) : null}
+                  </>
+                );
+              })}
 
-              <Flex
-                className="Check-out-cond"
-                display="flex"
-                direction="column"
-                alignItems="flex-start"
-                justifyContent="space-between"
-                mb="20px"
-                p="20px"
-                color="white"
-                fontSize="16px"
-              >
-                <Text fontWeight="600" mb="8px">
-                  Check-out
-                </Text>
-                <Text fontWeight="400">Before 12:00 PM</Text>
-              </Flex>
+              {reserveData.map((room, index) => {
+                return (
+                  <>
+                    {room.type == "standardRequest" ? (
+                      room.have === "Late check-out" ? (
+                        <Flex
+                          className="check-out-cond"
+                          display="flex"
+                          direction="column"
+                          alignItems="flex-start"
+                          justifyContent="space-between"
+                          mb="20px"
+                          p="10px"
+                          color="white"
+                          fontSize="16px"
+                        >
+                          <Text fontWeight="600" mb="8px">
+                            Check-out
+                          </Text>
+                          <Text fontWeight="400">{room.have}</Text>
+                        </Flex>
+                      ) : null
+                    ) : reserveData.indexOf(room) === reserveData.length - 1 ? (
+                      <Flex
+                        className="check-out-cond"
+                        display="flex"
+                        direction="column"
+                        alignItems="flex-start"
+                        justifyContent="space-between"
+                        mb="20px"
+                        p="10px"
+                        color="white"
+                        fontSize="16px"
+                      >
+                        <Text fontWeight="600" mb="8px">
+                          Check-out
+                        </Text>
+                        <Text fontWeight="400">Before 12:00 AM</Text>
+                      </Flex>
+                    ) : null}
+                  </>
+                );
+              })}
             </Flex>
           </Flex>
 
@@ -188,12 +271,20 @@ function BookingSummaryPage() {
             mb="40px"
             fontSize="16px"
           >
-            <Text className="payment-via" mr="20px">
-              Payment success via
-            </Text>
-            <Text className="credit-card" fontWeight="600">
-              Credit Card - *888
-            </Text>
+            {reserveData.map((data) => {
+              if (reserveData.indexOf(data) === 0) {
+                return (
+                  <>
+                    <Text className="payment-via" mr="20px">
+                      Payment success via
+                    </Text>
+                    <Text className="credit-card" fontWeight="600">
+                      Credit Card - *{data.card_number.slice(-3)}
+                    </Text>
+                  </>
+                );
+              }
+            })}
           </Flex>
 
           <Flex
@@ -207,53 +298,69 @@ function BookingSummaryPage() {
             fontWeight="400"
             mb="24px"
           >
-            <Flex
-              className="room-type-cost"
-              display="flex"
-              direction="row"
-              alignItems="flex-start"
-              justifyContent="space-between"
-              color="white"
-              fontWeight="400"
-              mb="24px"
-              fontSize="16px"
-            >
-              <Text
-                className="room-type-name"
-                dispyContent="space-between"
-                color="rgba(213, 223, 218, 1)"
-              >
-                Superior Garden View Room
-              </Text>
-              <Text className="room-type-price" fontWeight="600">
-                2,500.00
-              </Text>
-            </Flex>
+            {reserveData.map((room, index) => {
+              return (
+                <>
+                  {index == 0 ? (
+                    <Flex
+                      className="room-type-cost"
+                      display="flex"
+                      direction="row"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      color="white"
+                      fontWeight="400"
+                      mb="24px"
+                      fontSize="16px"
+                    >
+                      <Text
+                        className="room-type-name"
+                        dispyContent="space-between"
+                        color="rgba(213, 223, 218, 1)"
+                      >
+                        {room.type_name}
+                      </Text>
+                      <Text className="room-type-price" fontWeight="600">
+                        {room.promotion_price}.00
+                      </Text>{" "}
+                    </Flex>
+                  ) : null}
+                </>
+              );
+            })}
 
-            <Flex
-              className="spacial-req-cost"
-              display="flex"
-              direction="row"
-              alignItems="flex-start"
-              justifyContent="space-between"
-              color="white"
-              fontWeight="400"
-              mb="24px"
-              fontSize="16px"
-            >
-              <Text
-                className="spacial-req-option"
-                dispyContent="space-between"
-                color="rgba(213, 223, 218, 1)"
-              >
-                Airport tranfer
-              </Text>
-              <Text className="spacial-req-price" fontWeight="600">
-                200.00
-              </Text>
-            </Flex>
+            {reserveData.map((data) => {
+              if (reserveData.indexOf(data) === 0) {
+                return (
+                  <>
+                    <Flex
+                      className="spacial-req-cost"
+                      display="flex"
+                      direction="row"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      color="white"
+                      fontWeight="400"
+                      mb="24px"
+                      fontSize="16px"
+                    >
+                      <Text
+                        className="spacial-req-option"
+                        dispyContent="space-between"
+                        color="rgba(213, 223, 218, 1)"
+                      >
+                        {data.have}
+                      </Text>
+                      <Text className="spacial-req-price" fontWeight="600">
+                        {data.req_price}.00
+                      </Text>
+                    </Flex>
+                  </>
+                );
+              }
+            })}
 
-            <Flex
+            {/* <Flex
               className="promotion-discount"
               display="flex"
               direction="row"
@@ -274,7 +381,7 @@ function BookingSummaryPage() {
               <Text className="discount-price" fontWeight="600">
                 -400.00
               </Text>
-            </Flex>
+            </Flex> */}
 
             <GridItem
               w="100%px"
@@ -302,9 +409,20 @@ function BookingSummaryPage() {
               >
                 Total
               </Text>
-              <Text className="total-price" fontSize="20px" fontWeight="600">
-                THB 2,300.00
-              </Text>
+
+              {reserveData.map((data) => {
+                if (reserveData.indexOf(data) === 0) {
+                  return (
+                    <Text
+                      className="total-price"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      THB {data.total_price}.00
+                    </Text>
+                  );
+                }
+              })}
             </Flex>
           </Flex>
         </Flex>

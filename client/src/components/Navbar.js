@@ -49,7 +49,7 @@ function Navbar() {
         <HStack spacing={"42px"}>
           <a href="/">
             <Image
-              src="./images/logo.svg"
+              src="/images/logo.svg"
               alt="Neatly Logo"
               w="167px"
               h="45px"
@@ -133,7 +133,7 @@ function Navbar() {
             </>
           ) : (
             <>
-              <Img src="./images/Nav/noti.svg"></Img>
+              <Img src="/images/Nav/noti.svg"></Img>
               <Menu>
                 <MenuButton>
                   <Avatar src={userdata.profile_picture} />
