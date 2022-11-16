@@ -4,7 +4,7 @@ const roomRouter = Router();
 
 roomRouter.get("/", async (req, res) => {
   try {
-    const result = await pool.query("select * from room_types");
+    const result = await pool.query("SELECT * FROM public.room_types ORDER BY room_types_id ASC ");
     return res.json({
       data: result.rows,
     });

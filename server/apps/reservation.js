@@ -46,8 +46,8 @@ reserveRouter.post("/", async (req, res) => {
              VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
         [
           newReservations.booking_date,
-          moment(newReservations.checkIn)._d,
-          moment(newReservations.checkOut)._d,
+          moment(newReservations.checkIn).set({ hour: 14, minute: 0 })._d,
+          moment(newReservations.checkOut).set({ hour: 12, minute: 0 })._d,
           newReservations.roomId,
           newReservations.amountRoom,
           newReservations.guest,
