@@ -18,7 +18,7 @@ function AdminApp() {
         <Route path="/search" element={<RoomSearchPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/reservation" element={<ReservationPage />} />
+        <Route path="/reservation/:roomId" element={<ReservationPage />} />
         <Route path="/test" element={<TestStep />} />
         <Route path="/admin" element={<RoomManagement />} />
         <Route

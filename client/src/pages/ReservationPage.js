@@ -16,7 +16,7 @@ import {
   ModalCloseButton,
   Spinner,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import {} from "@chakra-ui/react";
 import { useAuth } from "../contexts/authentication";
 import React, { useEffect, useState } from "react";
@@ -31,6 +31,7 @@ import jwtDecode from "jwt-decode";
 
 function ReservationPage() {
   const navigate = useNavigate();
+  const params = useParams();
   const [user, setUserdata] = useState({
     request: "",
   });
@@ -49,7 +50,7 @@ function ReservationPage() {
     const userdata = jwtDecode(token);
     const res = await axios.get(`http://localhost:4000/auth/${userdata.id}`);
     setUserdata({ ...res.data.data[0], ["request"]: [] });
-    const result = await axios.get(`http://localhost:4000/rooms/${roomId}`);
+    const result = await axios.get(`http://localhost:4000/rooms/${params.roomId}`);
     setReserveDetail(result.data.data);
   };
 
