@@ -6,11 +6,17 @@ import LoginPage from "./LoginPage";
 import TestStep from "../components/TestStep";
 import "../App.css";
 import NotFoundPage from "./NotFoundPage";
+<<<<<<< HEAD
 import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomDetailPage from "./RoomDetailPage";
 
 
+=======
+import RoomDetailPage from "./RoomDetailPage";
+import ReservationPage from "./ReservationPage";
+import BookingSummaryPage from "./BookingSummaryPage";
+>>>>>>> 6534462bb25625a0aa2ff5cc51135fd9d38f0189
 function AuthenticatedApp() {
   return (
     <div className="App">
@@ -24,7 +30,10 @@ function AuthenticatedApp() {
         <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
         <Route path="/reservation" element={<ReservationPage />} />
         <Route path="/bookingsummary" element={<BookingSummaryPage />} />
+<<<<<<< HEAD
         <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
+=======
+>>>>>>> 6534462bb25625a0aa2ff5cc51135fd9d38f0189
       </Routes>
     </div>
   );
