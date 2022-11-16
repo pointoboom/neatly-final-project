@@ -47,40 +47,55 @@ function Navbar() {
     >
       <Flex>
         <HStack spacing={"42px"}>
-          <Image src="/images/logo.svg" alt="Neatly Logo" w="167px" h="45px" />
-          <Text
-            textAlign="center"
-            h="16px"
-            fontFamily="Open Sans"
-            fontStyle="normal"
-            fontWeight="400px"
-            fontSize="14px"
-            textColor="#000000"
-          >
-            About Neatly
-          </Text>
-          <Text
-            textAlign="center"
-            h="16px"
-            fontFamily="Open Sans"
-            fontStyle="normal"
-            fontWeight="400px"
-            fontSize="14px"
-            textColor="#000000"
-          >
-            Service & Facilities
-          </Text>
-          <Text
-            textAlign="center"
-            h="16px"
-            fontFamily="Open Sans"
-            fontStyle="normal"
-            fontWeight="400px"
-            fontSize="14px"
-            textColor="#000000"
-          >
-            Rooms & Suits
-          </Text>
+          <a href="/">
+            <Image
+              src="/images/logo.svg"
+              alt="Neatly Logo"
+              w="167px"
+              h="45px"
+            />
+          </a>
+          <a href="/#about">
+            <Text
+              textAlign="center"
+              h="16px"
+              fontFamily="Open Sans"
+              fontStyle="normal"
+              fontWeight="400px"
+              fontSize="14px"
+              textColor="#000000"
+            >
+              About Neatly
+            </Text>
+          </a>
+
+          <a href="/#service">
+            <Text
+              textAlign="center"
+              h="16px"
+              fontFamily="Open Sans"
+              fontStyle="normal"
+              fontWeight="400px"
+              fontSize="14px"
+              textColor="#000000"
+            >
+              Service & Facilities
+            </Text>
+          </a>
+
+          <a href="/#roomssuits">
+            <Text
+              textAlign="center"
+              h="16px"
+              fontFamily="Open Sans"
+              fontStyle="normal"
+              fontWeight="400px"
+              fontSize="14px"
+              textColor="#000000"
+            >
+              Rooms & Suits
+            </Text>
+          </a>
         </HStack>
         <Spacer />
         <HStack spacing={"30px"}>
