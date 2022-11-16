@@ -20,7 +20,6 @@ function UnauthenticatedApp() {
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/test" element={<TestStep />} /> */}
         <Route path="*" element={<LoginPage />} />
-
         <Route path="/bookingsummary" element={<BookingSummaryPage />} />
       </Routes>
     </div>
