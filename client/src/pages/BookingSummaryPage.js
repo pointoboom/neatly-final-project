@@ -211,49 +211,36 @@ function BookingSummaryPage() {
                 );
               })}
 
-              {reserveData.map((room, index) => {
-                return (
-                  <>
-                    {room.type == "standardRequest" ? (
-                      room.have === "Late check-out" ? (
-                        <Flex
-                          className="check-out-cond"
-                          display="flex"
-                          direction="column"
-                          alignItems="flex-start"
-                          justifyContent="space-between"
-                          mb="20px"
-                          p="10px"
-                          color="white"
-                          fontSize="16px"
-                        >
-                          <Text fontWeight="600" mb="8px">
-                            Check-out
-                          </Text>
+              <Flex
+                className="check-out-cond"
+                display="flex"
+                direction="column"
+                alignItems="flex-start"
+                justifyContent="space-between"
+                mb="20px"
+                p="10px"
+                color="white"
+                fontSize="16px"
+              >
+                <Text fontWeight="600" mb="8px">
+                  Check-out
+                </Text>
+
+                {reserveData.map((room, index) => {
+                  return (
+                    <>
+                      {room.type == "standardRequest" ? (
+                        room.have === "Late check-out" ? (
                           <Text fontWeight="400">{room.have}</Text>
-                        </Flex>
-                      ) : null
-                    ) : reserveData.indexOf(room) === reserveData.length - 1 ? (
-                      <Flex
-                        className="check-out-cond"
-                        display="flex"
-                        direction="column"
-                        alignItems="flex-start"
-                        justifyContent="space-between"
-                        mb="20px"
-                        p="10px"
-                        color="white"
-                        fontSize="16px"
-                      >
-                        <Text fontWeight="600" mb="8px">
-                          Check-out
-                        </Text>
+                        ) : null
+                      ) : reserveData.indexOf(room) ===
+                        reserveData.length - 1 ? (
                         <Text fontWeight="400">Before 12:00 AM</Text>
-                      </Flex>
-                    ) : null}
-                  </>
-                );
-              })}
+                      ) : null}
+                    </>
+                  );
+                })}
+              </Flex>
             </Flex>
           </Flex>
 
@@ -327,8 +314,44 @@ function BookingSummaryPage() {
               );
             })}
 
-            {reserveData.map((data) => {
-              if (reserveData.indexOf(data) === 0) {
+            {reserveData.map((room) => {
+              if (room.type === "standardRequest") {
+                if (
+                  room.have === "Late check-out" ||
+                  room.have === "Early check-in"
+                ) {
+                  return null;
+                } else {
+                  return (
+                    <>
+                      <Flex
+                        className="spacial-req-cost"
+                        display="flex"
+                        direction="row"
+                        alignItems="flex-start"
+                        justifyContent="space-between"
+                        color="white"
+                        fontWeight="400"
+                        mb="24px"
+                        fontSize="16px"
+                      >
+                        <Text
+                          className="spacial-req-option"
+                          dispyContent="space-between"
+                          color="rgba(213, 223, 218, 1)"
+                        >
+                          {room.have}
+                        </Text>
+                      </Flex>
+                    </>
+                  );
+                }
+              }
+            })}
+
+            {/* if (reserveData.indexOf(data) === 0) { */}
+            {reserveData.map((room) => {
+              if (room.type == "specialRequest") {
                 return (
                   <>
                     <Flex
@@ -347,10 +370,10 @@ function BookingSummaryPage() {
                         dispyContent="space-between"
                         color="rgba(213, 223, 218, 1)"
                       >
-                        {data.have}
+                        {room.have}
                       </Text>
                       <Text className="spacial-req-price" fontWeight="600">
-                        {data.req_price}.00
+                        {room.req_price}.00
                       </Text>
                     </Flex>
                   </>
