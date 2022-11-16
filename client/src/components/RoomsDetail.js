@@ -29,7 +29,7 @@ function RoomsDetail() {
 
   const getData = async () => {
     const results = await axios(
-      `http://localhost:4000/rooms/room-detail//${params.roomId}?random=2`
+      `http://localhost:4000/rooms/room-detail/${params.roomId}?random=2`
     );
     // console.log(results.data);
     setSlideData([
