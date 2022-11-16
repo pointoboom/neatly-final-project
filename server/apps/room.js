@@ -50,8 +50,6 @@ roomRouter.get("/room-detail//:roomId", async (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-=======
 roomRouter.get("/:roomId", async (req, res) => {
   const roomId = req.params.roomId;
   const random = req.query.random;
@@ -75,5 +73,4 @@ roomRouter.get("/:roomId", async (req, res) => {
   });
 });
 
->>>>>>> 6534462bb25625a0aa2ff5cc51135fd9d38f0189
 export default roomRouter;
