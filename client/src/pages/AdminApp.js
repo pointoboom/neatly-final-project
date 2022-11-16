@@ -9,6 +9,7 @@ import NotFoundPage from "./NotFoundPage";
 import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
+import CustomerBooking from "../components/CustomerBooking";
 
 function AdminApp() {
   return (
@@ -25,6 +26,7 @@ function AdminApp() {
           path="/bookingsummary/:reserveId"
           element={<BookingSummaryPage />}
         />
+        <Route path="/customerbooking" element={<CustomerBooking />} />
       </Routes>
     </div>
   );
