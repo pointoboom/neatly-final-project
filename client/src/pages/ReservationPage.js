@@ -169,6 +169,7 @@ function ReservationPage() {
                   totalPrice={totalPrice}
                   setTotalPrice={setTotalPrice}
                   reserveDetail={reserveDetail}
+                  roomId={params.roomId}
                 />
               </TabPanels>
 

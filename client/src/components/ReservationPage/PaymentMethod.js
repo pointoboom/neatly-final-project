@@ -22,7 +22,7 @@ function PaymentMethod(props) {
     const checkOut = searchDetail.checkOut;
     const guest = searchDetail.guest;
     const userId = auth.state.user.id;
-    const roomId = searchDetail.roomId;
+    const roomId = Number(props.roomId);
     const specialRequest = props.specialRequest;
     const standardRequest = props.standardRequest;
     const cardNumber = props.userData.card_number;
