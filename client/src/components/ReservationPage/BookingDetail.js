@@ -203,46 +203,145 @@ function BookingDetail(props) {
         {props.specialRequest.length === 0
           ? null
           : props.specialRequest.map((data) => {
-              return (
-                <Flex
-                  className="special-request"
-                  display="flex"
-                  direction="row"
-                  alignItems="flex-start"
-                  justifyContent="space-between"
-                  w="310px"
-                  color="white"
-                  fontWeight="400"
-                  fontFamily={"Inter"}
-                  ml="20px"
-                  mb="24px"
-                  // bg="blue.100"
-                >
+              if (data.req === "Airport transfer") {
+                return (
                   <Flex
-                    className="special-request-option"
+                    className="special-request"
                     display="flex"
-                    direction="column"
+                    direction="row"
                     alignItems="flex-start"
                     justifyContent="space-between"
-                    w="70%"
-                    // bg="blue.200"
-                    fontSize="16px"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    // bg="blue.100"
                   >
-                    {data.req}
+                    <Flex
+                      className="special-request-option"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="70%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      {data.req}
+                    </Flex>
+                    <Flex
+                      className="special-request-cost"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      {data.price}.00
+                    </Flex>
                   </Flex>
+                );
+              } else if (data.req === "Breakfast") {
+                return (
                   <Flex
-                    className="special-request-cost"
+                    className="special-request"
                     display="flex"
-                    direction="column"
+                    direction="row"
                     alignItems="flex-start"
-                    justifyContent="flex-start"
-                    // bg="blue.200"
-                    fontSize="16px"
+                    justifyContent="space-between"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    // bg="blue.100"
                   >
-                    {data.price}.00
+                    <Flex
+                      className="special-request-option"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="70%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      {data.req}
+                    </Flex>
+                    <Flex
+                      className="special-request-cost"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      {data.price *
+                        searchDetail.guest *
+                        Number(
+                          moment(searchDetail.checkOut).diff(
+                            moment(searchDetail.checkIn),
+                            "days"
+                          )
+                        )}
+                      .00
+                    </Flex>
                   </Flex>
-                </Flex>
-              );
+                );
+              } else {
+                return (
+                  <Flex
+                    className="special-request"
+                    display="flex"
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    w="310px"
+                    color="white"
+                    fontWeight="400"
+                    fontFamily={"Inter"}
+                    ml="20px"
+                    mb="24px"
+                    // bg="blue.100"
+                  >
+                    <Flex
+                      className="special-request-option"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                      w="70%"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      {data.req}
+                    </Flex>
+                    <Flex
+                      className="special-request-cost"
+                      display="flex"
+                      direction="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      // bg="blue.200"
+                      fontSize="16px"
+                    >
+                      {data.price *
+                        Number(
+                          moment(searchDetail.checkOut).diff(
+                            moment(searchDetail.checkIn),
+                            "days"
+                          )
+                        )}
+                      .00
+                    </Flex>
+                  </Flex>
+                );
+              }
             })}
 
         <Flex
