@@ -79,6 +79,7 @@ function AuthProvider(props) {
         emailRegistered,
         loginfail,
         isAdmin,
+        setLoginSuccess,
       }}
     >
       {props.children}

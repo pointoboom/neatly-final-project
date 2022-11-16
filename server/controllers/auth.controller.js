@@ -58,24 +58,24 @@ export async function login(req, res) {
   const user = await pool.query("select * from users where email=$1", [
     req.body.username,
   ]);
-  let success = Boolean;
 
   if (user.rows.length === 0) {
     return res.json({
       message: "user not found",
       success: false,
     });
-  }
+  } else {
+    const isValidPassword = await bcrypt.compare(
+      req.body.password,
+      user.rows[0].password
+    );
 
-  const isValidPassword = await bcrypt.compare(
-    req.body.password,
-    user.rows[0].password
-  );
-
-  if (!isValidPassword) {
-    return res.status(401).json({
-      message: "password not valid",
-    });
+    if (!isValidPassword) {
+      return res.json({
+        message: "password not valid",
+        success: false,
+      });
+    }
   }
 
   const token = jwt.sign(

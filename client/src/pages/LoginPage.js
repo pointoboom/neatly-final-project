@@ -12,7 +12,7 @@ import { useState } from "react";
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, setLoginSuccess } = useAuth();
   const auth = useAuth();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -84,6 +84,7 @@ function LoginPage() {
                   mb="40px"
                   value={username}
                   onChange={(event) => {
+                    setLoginSuccess(true);
                     setUsername(event.target.value);
                   }}
                 />
@@ -96,7 +97,7 @@ function LoginPage() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(event) => {
-                    auth.loginfail = true;
+                    setLoginSuccess(true);
                     setPassword(event.target.value);
                   }}
                 />
