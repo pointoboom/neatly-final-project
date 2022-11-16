@@ -143,7 +143,7 @@ function BookingDetail(props) {
           fontFamily={"Inter"}
           ml="20px"
         >
-          {searchDetail.guest} Guest
+          {searchDetail.guest} Guests
         </Text>
         <Text
           color="white"
