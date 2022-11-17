@@ -7,17 +7,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useHotel } from "../contexts/reservation";
 
-function RoomsSearch() {
+function RoomsSearch(props) {
   const navigate = useNavigate();  
-  const [roomDetails, setRoomDetails] = useState([]);
 
-  useEffect(() => {
-    const getData = async () => {
-      const res = await axios.get("http://localhost:4000/rooms");
-      setRoomDetails(res.data.data);
-    };
-    getData();
-  }, []); 
  
 
   return (
@@ -28,7 +20,7 @@ function RoomsSearch() {
       alignItems="center"
       margin="2rem"
     >
-      {roomDetails.map((data) => {
+      {props.roomDetails.map((data) => {
         return (
           <Flex key={data.room_types_id}>
             <Flex>

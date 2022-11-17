@@ -2,11 +2,12 @@ import Footerbar from "../components/Footerbar";
 import Navbar from "../components/Navbar";
 import RoomsSearch from "../components/RoomsSearch";
 import { Flex, Box, Button } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker, Select } from "antd";
 import useScrollDirection from "../hooks/useScrollDirection";
 import "antd/dist/antd.min.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { useHotel } from "../contexts/reservation";
 import moment from "moment";
@@ -25,6 +26,18 @@ function RoomSearchPage() {
     guest,
     setGuest,
   } = useHotel();
+
+  const [roomDetails, setRoomDetails] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("http://localhost:4000/rooms");
+      setRoomDetails(res.data.data);
+    };
+    getData();
+  }, []); 
+
+
 
   return (
     <>
@@ -146,7 +159,7 @@ function RoomSearchPage() {
           </Button>
         </Box>
       </Flex>
-      <RoomsSearch />
+      <RoomsSearch roomDetails={roomDetails} />
       <Footerbar />
     </>
   );
