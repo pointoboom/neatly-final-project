@@ -10,7 +10,7 @@ function Sidebar() {
       direction="column"
       justify="flex-start"
       position="sticky"
-      top=""
+      top="0"
     >
       <VStack>
         <Image
