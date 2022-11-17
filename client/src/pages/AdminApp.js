@@ -10,6 +10,7 @@ import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
 import CustomerBooking from "../components/CustomerBooking";
+import RoomProperty from "./admins/RoomProperty";
 
 function AdminApp() {
   return (
@@ -27,6 +28,7 @@ function AdminApp() {
           element={<BookingSummaryPage />}
         />
         <Route path="/customerbooking" element={<CustomerBooking />} />
+        <Route path="/roomproperty" element={<RoomProperty />} />
       </Routes>
     </div>
   );

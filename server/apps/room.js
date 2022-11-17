@@ -29,7 +29,7 @@ roomRouter.get("/:roomid", async (req, res) => {
   }
 });
 
-roomRouter.get("/manage", async (req, res) => {
+roomRouter.get("/admin/manage", async (req, res) => {
   try {
     const roomid = req.params.roomid;
 
