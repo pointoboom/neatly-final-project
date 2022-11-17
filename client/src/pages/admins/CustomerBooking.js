@@ -3,31 +3,23 @@ import {
   Flex,
   Text,
   Input,
-  VStack,
-  StackDivider,
-  Spacer,
   InputGroup,
   InputLeftElement,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 import moment from "moment";
 import { SearchIcon } from "@chakra-ui/icons";
 import usePersistedState from "use-persisted-state-hook";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from "@chakra-ui/react";
-
+import {} from "@chakra-ui/react";
 function CustomerBooking() {
   const [customerBooking, setCustomerBooking] = useState([]);
   const getData = async () => {
@@ -39,7 +31,6 @@ function CustomerBooking() {
       const check_out_date = moment(data.check_out_date).format(
         "dd,DD MMM YYYY"
       );
-
       data = { ...data, check_in_date, check_out_date };
       return data;
     });
