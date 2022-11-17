@@ -10,6 +10,7 @@ import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
 import CustomerBooking from "../components/CustomerBooking";
+import RoomDetailPage from "./RoomDetailPage";
 
 function AuthenticatedApp() {
   return (
@@ -25,6 +26,7 @@ function AuthenticatedApp() {
           path="/bookingsummary/:reserveId"
           element={<BookingSummaryPage />}
         />
+        <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
       </Routes>
     </div>
   );

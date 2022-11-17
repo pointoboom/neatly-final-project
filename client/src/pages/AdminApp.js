@@ -11,6 +11,7 @@ import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
 import CustomerBooking from "../components/CustomerBooking";
 import RoomProperty from "./admins/RoomProperty";
+import RoomDetailPage from "./RoomDetailPage";
 
 function AdminApp() {
   return (
@@ -29,6 +30,7 @@ function AdminApp() {
         />
         <Route path="/customerbooking" element={<CustomerBooking />} />
         <Route path="/roomproperty" element={<RoomProperty />} />
+        <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
       </Routes>
     </div>
   );
