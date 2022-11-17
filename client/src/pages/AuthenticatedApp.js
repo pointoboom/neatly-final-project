@@ -9,7 +9,7 @@ import NotFoundPage from "./NotFoundPage";
 import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
-import CustomerBooking from "../components/CustomerBooking";
+import CustomerBooking from "./admins/CustomerBooking";
 import RoomDetailPage from "./RoomDetailPage";
 
 function AuthenticatedApp() {

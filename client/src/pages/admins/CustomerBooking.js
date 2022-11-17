@@ -9,8 +9,8 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-import SideBar from "./Sidebar.js";
-import { useEffect } from "react";
+import SideBar from "../../components/Sidebar.js";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import moment from "moment";
@@ -29,14 +29,8 @@ import {
 } from "@chakra-ui/react";
 
 function CustomerBooking() {
-  const [customerBooking, setCustomerBooking] = usePersistedState(
-    "booking",
-    null
-  );
+  const [customerBooking, setCustomerBooking] = useState([]);
   const getData = async () => {
-    // const token = localStorage.getItem("token");
-    // const userdata = jwtDecode(token);
-    // console.log(userdata);
     const res = await axios.get(
       "http://localhost:4000/reserve/admin/customerbooking"
     );
@@ -50,8 +44,6 @@ function CustomerBooking() {
       return data;
     });
     setCustomerBooking(data);
-    console.log(data);
-    console.log(customerBooking);
   };
 
   useEffect(() => {
