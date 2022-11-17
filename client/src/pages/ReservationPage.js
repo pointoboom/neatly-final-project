@@ -16,7 +16,7 @@ import {
   ModalCloseButton,
   Spinner,
 } from "@chakra-ui/react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {} from "@chakra-ui/react";
 import { useAuth } from "../contexts/authentication";
 import React, { useEffect, useState } from "react";
@@ -50,7 +50,9 @@ function ReservationPage() {
     const userdata = jwtDecode(token);
     const res = await axios.get(`http://localhost:4000/auth/${userdata.id}`);
     setUserdata({ ...res.data.data[0], ["request"]: [] });
-    const result = await axios.get(`http://localhost:4000/rooms/${params.roomId}`);
+    const result = await axios.get(
+      `http://localhost:4000/rooms/${params.roomId}`
+    );
     setReserveDetail(result.data.data);
   };
 
@@ -186,7 +188,12 @@ function ReservationPage() {
         </Flex>
         {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
-        <Modal isOpen={tab.isOpen} isCentered onClose={onClose}>
+        <Modal
+          isOpen={tab.isOpen}
+          isCentered
+          onClose={onClose}
+          closeOnOverlayClick={false}
+        >
           <ModalOverlay />
           <ModalContent pt="50px" pl="50px">
             <ModalBody display="flex" direction="row" alignItems="center">
