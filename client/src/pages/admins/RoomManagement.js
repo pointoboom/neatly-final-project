@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import SideBar from "../../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import { useAuth } from "../../contexts/authentication";
 function RoomManagement() {
   const auth = useAuth();

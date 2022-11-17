@@ -1,5 +1,5 @@
 import { Box, Flex, VStack, Image, Text } from "@chakra-ui/react";
-function SideBar() {
+function Sidebar() {
   return (
     <Flex
       backgroundColor="#2F3E35"
@@ -10,7 +10,7 @@ function SideBar() {
       direction="column"
       justify="flex-start"
       position="sticky"
-      top="0"
+      top=""
     >
       <VStack>
         <Image
@@ -159,4 +159,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default Sidebar;

@@ -9,7 +9,7 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-import SideBar from "../../components/Sidebar.js";
+import Sidebar from "../../components/Sidebar.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
