@@ -34,11 +34,11 @@ function CustomerBooking() {
     null
   );
   const getData = async () => {
-    const token = localStorage.getItem("token");
-    const userdata = jwtDecode(token);
-    console.log(userdata);
+    // const token = localStorage.getItem("token");
+    // const userdata = jwtDecode(token);
+    // console.log(userdata);
     const res = await axios.get(
-      `http://localhost:4000/reserve/customerbooking/${userdata.id}`
+      "http://localhost:4000/reserve/admin/customerbooking"
     );
     const data = res.data.data.map((data) => {
       const check_in_date = moment(data.check_in_date).format("dd,DD MMM YYYY");
@@ -63,7 +63,7 @@ function CustomerBooking() {
       <SideBar />
       <Flex direction="column" my="10">
         <Flex mb="10">
-          <Text ml="20" fontWeight="semibold">
+          <Text ml="20" fontWeight="semibold" mr="550">
             Customer Booking
           </Text>
           <InputGroup>
@@ -71,20 +71,10 @@ function CustomerBooking() {
             <Input mr="10" placeholder="Search..." size="md" width="400px" />
           </InputGroup>
         </Flex>
-        <Flex bg="#F6F7FC" align="center" justify="center" display="flex">
-          {/* <Flex direction="column" m="10">
-            <Flex p="2" bg="#E4E6ED">
-              <Text mx="8">Customer Name</Text>
-              <Text mx="8">Guest(s)</Text>
-              <Text mr="24">Roomtype</Text>
-              <Text mx="8">Amount</Text>
-              <Text mr="24">Bed Type</Text>
-              <Text mr="24">Check-in</Text>
-              <Text mr="24">Check-out</Text>
-            </Flex> */}
+        <Flex align="center" justify="center" display="flex">
           <TableContainer>
             <Table variant="simple">
-              <Thead>
+              <Thead bg="#E4E6ED">
                 <Tr>
                   <Th>Customer Name</Th>
                   <Th>Guest(s)</Th>
@@ -97,15 +87,6 @@ function CustomerBooking() {
               </Thead>
               {customerBooking.map((data) => {
                 return (
-                  // <Flex h="80px" align="center" pl="8" bg="white">
-                  //   <Text width="200px">{data.fullname}</Text>
-                  //   <Text width="70px">{data.guest}</Text>
-                  //   <Text width="190px">{data.type_name}</Text>
-                  //   <Text width="75px">{data.total_price}</Text>
-                  //   <Text width="160px">{data.bed_type}</Text>
-                  //   <Text width="160px">{data.check_in_date}</Text>
-                  //   <Text>{data.check_out_date}</Text>
-                  // </Flex>
                   <Tbody bg="white">
                     <Tr>
                       <Td>{data.fullname}</Td>
