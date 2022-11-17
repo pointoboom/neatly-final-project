@@ -52,7 +52,7 @@ function CustomerBooking() {
 
   return (
     <Flex direction="row">
-      <SideBar />
+      <Sidebar />
       <Flex direction="column" my="10">
         <Flex mb="10">
           <Text ml="20" fontWeight="semibold" mr="550">

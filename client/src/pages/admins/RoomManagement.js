@@ -6,7 +6,7 @@ function RoomManagement() {
   console.log(auth.state);
   return (
     <Flex direction="row">
-      <SideBar />
+      <Sidebar />
     </Flex>
   );
 }
