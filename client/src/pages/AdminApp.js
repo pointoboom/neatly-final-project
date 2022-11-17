@@ -8,11 +8,10 @@ import "../App.css";
 import NotFoundPage from "./NotFoundPage";
 import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
-import RoomManagement from "./admins/RoomManagement";
 import CustomerBooking from "./admins/CustomerBooking";
 import RoomProperty from "./admins/RoomProperty";
 import RoomDetailPage from "./RoomDetailPage";
-import RoomManagementPage from "./RoomManagementPage";
+import RoomManagementPage from "./admins/RoomManagementPage";
 function AdminApp() {
   return (
     <div className="App">
@@ -23,7 +22,7 @@ function AdminApp() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reservation/:roomId" element={<ReservationPage />} />
         <Route path="/test" element={<TestStep />} />
-        <Route path="/admin" element={<RoomManagement />} />
+
         <Route
           path="/bookingsummary/:reserveId"
           element={<BookingSummaryPage />}
