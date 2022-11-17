@@ -8,8 +8,8 @@ function HotelInfo() {
         <Flex direction={"column"}>
           <Box bgColor="#FFFFFF" w="1200px" h="80px" pt="15px"><HStack>
             <Text font-family="Inter" font-weight="600" font-size="20px" fontStyle="normal"
-              line-height="150%" letter-spacing="-0.02em" color="#2A2E3F" w="943px" h="30px" pl="60px" pr="16px">
-              Hotel Information</Text>
+              line-height="150%" letter-spacing="-0.02em" color="#2A2E3F" w="943px" h="30px" 
+              pl="60px" pr="16px">Hotel Information</Text>
             <Button w="121px" h="48px" bgColor="#C14817" fontSize="16px" textAlign="center"
               lineHeight="16px" fontFamily="Open Sans" fontStyle="normal" fontWeight="600px"
               textColor="#FFFFFF" _hover={{ background: "#E76B39" }}>
