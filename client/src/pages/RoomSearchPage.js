@@ -55,6 +55,10 @@ function RoomSearchPage() {
                 style={{ width: "170px" }}
                 onChange={(date, dateString) => setCheckIn(dateString)}
                 defaultValue={checkIn ? moment(checkIn, dateFormat) : ""}
+                disabledDate={(current) => {
+                  let customDate = moment().format("YYYY-MM-DD");
+                  return current && current < moment(customDate, "YYYY-MM-DD");
+                }}
               />
             </Flex>
             <Box>-</Box>
@@ -70,6 +74,10 @@ function RoomSearchPage() {
               style={{ width: "170px" }}
               onChange={(date, dateString) => setCheckOut(dateString)}
               defaultValue={checkOut ? moment(checkOut, dateFormat) : ""}
+              disabledDate={(current) => {
+                let customDate = moment().format("YYYY-MM-DD");
+                return current && current < moment(customDate, "YYYY-MM-DD");
+              }}
             />
           </Flex>
         </Flex>
