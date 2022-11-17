@@ -167,16 +167,25 @@ reserveRouter.get("/:id", async (req, res) => {
   });
 });
 
-reserveRouter.get("/customerbooking/:id", async (req, res) => {
-  const userid = req.params.id;
-
+reserveRouter.get("/admin/customerbooking", async (req, res) => {
   const result = await pool.query(
-    "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where users.user_id = $1",
-    [userid]
+    "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id"
   );
   return res.json({
     data: result.rows,
   });
 });
+
+// reserveRouter.get("/customerbooking/:id", async (req, res) => {
+//   const userid = req.params.id;
+
+//   const result = await pool.query(
+//     "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where users.user_id = $1",
+//     [userid]
+//   );
+//   return res.json({
+//     data: result.rows,
+//   });
+// });
 
 export default reserveRouter;
