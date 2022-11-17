@@ -11,6 +11,7 @@ import BookingSummaryPage from "./BookingSummaryPage";
 import RoomManagement from "./admins/RoomManagement";
 import CustomerBooking from "../components/CustomerBooking";
 
+
 function AuthenticatedApp() {
   return (
     <div className="App">
@@ -25,6 +26,7 @@ function AuthenticatedApp() {
           path="/bookingsummary/:reserveId"
           element={<BookingSummaryPage />}
         />
+        
       </Routes>
     </div>
   );

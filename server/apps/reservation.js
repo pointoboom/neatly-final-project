@@ -179,4 +179,15 @@ reserveRouter.get("/customerbooking/:id", async (req, res) => {
   });
 });
 
+reserveRouter.get("/rooms/admin/manage", async (req, res) => {
+  // const userid = req.params.id;
+
+  const result = await pool.query(
+    "SELECT room_no, type_name, bed_type, status_name FROM room_managements left join room_types on room_managements.room_types_id = room_types.room_types_id left join status on room_managements.status_id = status.status_id"
+  );
+  return res.json({
+    data: result.rows,
+  });
+});
+
 export default reserveRouter;
