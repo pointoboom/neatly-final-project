@@ -6,6 +6,7 @@ import {
   Divider,
   FormControl,
   FormErrorMessage,
+  FormLabel,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import { countryList } from "../data/country";
@@ -37,6 +38,8 @@ function RegisterPage() {
   const [country, setCountry] = useState("");
   const [isError, setError] = useState("false");
   const [avatars, setAvatars] = useState({});
+  const [idnumberError, setIdnumberError] = useState(false);
+
   const { register } = useAuth();
   const auth = useAuth();
 
@@ -95,7 +98,7 @@ function RegisterPage() {
   return (
     <>
       <Navbar />
-      <FormControl>
+      <form onSubmit={handleSubmit}>
         <Flex
           className="register"
           direction="row"
@@ -143,21 +146,23 @@ function RegisterPage() {
                 fontSize="16px"
                 mb="40px"
               >
-                <Text mb="15px">Fullname</Text>
-                <Input
-                  placeholder="Enter your username"
-                  width="full"
-                  fontFamily={"Inter"}
-                  fontSize="16px"
-                  id="fullname"
-                  name="fullname"
-                  type="text"
-                  value={fullname}
-                  onChange={(event) => {
-                    setFullName(event.target.value);
-                  }}
-                  focusBorderColor="orange.500"
-                ></Input>
+                <FormControl isRequired>
+                  <FormLabel mb="15px">Fullname</FormLabel>
+                  <Input
+                    placeholder="Enter your username"
+                    width="full"
+                    fontFamily={"Inter"}
+                    fontSize="16px"
+                    // id="fullname"
+                    name="fullname"
+                    type="text"
+                    value={fullname}
+                    onChange={(event) => {
+                      setFullName(event.target.value);
+                    }}
+                    focusBorderColor="orange.500"
+                  ></Input>
+                </FormControl>
               </Flex>
               <Flex>
                 <Flex direction="column" mr="50px">
@@ -167,21 +172,23 @@ function RegisterPage() {
                     fontSize="16px"
                     mb="40px"
                   >
-                    <Text mb="15px">Username</Text>
-                    <Input
-                      placeholder="Enter your username"
-                      width="550px"
-                      fontFamily={"Inter"}
-                      fontSize="16px"
-                      id="username"
-                      name="username"
-                      type="text"
-                      value={username}
-                      onChange={(event) => {
-                        setUsername(event.target.value);
-                      }}
-                      focusBorderColor="orange.500"
-                    ></Input>
+                    <FormControl isRequired>
+                      <FormLabel mb="15px">Username</FormLabel>
+                      <Input
+                        placeholder="Enter your username"
+                        width="550px"
+                        fontFamily={"Inter"}
+                        fontSize="16px"
+                        // id="username"
+                        name="username"
+                        type="text"
+                        value={username}
+                        onChange={(event) => {
+                          setUsername(event.target.value);
+                        }}
+                        focusBorderColor="orange.500"
+                      ></Input>
+                    </FormControl>
                   </Flex>
                   <Flex
                     direction="column"
@@ -189,14 +196,14 @@ function RegisterPage() {
                     fontSize="16px"
                     mb="40px"
                   >
-                    <Text mb="15px">Password</Text>
-                    <FormControl isInvalid={isError}>
+                    <FormControl isRequired isInvalid={isError}>
+                      <FormLabel mb="15px">Password</FormLabel>
                       <Input
                         placeholder="Enter your password"
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        id="password"
+                        // id="password"
                         name="password"
                         type="password"
                         value={password}
@@ -247,14 +254,14 @@ function RegisterPage() {
                     fontSize="16px"
                     mb="40px"
                   >
-                    <Text mb="15px">Email</Text>
-                    <FormControl isInvalid={auth.emailRegistered}>
+                    <FormControl isRequired isInvalid={auth.emailRegistered}>
+                      <FormLabel mb="15px">Email</FormLabel>
                       <Input
                         placeholder="Enter your email"
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        id="email"
+                        // id="email"
                         name="email"
                         type="text"
                         value={email}
@@ -276,21 +283,43 @@ function RegisterPage() {
                     fontSize="16px"
                     mb="40px"
                   >
-                    <Text mb="15px">Id Number</Text>
-                    <Input
-                      placeholder="Enter your ID Number"
-                      width="550px"
-                      fontFamily={"Inter"}
-                      fontSize="16px"
-                      id="idnumber"
-                      name="idnumber"
-                      type="number"
-                      value={idnumber}
-                      onChange={(event) => {
-                        setIdnumber(event.target.value);
-                      }}
-                      focusBorderColor="orange.500"
-                    ></Input>
+                    <FormControl isRequired isInvalid={idnumberError}>
+                      <FormLabel mb="15px">Id Number</FormLabel>
+                      <Input
+                        placeholder="Enter your ID Number"
+                        width="550px"
+                        fontFamily={"Inter"}
+                        fontSize="16px"
+                        // id="idnumber"
+                        name="idnumber"
+                        type="password"
+                        value={idnumber}
+                        onChange={(event) => {
+                          setIdnumber(event.target.value);
+                          console.log(event.target.value);
+                          if (
+                            validator.isStrongPassword(event.target.value, {
+                              minLength: 13,
+                              maxLength: 13,
+                              minLowercase: 0,
+                              minUppercase: 0,
+                              minNumbers: 0,
+                              minSymbols: 0,
+                            }) === false
+                          ) {
+                            setIdnumberError(true);
+                          } else {
+                            setIdnumberError(false);
+                          }
+                        }}
+                        focusBorderColor="orange.500"
+                      ></Input>
+                      {idnumberError === true ? (
+                        <FormErrorMessage>
+                          Enter your ID Number
+                        </FormErrorMessage>
+                      ) : null}
+                    </FormControl>
                   </Flex>
                   <Flex direction="column" fontFamily={"Inter"} fontSize="16px">
                     <Text mb="15px">Country</Text>
@@ -305,6 +334,7 @@ function RegisterPage() {
                         fontSize: "16px",
                       }}
                       onChange={handleCountry}
+                      isRequired
                     ></Select>
                   </Flex>
                 </Flex>
@@ -358,106 +388,114 @@ function RegisterPage() {
               </Flex>
               <Flex mb="40px">
                 <Flex direction="column" mr="50px">
-                  <Text
-                    mb="15px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    color="gray.900"
-                    fontStyle="400"
-                  >
-                    Card Number
-                  </Text>
-                  <Input
-                    placeholder="Enter your card number"
-                    width="550px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    id="cardnumber"
-                    name="cardnumber"
-                    type="number"
-                    value={cardnum}
-                    onChange={(event) => {
-                      setCardnum(event.target.value);
-                    }}
-                    focusBorderColor="orange.500"
-                  ></Input>
+                  <FormControl isRequired>
+                    <FormLabel
+                      mb="15px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      color="gray.900"
+                      fontStyle="400"
+                    >
+                      Card Number
+                    </FormLabel>
+                    <Input
+                      placeholder="Enter your card number"
+                      width="550px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      // id="cardnumber"
+                      name="cardnumber"
+                      type="number"
+                      value={cardnum}
+                      onChange={(event) => {
+                        setCardnum(event.target.value);
+                      }}
+                      focusBorderColor="orange.500"
+                    ></Input>
+                  </FormControl>
                 </Flex>
                 <Flex direction="column">
-                  <Text
-                    mb="15px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    color="gray.900"
-                    fontStyle="400"
-                  >
-                    Card Owner
-                  </Text>
-                  <Input
-                    placeholder="Enter your card name"
-                    width="550px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    id="cardowner"
-                    name="cardowner"
-                    type="text"
-                    value={cardowner}
-                    onChange={(event) => {
-                      setCardowner(event.target.value);
-                    }}
-                    focusBorderColor="orange.500"
-                  ></Input>
+                  <FormControl isRequired>
+                    <FormLabel
+                      mb="15px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      color="gray.900"
+                      fontStyle="400"
+                    >
+                      Card Owner
+                    </FormLabel>
+                    <Input
+                      placeholder="Enter your card name"
+                      width="550px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      // id="cardowner"
+                      name="cardowner"
+                      type="text"
+                      value={cardowner}
+                      onChange={(event) => {
+                        setCardowner(event.target.value);
+                      }}
+                      focusBorderColor="orange.500"
+                    ></Input>
+                  </FormControl>
                 </Flex>
               </Flex>
               <Flex>
                 <Flex direction="column" mr="50px">
-                  <Text
-                    mb="15px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    color="gray.900"
-                    fontStyle="400"
-                  >
-                    Expire Date
-                  </Text>
-                  <Input
-                    placeholder="MM/YY"
-                    width="550px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    id="expiredate"
-                    name="expiredate"
-                    type="text"
-                    value={expdate}
-                    onChange={(event) => {
-                      setExpdate(event.target.value);
-                    }}
-                    focusBorderColor="orange.500"
-                  ></Input>
+                  <FormControl isRequired>
+                    <FormLabel
+                      mb="15px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      color="gray.900"
+                      fontStyle="400"
+                    >
+                      Expire Date
+                    </FormLabel>
+                    <Input
+                      placeholder="MM/YY"
+                      width="550px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      // id="expiredate"
+                      name="expiredate"
+                      type="text"
+                      value={expdate}
+                      onChange={(event) => {
+                        setExpdate(event.target.value);
+                      }}
+                      focusBorderColor="orange.500"
+                    ></Input>
+                  </FormControl>
                 </Flex>
                 <Flex direction="column">
-                  <Text
-                    mb="15px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    color="gray.900"
-                    fontStyle="400"
-                  >
-                    CVC/CVV
-                  </Text>
-                  <Input
-                    placeholder="CVC/CVV"
-                    width="550px"
-                    fontFamily={"Inter"}
-                    fontSize="16px"
-                    id="cvc"
-                    name="cvc"
-                    type="text"
-                    value={cvc}
-                    onChange={(event) => {
-                      setCvc(event.target.value);
-                    }}
-                    focusBorderColor="orange.500"
-                  ></Input>
+                  <FormControl isRequired>
+                    <FormLabel
+                      mb="15px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      color="gray.900"
+                      fontStyle="400"
+                    >
+                      CVC/CVV
+                    </FormLabel>
+                    <Input
+                      placeholder="CVC/CVV"
+                      width="550px"
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      // id="cvc"
+                      name="cvc"
+                      type="text"
+                      value={cvc}
+                      onChange={(event) => {
+                        setCvc(event.target.value);
+                      }}
+                      focusBorderColor="orange.500"
+                    ></Input>
+                  </FormControl>
                 </Flex>
               </Flex>
             </Flex>
@@ -469,9 +507,10 @@ function RegisterPage() {
                   width="550px"
                   mb="10px"
                   _hover={{ background: "#E76B39" }}
-                  onClick={(event) => {
-                    handleSubmit(event);
-                  }}
+                  // onClick={(event) => {
+                  //   handleSubmit(event);
+                  // }}
+                  type="submit"
                 >
                   Register
                 </Button>
@@ -483,7 +522,7 @@ function RegisterPage() {
             </Flex>
           </Flex>
         </Flex>
-      </FormControl>
+      </form>
     </>
   );
 }
