@@ -33,6 +33,7 @@ function BookingSummaryPage() {
       data = { ...data, check_in_date, check_out_date };
       return data;
     });
+    console.log(data);
     setReserveData(data);
   };
   useEffect(() => {
@@ -167,49 +168,28 @@ function BookingSummaryPage() {
               justifyContent="center"
               w="50%"
             >
-              {reserveData.map((room, index) => {
-                return (
-                  <>
-                    {room.type == "standardRequest" ? (
-                      room.have === "Early check-in" ? (
-                        <Flex
-                          className="check-in-cond"
-                          display="flex"
-                          direction="column"
-                          alignItems="flex-start"
-                          justifyContent="space-between"
-                          mb="20px"
-                          p="10px"
-                          color="white"
-                          fontSize="16px"
-                        >
-                          <Text fontWeight="600" mb="8px">
-                            Check-in
-                          </Text>
-                          <Text fontWeight="400">{room.have}</Text>
-                        </Flex>
-                      ) : null
-                    ) : reserveData.indexOf(room) === reserveData.length - 1 ? (
-                      <Flex
-                        className="check-in-cond"
-                        display="flex"
-                        direction="column"
-                        alignItems="flex-start"
-                        justifyContent="space-between"
-                        mb="20px"
-                        p="10px"
-                        color="white"
-                        fontSize="16px"
-                      >
-                        <Text fontWeight="600" mb="8px">
-                          Check-in
-                        </Text>
-                        <Text fontWeight="400">After 2:00 PM</Text>
-                      </Flex>
-                    ) : null}
-                  </>
-                );
-              })}
+              <Flex
+                className="check-in-cond"
+                display="flex"
+                direction="column"
+                alignItems="flex-start"
+                justifyContent="space-between"
+                mb="20px"
+                p="10px"
+                color="white"
+                fontSize="16px"
+              >
+                <Text fontWeight="600" mb="8px">
+                  Check-in
+                </Text>
+                {reserveData.filter((item) => {
+                  return item.have === "Early check-in";
+                }).length === 0 ? (
+                  <Text fontWeight="400">Before 12:00 AM</Text>
+                ) : (
+                  <Text fontWeight="400">Late Check-In</Text>
+                )}
+              </Flex>
 
               <Flex
                 className="check-out-cond"
@@ -225,21 +205,13 @@ function BookingSummaryPage() {
                 <Text fontWeight="600" mb="8px">
                   Check-out
                 </Text>
-
-                {reserveData.map((room, index) => {
-                  return (
-                    <>
-                      {room.type == "standardRequest" ? (
-                        room.have === "Late check-out" ? (
-                          <Text fontWeight="400">{room.have}</Text>
-                        ) : null
-                      ) : reserveData.indexOf(room) ===
-                        reserveData.length - 1 ? (
-                        <Text fontWeight="400">Before 12:00 AM</Text>
-                      ) : null}
-                    </>
-                  );
-                })}
+                {reserveData.filter((item) => {
+                  return item.have === "Late check-out";
+                }).length === 0 ? (
+                  <Text fontWeight="400">Before 12:00 AM</Text>
+                ) : (
+                  <Text fontWeight="400">Late Check-Out</Text>
+                )}
               </Flex>
             </Flex>
           </Flex>
