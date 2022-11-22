@@ -223,28 +223,6 @@ function PaymentMethod(props) {
             </Flex>
           </Flex>
 
-          <GridItem mb="24px" w="100%" h="1px" bg="rgba(228, 230, 237, 1)" />
-
-          <Flex
-            className="input-form"
-            direction="column"
-            fontFamily={"Inter"}
-            fontSize="16px"
-            mb="40px"
-          >
-            <Text mb="15px">Promotion Code</Text>
-            <Input
-              placeholder=""
-              width="660px"
-              fontFamily={"Inter"}
-              fontSize="16px"
-              id="promotion-code"
-              name="promotion-code"
-              type="text"
-              focusBorderColor="orange.500"
-            ></Input>
-          </Flex>
-
           <Flex
             display="flex"
             direction="row"

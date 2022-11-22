@@ -12,6 +12,13 @@ import {
   Th,
   Td,
   TableContainer,
+  Box,
+  Button,
+  WrapItem,
+  HStack,
+  Avatar,
+  TagLabel,
+  Badge,
 } from "@chakra-ui/react";
 import SideBar from "../../components/Sidebar";
 import { useEffect } from "react";
@@ -19,6 +26,8 @@ import axios from "axios";
 import { SearchIcon } from "@chakra-ui/icons";
 import usePersistedState from "use-persisted-state-hook";
 import {} from "@chakra-ui/react";
+import { Divider, Tag, Select } from "antd";
+import { AutoComplete } from "antd";
 
 function RoomManagementPage() {
   const [roomManagement, setRoomManagement] = usePersistedState(
@@ -30,16 +39,73 @@ function RoomManagementPage() {
 
     setRoomManagement(res.data.data);
   };
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+  const options = [
+    {
+      label: <Tag color="default">Vacant</Tag>,
+      value: "Vacant",
+    },
+    {
+      label: <Tag color="blue">Occupied</Tag>,
+      value: "Occupied",
+    },
+    {
+      label: <Tag color="cyan">Assign Clean</Tag>,
+      value: "Assign Clean",
+    },
+    {
+      label: <Tag color="red">Assign Dirty</Tag>,
+      value: "Assign Dirty",
+    },
+    {
+      label: <Tag color="cyan">Vacant Clean</Tag>,
+      value: "Vacant Clean",
+    },
+    {
+      label: <Tag color="gold">Vacant Clean Inspected</Tag>,
+      value: "Vacant Clean Inspected",
+    },
+    {
+      label: <Tag color="cyan">Vacant Clean Pick Up</Tag>,
+      value: "Vacant Clean Pick Up",
+    },
+    {
+      label: <Tag color="blue">Occupied Clean</Tag>,
+      value: "Occupied Clean",
+    },
+    {
+      label: <Tag color="gold">Occupied Clean Inspected</Tag>,
+      value: "Occupied Clean Inspected",
+    },
+    {
+      label: <Tag color="red">Occupied Dirty</Tag>,
+      value: "Occupied Dirty",
+    },
+    {
+      label: <Tag color="lightgray">Out of Order</Tag>,
+      value: "Out of Order",
+    },
+    {
+      label: <Tag color="lightgray">Out of Service</Tag>,
+      value: "Out of Service",
+    },
+    {
+      label: <Tag color="lightgray">Out of Inventory</Tag>,
+      value: "Out of Inventory",
+    },
+  ];
 
   useEffect(() => {
     getData();
   }, []);
-
+  //bg="#F6F7FC"
   return (
-    <Flex direction="row" h="100vh" bg="#F6F7FC">
+    <Flex direction="row" h="full" bg="#F6F7FC">
       <SideBar />
-      <Flex w="100%" h="100vh" bg="blue" justifyContent="center">
-        <Flex direction="column" bg="#F6F7FC" w="full">
+      <Flex w="100%" h="100vh" bg="#F6F7FC" justifyContent="center">
+        <Flex direction="column" bg="#F6F7FC" w="full" h="100%">
           <Flex
             h="80px"
             bg="white"
@@ -88,7 +154,37 @@ function RoomManagementPage() {
                             <Td>{data.room_no}</Td>
                             <Td>{data.type_name}</Td>
                             <Td>{data.bed_type}</Td>
-                            <Td>{data.status_name}</Td>
+                            {/* <Td>{data.status_name}</Td> */}
+
+                            <Td>
+                              <Select
+                                bordered={false}
+                                showArrow={false}
+                                defaultValue="Search status..."
+                                style={{
+                                  width: 180,
+                                }}
+                                onChange={handleChange}
+                                options={options}
+                                
+                              />
+
+                              {/* <AutoComplete
+                                bordered={false}
+                                style={{
+                                  width: 200,
+                                }}
+                                options={options}
+                                placeholder="Search status..."
+                                filterOption={(inputValue, option) =>
+                                  option.value
+                                    .toUpperCase()
+                                    .indexOf(inputValue.toUpperCase()) !== -1
+                                }
+                                // value={<Tag color="magenta">magenta</Tag>}
+                                onChange={(e) => console.log(e)}
+                              /> */}
+                            </Td>
                           </Tr>
                         </Tbody>
                       );
