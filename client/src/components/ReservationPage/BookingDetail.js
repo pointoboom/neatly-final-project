@@ -344,44 +344,7 @@ function BookingDetail(props) {
               }
             })}
 
-        <Flex
-          className="special-request"
-          display="flex"
-          direction="row"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          w="310px"
-          color="white"
-          fontWeight="400"
-          fontFamily={"Inter"}
-          ml="20px"
-          mb="24px"
-          // bg="blue.100"
-        >
-          <Flex
-            className="special-request-option"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="space-between"
-            w="70%"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            Promotion Code
-          </Flex>
-          <Flex
-            className="special-request-cost"
-            display="flex"
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            // bg="blue.200"
-            fontSize="16px"
-          >
-            000.00
-          </Flex>
-        </Flex>
+        {/*  */}
 
         <GridItem
           w="310px"
