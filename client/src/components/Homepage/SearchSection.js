@@ -103,10 +103,10 @@ function SearchSection() {
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
             <Select
-              placeholder={`${room} room,${guest} guests`}
+              placeholder={`${guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
-                  <div className=" flex flex-row justify-between px-[5px]">
+                  {/* <div className=" flex flex-row justify-between px-[5px]">
                     <div>Room</div>
                     <div className=" flex flex-row">
                       <button
@@ -128,9 +128,9 @@ function SearchSection() {
                         <img src="./images/Search/plus.svg" alt="" />
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                   <div className=" flex flex-row justify-between px-[5px]">
-                    <div>Guest</div>
+                    <div className=" mr-[5px]">Guest</div>
                     <div className=" flex flex-row">
                       <button
                         onClick={() => {
