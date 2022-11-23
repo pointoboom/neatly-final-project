@@ -13,15 +13,18 @@ import {
   Th,
   Td,
   TableContainer,
+  Button,
 } from "@chakra-ui/react";
 import SideBar from "../../components/Sidebar";
 import { useEffect } from "react";
 import axios from "axios";
 import { SearchIcon } from "@chakra-ui/icons";
 import usePersistedState from "use-persisted-state-hook";
+import { useNavigate } from "react-router-dom";
 
 function RoomProperty() {
   const [roomProp, setRoomProp] = usePersistedState("roomstatus", null);
+  const navigate = useNavigate();
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms`);
 
@@ -48,19 +51,25 @@ function RoomProperty() {
           >
             <Flex>
               <Text fontSize="20px" ml="60px" fontWeight="semibold">
-                Room Management
+                Room & Property
               </Text>
             </Flex>
-            <Flex>
+            <Flex my="20px">
               <InputGroup>
                 <InputLeftElement children={<SearchIcon color="gray.400" />} />
-                <Input
-                  mr="10"
-                  placeholder="Search..."
-                  size="md"
-                  width="400px"
-                />
+                <Input placeholder="Search..." width="400px" />
               </InputGroup>
+              <Button
+                mr="20px"
+                background="#C14817"
+                color="white"
+                px="50px"
+                onClick={() => {
+                  navigate("/roomproperty/createroom");
+                }}
+              >
+                + Create Room
+              </Button>
             </Flex>
           </Flex>
 

@@ -14,7 +14,7 @@ function Sidebar() {
     >
       <VStack>
         <Image
-          src="./images/whitelogo.svg"
+          src="/images/whitelogo.svg"
           alt="Neatly Logo"
           w="150px"
           h="30px"
@@ -40,7 +40,7 @@ function Sidebar() {
           _selected={{ background: "#5D7B6A" }}
         >
           <Flex display="flex" direction="row">
-            <Image boxSize="27px" pr="10px" src="./images/booking.svg" />
+            <Image boxSize="27px" pr="10px" src="/images/booking.svg" />
             <Text
               font-family="Inter"
               font-style="normal"
@@ -64,7 +64,7 @@ function Sidebar() {
           _selected={{ background: "#5D7B6A" }}
         >
           <Flex display="flex" direction="row">
-            <Image boxSize="27px" pr="10px" src="./images/manage.svg" />
+            <Image boxSize="27px" pr="10px" src="/images/manage.svg" />
             <Text
               font-family="Inter"
               font-style="normal"
@@ -88,7 +88,7 @@ function Sidebar() {
           _selected={{ background: "#5D7B6A" }}
         >
           <Flex display="flex" direction="row">
-            <Image boxSize="27px" pr="10px" src="./images/hotel.svg" />
+            <Image boxSize="27px" pr="10px" src="/images/hotel.svg" />
             <Text
               font-family="Inter"
               font-style="normal"
@@ -112,7 +112,7 @@ function Sidebar() {
           _selected={{ background: "#5D7B6A" }}
         >
           <Flex display="flex" direction="row">
-            <Image boxSize="27px" pr="10px" src="./images/room.svg" />
+            <Image boxSize="27px" pr="10px" src="/images/room.svg" />
             <Text
               font-family="Inter"
               font-style="normal"
@@ -139,7 +139,7 @@ function Sidebar() {
           _selected={{ background: "#5D7B6A" }}
         >
           <Flex display="flex" direction="row">
-            <Image boxSize="27px" pr="10px" src="./images/logout.svg" />
+            <Image boxSize="27px" pr="10px" src="/images/logout.svg" />
             <Text
               font-family="Inter"
               font-style="normal"

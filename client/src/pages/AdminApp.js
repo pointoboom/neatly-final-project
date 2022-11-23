@@ -12,6 +12,7 @@ import CustomerBooking from "./admins/CustomerBooking";
 import RoomProperty from "./admins/RoomProperty";
 import RoomDetailPage from "./RoomDetailPage";
 import RoomManagementPage from "./admins/RoomManagementPage";
+import CreateRoom from "./admins/CreateRoom";
 function AdminApp() {
   return (
     <div className="App">
@@ -29,6 +30,7 @@ function AdminApp() {
         />
         <Route path="/customerbooking" element={<CustomerBooking />} />
         <Route path="/roomproperty" element={<RoomProperty />} />
+        <Route path="/roomproperty/createroom" element={<CreateRoom />} />
         <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
         <Route path="/roommanagement" element={<RoomManagementPage />} />
       </Routes>
