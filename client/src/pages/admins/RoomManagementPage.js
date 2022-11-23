@@ -12,36 +12,27 @@ import {
   Th,
   Td,
   TableContainer,
-  Box,
-  Button,
-  WrapItem,
-  HStack,
-  Avatar,
-  TagLabel,
-  Badge,
 } from "@chakra-ui/react";
 import SideBar from "../../components/Sidebar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { SearchIcon } from "@chakra-ui/icons";
-import usePersistedState from "use-persisted-state-hook";
-import {} from "@chakra-ui/react";
-import { Divider, Tag, Select } from "antd";
-import { AutoComplete } from "antd";
+import { Tag, Select } from "antd";
 
 function RoomManagementPage() {
-  const [roomManagement, setRoomManagement] = usePersistedState(
-    "roomstatus",
-    null
-  );
+  const [roomManagement, setRoomManagement] = useState([]);
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms/admin/manage`);
 
     setRoomManagement(res.data.data);
   };
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
+
+  const handleChange = async (value, room_no) => {
+    const res = await axios.put(
+      `http://localhost:4000/rooms/admin/manage?status_id=${value}&room_no=${room_no}`
+    );
   };
+
   const options = [
     {
       label: <Tag color="default">Vacant</Tag>,
@@ -147,43 +138,26 @@ function RoomManagementPage() {
                 {roomManagement == null
                   ? null
                   : roomManagement.map((data) => {
-                      // console.log(data);
                       return (
-                        <Tbody bg="white">
+                        <Tbody bg="white" key={data.room_no}>
                           <Tr>
                             <Td>{data.room_no}</Td>
                             <Td>{data.type_name}</Td>
                             <Td>{data.bed_type}</Td>
-                            {/* <Td>{data.status_name}</Td> */}
 
                             <Td>
                               <Select
                                 bordered={false}
                                 showArrow={false}
-                                defaultValue="Search status..."
+                                defaultValue={data.status_name}
                                 style={{
                                   width: 180,
                                 }}
-                                onChange={handleChange}
                                 options={options}
-                                
-                              />
-
-                              {/* <AutoComplete
-                                bordered={false}
-                                style={{
-                                  width: 200,
+                                onChange={(e) => {
+                                  handleChange(e, data.room_no);
                                 }}
-                                options={options}
-                                placeholder="Search status..."
-                                filterOption={(inputValue, option) =>
-                                  option.value
-                                    .toUpperCase()
-                                    .indexOf(inputValue.toUpperCase()) !== -1
-                                }
-                                // value={<Tag color="magenta">magenta</Tag>}
-                                onChange={(e) => console.log(e)}
-                              /> */}
+                              />
                             </Td>
                           </Tr>
                         </Tbody>
