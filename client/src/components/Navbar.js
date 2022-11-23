@@ -32,7 +32,6 @@ function Navbar() {
       setUserdata(userdata);
     }
   }, []);
-  console.log(auth.isAdmin);
   return (
     <Box
       color="#F7F7FB"

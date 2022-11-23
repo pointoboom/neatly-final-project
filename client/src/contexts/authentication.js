@@ -59,6 +59,8 @@ function AuthProvider(props) {
   // clear the token in localStorage and the user data
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("__use_local_storage_state_hook__value__checkIn");
+    localStorage.removeItem("__use_local_storage_state_hook__value__checkOut");
     setState({ ...state, user: null });
     setIsAdmin(false);
     tab.setTabIndex(0);

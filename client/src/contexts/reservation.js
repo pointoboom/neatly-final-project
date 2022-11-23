@@ -17,6 +17,8 @@ function HotelProvider(props) {
   const [isProcess, setProcess] = useState(true);
   const [isSuccess, setSuccess] = useState(false);
   const [reserveId, setReserveId] = useState("");
+  const [roomDetails, setRoomDetails] = useState([]);
+
   const handleSetRoomId = (id) => {
     setRoomId(id);
   };
@@ -44,6 +46,33 @@ function HotelProvider(props) {
     setReserveId(result.data.reservationsid);
   };
 
+  const getData = async () => {
+    const res = await axios.get(
+      `http://localhost:4000/rooms?startdate=${checkIn}&enddate=${checkOut}`
+    );
+
+    const data = res.data.data.map((item) => {
+      if (res.data.dissableroom.length === 0) {
+        return item;
+      } else {
+        for (let i of res.data.dissableroom) {
+          if (i.room_types_id === item.room_types_id) {
+            item = { ...item, disable: true };
+            return item;
+          } else if (
+            res.data.dissableroom.indexOf(i) ===
+            res.data.dissableroom.length - 1
+          ) {
+            item = { ...item, disable: false };
+            return item;
+          } else {
+            continue;
+          }
+        }
+      }
+    });
+    setRoomDetails(data);
+  };
   return (
     <hotelContext.Provider
       value={{
@@ -71,6 +100,8 @@ function HotelProvider(props) {
         setProcess,
         setSuccess,
         reserveId,
+        roomDetails,
+        getData,
       }}
     >
       {props.children}

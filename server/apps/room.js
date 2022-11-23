@@ -3,23 +3,10 @@ import { pool } from "../utils/db.js";
 const roomRouter = Router();
 import moment from "moment";
 
-// roomRouter.get("/", async (req, res) => {
-//   try {
-//     const result = await pool.query(
-//       "SELECT * FROM public.room_types ORDER BY room_types_id ASC "
-//     );
-//     return res.json({
-//       data: result.rows,
-//     });
-//   } catch (error) {}
-// });
-
 roomRouter.get("/", async (req, res) => {
   const startdate = moment(req.query.startdate).format("YYYY-MM-DD");
   const enddate = moment(req.query.enddate).format("YYYY-MM-DD");
-
-  console.log("startdate", startdate);
-  console.log(enddate);
+  const guest = req.query.guest;
 
   try {
     if (startdate === "Invalid date" || enddate === "Invalid date") {
@@ -29,9 +16,9 @@ roomRouter.get("/", async (req, res) => {
 
       return res.json({
         data: result.rows,
+        dissableroom: [],
       });
     } else {
-
       const result = await pool.query(
         "SELECT * FROM public.room_types ORDER BY room_types_id ASC "
       );
@@ -54,16 +41,15 @@ roomRouter.get("/", async (req, res) => {
         }
       });
 
-
       return res.json({
         data: result.rows,
         maxroom: count1.rows,
         dissableroom: notReserve,
       });
     }
-
-
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 roomRouter.get("/:roomid", async (req, res) => {
