@@ -292,7 +292,7 @@ function RegisterPage() {
                         fontSize="16px"
                         // id="idnumber"
                         name="idnumber"
-                        type="password"
+                        type="number"
                         value={idnumber}
                         onChange={(event) => {
                           setIdnumber(event.target.value);
