@@ -12,6 +12,7 @@ import {
   Th,
   Td,
   TableContainer,
+  Button,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar.js";
 import { useEffect, useState } from "react";
@@ -20,11 +21,15 @@ import moment from "moment";
 import { SearchIcon } from "@chakra-ui/icons";
 import usePersistedState from "use-persisted-state-hook";
 import {} from "@chakra-ui/react";
+import { debounce } from "lodash";
+import { useNavigate } from "react-router-dom";
 function CustomerBooking() {
   const [customerBooking, setCustomerBooking] = useState([]);
+  const [keywords, setKeyWords] = useState("");
+  console.log(keywords);
   const getData = async () => {
     const res = await axios.get(
-      "http://localhost:4000/reserve/admin/customerbooking"
+      `http://localhost:4000/reserve/admin/customerbooking?keywords=${keywords}`
     );
     const data = res.data.data.map((data) => {
       const check_in_date = moment(data.check_in_date).format("dd,DD MMM YYYY");
@@ -35,14 +40,22 @@ function CustomerBooking() {
       return data;
     });
     setCustomerBooking(data);
+    console.log(data);
+  };
+
+  const handleChange = (e) => {
+    setKeyWords(e);
+    getData();
   };
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [keywords]);
+
+  const navigate = useNavigate();
 
   return (
-    <Flex direction="row" h="100vh" bg="#F6F7FC">
+    <Flex direction="row" bg="#F6F7FC">
       <Sidebar />
       <Flex w="100%" h="100vh" bg="blue" justifyContent="center">
         <Flex direction="column" bg="#F6F7FC" w="full">
@@ -56,7 +69,7 @@ function CustomerBooking() {
             alignItems="center"
           >
             <Flex>
-              <Text fontSize="20px" ml="60px" fontWeight="semibold">
+              <Text fontSize="20px" ml="60px" fontWeight="semibold" py="20">
                 Customer Booking
               </Text>
             </Flex>
@@ -68,6 +81,8 @@ function CustomerBooking() {
                   placeholder="Search..."
                   size="md"
                   width="400px"
+                  onChange={(e) => debounce(handleChange(e.target.value), 1000)}
+                  // onChange={handleChange}
                 />
               </InputGroup>
             </Flex>
@@ -87,21 +102,34 @@ function CustomerBooking() {
                     <Th>Check-out</Th>
                   </Tr>
                 </Thead>
-                {customerBooking.map((data) => {
-                  return (
-                    <Tbody bg="white">
-                      <Tr>
-                        <Td>{data.fullname}</Td>
-                        <Td>{data.guest}</Td>
-                        <Td>{data.type_name}</Td>
-                        <Td>{data.total_price}</Td>
-                        <Td>{data.bed_type}</Td>
-                        <Td>{data.check_in_date}</Td>
-                        <Td>{data.check_out_date}</Td>
-                      </Tr>
-                    </Tbody>
-                  );
-                })}
+                {customerBooking ? (
+                  <>
+                    {customerBooking.map((data) => {
+                      return (
+                        <Tbody
+                          bg="white"
+                          _hover={{ bg: "gray.100" }}
+                          onClick={() => {
+                            console.log(data.reservation_id);
+                            navigate(
+                              `customerbookingdetails/${data.reservation_id}`
+                            );
+                          }}
+                        >
+                          <Tr>
+                            <Td>{data.fullname}</Td>
+                            <Td>{data.guest}</Td>
+                            <Td>{data.type_name}</Td>
+                            <Td>{data.total_price}</Td>
+                            <Td>{data.bed_type}</Td>
+                            <Td>{data.check_in_date}</Td>
+                            <Td>{data.check_out_date}</Td>
+                          </Tr>
+                        </Tbody>
+                      );
+                    })}
+                  </>
+                ) : null}
 
                 <Tbody bg="white"></Tbody>
               </Table>
