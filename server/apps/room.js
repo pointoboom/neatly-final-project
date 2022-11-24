@@ -92,11 +92,35 @@ roomRouter.get("/admin/manage", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 690984953b3f4749dd148c3cf38c934eb1e4af8f
 roomRouter.put("/admin/manage", async (req, res) => {
   try {
     const status_id = req.query.status_id;
     const room_no = req.query.room_no;
+<<<<<<< HEAD
+=======
+
+    const id = await pool.query(`select * from status where status_name = $1`, [
+      status_id,
+    ]);
+    console.log(id.rows[0].status_id);
+
+    const result = await pool.query(
+      `UPDATE room_managements SET status_id = $1 WHERE room_no=$2 returning *`,
+      [id.rows[0].status_id, room_no]
+    );
+    console.log(result.rows);
+    return res.json({
+      message: `Update status success`,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+>>>>>>> 690984953b3f4749dd148c3cf38c934eb1e4af8f
 
     const id = await pool.query(`select * from status where status_name = $1`, [
       status_id,
