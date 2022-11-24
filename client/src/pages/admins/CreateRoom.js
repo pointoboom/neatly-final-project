@@ -10,11 +10,8 @@ import {
 import Sidebar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { DatePicker, Select, Upload, Form } from "antd";
-import { MinusCircleOutlined } from "@ant-design/icons";
-
+import { Upload, Form } from "antd";
 import "antd/dist/antd.min.css";
-import axios from "axios";
 import usePersistedState from "use-persisted-state-hook";
 import { useNavigate } from "react-router-dom";
 const getBase64 = (img, callback) => {
@@ -26,17 +23,13 @@ function CreateRoom() {
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [previewTitle, setPreviewTitle] = useState("");
-  const [roomProp, setRoomProp] = usePersistedState("roomstatus", null);
+  const [newRoom, setNewRoom] = useState({});
+  const [roomType, setRoomtype] = useState("");
+  const [roomSize, setRoomSize] = useState("");
+  const [bedType, setBedType] = useState("");
 
   const navigate = useNavigate();
-  const getData = async () => {
-    const res = await axios.get(`http://localhost:4000/rooms`);
 
-    setRoomProp(res.data.data);
-  };
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
   const mainImgChange = (info) => {
     getBase64(info.file.originFileObj, (url) => {
@@ -92,9 +85,6 @@ function CreateRoom() {
       </div>
     </div>
   );
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
 
   return (
     <Flex direction="row" bg="#F6F7FC">
@@ -166,7 +156,14 @@ function CreateRoom() {
                 <FormLabel fontFamily={"Inter"} fontSize="16px" fontStyle="400">
                   Room Type *
                 </FormLabel>
-                <Input></Input>
+                <Input
+                  onChange={(event) => {
+                    setNewRoom({
+                      ...newRoom,
+                      ["room_type"]: event.target.value,
+                    });
+                  }}
+                ></Input>
               </Flex>
               <Flex className="room-size-bed-type" direction="row" mb="40px">
                 <Flex className="room-size" direction="column" mr="10vw">
@@ -177,7 +174,12 @@ function CreateRoom() {
                   >
                     Room size(sqm)*
                   </FormLabel>
-                  <Input width="20vw"></Input>
+                  <Input
+                    width="20vw"
+                    onChange={(event) => {
+                      setRoomSize(event.target.value);
+                    }}
+                  ></Input>
                 </Flex>
                 <Flex className="bed-type" direction="column">
                   <FormLabel
@@ -187,7 +189,12 @@ function CreateRoom() {
                   >
                     Bed Type *
                   </FormLabel>
-                  <Input width="20vw"></Input>
+                  <Input
+                    width="20vw"
+                    onChange={(event) => {
+                      setBedType(event.target.value);
+                    }}
+                  ></Input>
                 </Flex>
               </Flex>
               <Flex className="guest-room" direction="column" mb="40px">
@@ -250,15 +257,11 @@ function CreateRoom() {
                 </FormLabel>
 
                 <Upload
-                  // action="null"
                   customRequest={dummyRequest}
                   name="avatar"
                   listType="picture-card"
                   className="avatar-uploader"
-                  // fileList={fileList}
-                  // showUploadList={false}
                   onChange={handleChange}
-                  // onPreview={handlePreview}
                 >
                   {fileList.length >= 10 ? null : uploadButton}
                 </Upload>
