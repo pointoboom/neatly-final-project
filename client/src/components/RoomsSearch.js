@@ -1,5 +1,5 @@
 import { Button, Text } from "@chakra-ui/react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Img } from "@chakra-ui/react";
 import { VStack, StackDivider } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import React, { useEffect } from "react";
@@ -25,11 +25,13 @@ function RoomsSearch() {
         return (
           <Flex>
             <Flex>
-              <img
-                width="400px"
-                height="250px"
+              <Img
+                w="350px"
+                h="200px"
                 class="mr-12 my-6"
+                objectFit="cover"
                 src={data.main_image_url}
+                mr="50px"
               />
             </Flex>
             <Flex direction="column" justify="center" ml="1rem" mb="2rem">
