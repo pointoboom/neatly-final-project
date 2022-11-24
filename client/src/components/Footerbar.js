@@ -30,7 +30,7 @@ function Footerbar() {
             <Image
               width="180"
               height="50"
-              src="./images/footerbar/logo.svg"
+              src="/images/footerbar/logo.svg"
               alt="Neatly Hotel logo"
             />
           </Stack>
@@ -80,7 +80,7 @@ function Footerbar() {
             <Flex direction="row" justifyContent="center" alignItems="center">
               <Image
                 boxSize="20px"
-                src="./images/footerbar/tel.svg"
+                src="/images/footerbar/tel.svg"
                 alt="phone number"
               />
               <Text fontSize="16px" textColor="white" padding="10px">
@@ -91,7 +91,7 @@ function Footerbar() {
             <Flex direction="row" justifyContent="center" alignItems="center">
               <Image
                 boxSize="20px"
-                src="./images/footerbar/email.svg"
+                src="/images/footerbar/email.svg"
                 alt="email"
               />
               <Text fontSize="16px" textColor="white" padding="12px">
@@ -106,7 +106,7 @@ function Footerbar() {
             >
               <Image
                 boxSize="20px"
-                src="./images/footerbar/location.svg"
+                src="/images/footerbar/location.svg"
                 alt="location"
                 marginTop="12px"
               />
@@ -141,17 +141,17 @@ function Footerbar() {
           >
             <Image
               boxSize="24px"
-              src="./images/footerbar/facebook.svg"
+              src="/images/footerbar/facebook.svg"
               alt="facebook link"
             />
             <Image
               boxSize="24px"
-              src="./images/footerbar/instagram.svg"
+              src="/images/footerbar/instagram.svg"
               alt="instagram link"
             />
             <Image
               boxSize="24px"
-              src="./images/footerbar/tweet.svg"
+              src="/images/footerbar/tweet.svg"
               alt="tweet link"
             />
           </Stack>
