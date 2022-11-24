@@ -10,8 +10,9 @@ import {
 import Sidebar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { DatePicker, Select, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
+import { DatePicker, Select, Upload, Form } from "antd";
+import { MinusCircleOutlined } from "@ant-design/icons";
+
 import "antd/dist/antd.min.css";
 import axios from "axios";
 import usePersistedState from "use-persisted-state-hook";
@@ -47,6 +48,37 @@ function CreateRoom() {
     setTimeout(() => {
       onSuccess("ok");
     }, 0);
+  };
+  const onFinish = (values) => {
+    console.log("Received values of form:", values);
+  };
+  const formItemLayout = {
+    labelCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 4,
+      },
+    },
+    wrapperCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 20,
+      },
+    },
+  };
+  const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 20,
+      },
+    },
   };
   const uploadButton = (
     <div>
@@ -236,9 +268,57 @@ function CreateRoom() {
                 fontSize="20px"
                 color="gray.600"
                 fontStyle="600"
+                mb="40px"
               >
                 Room Amenities
               </Text>
+              <Flex className="amenity" direction="column" mb="40px">
+                <Form name="dynamic_form_item" onFinish={onFinish}>
+                  <Form.List name="names">
+                    {(fields, { add, remove }, { errors }) => (
+                      <>
+                        {fields.map((field, index) => (
+                          <Form.Item required={false} key={field.key}>
+                            <Form.Item
+                              {...field}
+                              validateTrigger={["onChange", "onBlur"]}
+                              noStyle
+                            >
+                              <FormLabel
+                                fontFamily={"Inter"}
+                                fontSize="16px"
+                                fontStyle="400"
+                              >
+                                Amenity*
+                              </FormLabel>
+                              <Input width="80%" mr="40px"></Input>
+                            </Form.Item>
+                            {fields.length >= 1 ? (
+                              <Button
+                                className="dynamic-delete-button"
+                                onClick={() => remove(field.name)}
+                              >
+                                delete
+                              </Button>
+                            ) : null}
+                          </Form.Item>
+                        ))}
+                        <Form.Item>
+                          <Button
+                            onClick={() => {
+                              add();
+                            }}
+                          >
+                            Add
+                          </Button>
+
+                          <Form.ErrorList errors={errors} />
+                        </Form.Item>
+                      </>
+                    )}
+                  </Form.List>
+                </Form>
+              </Flex>
             </Flex>
           </Flex>
         </Flex>

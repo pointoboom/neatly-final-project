@@ -36,9 +36,9 @@ function RoomProperty() {
   }, []);
 
   return (
-    <Flex direction="row" h="100vh" bg="#F6F7FC">
+    <Flex direction="row" bg="#F6F7FC">
       <SideBar />
-      <Flex w="100%" h="100vh" bg="blue" justifyContent="center">
+      <Flex w="100%" bg="blue" justifyContent="center">
         <Flex direction="column" bg="#F6F7FC" w="full">
           <Flex
             h="80px"
