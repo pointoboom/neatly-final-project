@@ -18,22 +18,16 @@ import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import moment from "moment";
 import { SearchIcon } from "@chakra-ui/icons";
-import usePersistedState from "use-persisted-state-hook";
 import {} from "@chakra-ui/react";
-// import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
-import debounce from "lodash.debounce";
-
-// const lodash = require("lodash");
-// lodash.debounce = jest.fn((fn) => fn);
 
 function CustomerBooking() {
   const [customerBooking, setCustomerBooking] = useState([]);
   const [keywords, setKeyWords] = useState("");
   console.log(keywords);
-  const getData = async () => {
+  const getData = async (search) => {
     const res = await axios.get(
-      `http://localhost:4000/reserve/admin/customerbooking?keywords=${keywords}`
+      `http://localhost:4000/reserve/admin/customerbooking?keywords=${search}`
     );
     const data = res.data.data.map((data) => {
       const check_in_date = moment(data.check_in_date).format("dd,DD MMM YYYY");
@@ -44,21 +38,17 @@ function CustomerBooking() {
       return data;
     });
     setCustomerBooking(data);
-    // console.log(data);
   };
 
   const handleChange = (e) => {
     setKeyWords(e);
-    getData();
   };
 
   useEffect(() => {
-    getData();
+    getData(keywords);
   }, [keywords]);
 
   const navigate = useNavigate();
-
-  // const debouncedGetData = useCallback(debounce(handleChange, 500), []);
 
   return (
     <Flex direction="row" bg="#F6F7FC">
@@ -88,7 +78,7 @@ function CustomerBooking() {
                   size="md"
                   width="400px"
                   // onChange={(e) => debounce(handleChange(e.target.value), 1000)}
-                  onChange={(e) => debounce(handleChange(e.target.value), 500)}
+                  onChange={(e) => handleChange(e.target.value)}
                 />
               </InputGroup>
             </Flex>
@@ -144,7 +134,6 @@ function CustomerBooking() {
         </Flex>
       </Flex>
     </Flex>
-    // </Flex>
   );
 }
 

@@ -172,10 +172,10 @@ reserveRouter.get("/admin/customerbooking", async (req, res) => {
   console.log(keywords);
   if (keywords) {
     const result = await pool.query(
-      "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id, reservations.reservation_id  from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where users.fullname = $1",
-      [keywords]
+      "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id, reservations.reservation_id  from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where users.fullname ilike $1",
+      [`%${keywords}%`]
     );
-
+    console.log(result.rows);
     return res.json({
       data: result.rows,
     });
