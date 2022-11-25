@@ -228,4 +228,19 @@ reserveRouter.get("/rooms/admin/manage", async (req, res) => {
   });
 });
 
+//Edit room property
+reserveRouter.get("/admin/roompropertyedit/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const result = await pool.query(
+    // "select users.fullname,users.card_number, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id, reservations.reservation_id, reservations.booking_date, reservations.payment_method from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where reservations.reservation_id = $1",
+    // [id]
+    `select * from room_types where room_types_id = $1`,
+    [id]
+  );
+
+  return res.json({
+    data: result.rows,
+  });
+});
 export default reserveRouter;

@@ -8,6 +8,7 @@ import moment from "moment";
 // import usePersistedState from "use-persisted-state-hook";
 import {} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+
 function CustomerBookingDetails() {
   const params = useParams();
   // console.log(params);
