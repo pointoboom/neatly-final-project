@@ -92,7 +92,16 @@ function RoomProperty() {
                   : roomProp.map((data) => {
                       // console.log(data);
                       return (
-                        <Tbody bg="white">
+                        <Tbody
+                          bg="white"
+                          _hover={{ bg: "gray.100" }}
+                          onClick={() => {
+                            console.log(data.room_types_id);
+                            navigate(
+                              `roompropertyedit/${data.room_types_id}`
+                            );
+                          }}
+                        >
                           <Tr>
                             <Td>
                               <Image

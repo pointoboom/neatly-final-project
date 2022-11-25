@@ -1,0 +1,1 @@
+select * from room_types where room_types_id = $1
