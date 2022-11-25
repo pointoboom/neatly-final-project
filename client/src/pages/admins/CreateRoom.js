@@ -12,8 +12,11 @@ import { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload, Form } from "antd";
 import "antd/dist/antd.min.css";
+import jwtDecode from "jwt-decode";
 import usePersistedState from "use-persisted-state-hook";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/authentication";
+import axios from "axios";
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
@@ -24,17 +27,31 @@ function CreateRoom() {
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [newRoom, setNewRoom] = useState({});
-  const [roomType, setRoomtype] = useState("");
-  const [roomSize, setRoomSize] = useState("");
-  const [bedType, setBedType] = useState("");
-
+  const [mainImg, setMainImg] = useState({});
+  const { register } = useAuth();
   const navigate = useNavigate();
+  const createRoom = async (data) => {
+    const result = await axios.post(
+      "http://localhost:4000/rooms/newroom",
+      data,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+  };
+  const handleChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
   const mainImgChange = (info) => {
     getBase64(info.file.originFileObj, (url) => {
       setLoading(false);
       setImageUrl(url);
+    });
+    setMainImg({});
+    const uniqueId = Date.now();
+    setMainImg({
+      [uniqueId]: info.file.originFileObj,
     });
   };
   const dummyRequest = ({ file, onSuccess }) => {
@@ -45,34 +62,7 @@ function CreateRoom() {
   const onFinish = (values) => {
     console.log("Received values of form:", values);
   };
-  const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 4,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 20,
-      },
-    },
-  };
-  const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 20,
-      },
-    },
-  };
+
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -85,7 +75,30 @@ function CreateRoom() {
       </div>
     </div>
   );
+  const handleCreate = (event) => {
+    const token = localStorage.getItem("token");
+    const userdata = jwtDecode(token);
+    event.preventDefault();
+    const formData = new FormData();
 
+    formData.append("room_type", newRoom.room_type);
+    formData.append("user_id", userdata.id);
+    formData.append("room_size", newRoom.room_size);
+    formData.append("bed_type", newRoom.bed_type);
+    formData.append("guest", newRoom.guest);
+    formData.append("price", newRoom.price);
+    formData.append("description", newRoom.description);
+    for (let i in newRoom.amenity) {
+      formData.append("amenity", newRoom.amenity[i]);
+    }
+    for (let mainImgKey in mainImg) {
+      formData.append("main_img", mainImg[mainImgKey]);
+    }
+    for (let i of fileList) {
+      formData.append("gallery_img", i.originFileObj);
+    }
+    createRoom(formData);
+  };
   return (
     <Flex direction="row" bg="#F6F7FC">
       <Sidebar />
@@ -124,8 +137,9 @@ function CreateRoom() {
                 background="#C14817"
                 color="white"
                 px="50px"
-                onClick={() => {
-                  navigate("/roomproperty/createroom");
+                onClick={(e) => {
+                  handleCreate(e);
+                  navigate("/roomproperty");
                 }}
               >
                 Create
@@ -177,7 +191,10 @@ function CreateRoom() {
                   <Input
                     width="20vw"
                     onChange={(event) => {
-                      setRoomSize(event.target.value);
+                      setNewRoom({
+                        ...newRoom,
+                        ["room_size"]: event.target.value,
+                      });
                     }}
                   ></Input>
                 </Flex>
@@ -192,7 +209,10 @@ function CreateRoom() {
                   <Input
                     width="20vw"
                     onChange={(event) => {
-                      setBedType(event.target.value);
+                      setNewRoom({
+                        ...newRoom,
+                        ["bed_type"]: event.target.value,
+                      });
                     }}
                   ></Input>
                 </Flex>
@@ -201,19 +221,40 @@ function CreateRoom() {
                 <FormLabel fontFamily={"Inter"} fontSize="16px" fontStyle="400">
                   Guest(s)*
                 </FormLabel>
-                <Input></Input>
+                <Input
+                  onChange={(event) => {
+                    setNewRoom({
+                      ...newRoom,
+                      ["guest"]: event.target.value,
+                    });
+                  }}
+                ></Input>
               </Flex>
               <Flex className="price-night" direction="column" mb="40px">
                 <FormLabel fontFamily={"Inter"} fontSize="16px" fontStyle="400">
                   Price per Night(THB)*
                 </FormLabel>
-                <Input></Input>
+                <Input
+                  onChange={(event) => {
+                    setNewRoom({
+                      ...newRoom,
+                      ["price"]: event.target.value,
+                    });
+                  }}
+                ></Input>
               </Flex>
               <Flex className="room-description" direction="column" mb="40px">
                 <FormLabel fontFamily={"Inter"} fontSize="16px" fontStyle="400">
                   Room Description*
                 </FormLabel>
-                <Textarea></Textarea>
+                <Textarea
+                  onChange={(event) => {
+                    setNewRoom({
+                      ...newRoom,
+                      ["description"]: event.target.value,
+                    });
+                  }}
+                ></Textarea>
               </Flex>
               <Text
                 mb="40px"
@@ -277,15 +318,44 @@ function CreateRoom() {
               </Text>
               <Flex className="amenity" direction="column" mb="40px">
                 <Form name="dynamic_form_item" onFinish={onFinish}>
+                  <Form
+                    validateTrigger={["onChange", "onBlur"]}
+                    noStyle
+                    name="input"
+                  >
+                    <FormLabel
+                      fontFamily={"Inter"}
+                      fontSize="16px"
+                      fontStyle="400"
+                    >
+                      Amenity*
+                    </FormLabel>
+                    <Input
+                      width="80%"
+                      mr="40px"
+                      onChange={(event) => {
+                        setNewRoom({
+                          ...newRoom,
+                          ["amenity"]: { 1: event.target.value },
+                        });
+                      }}
+                      mb="40px"
+                    ></Input>
+                  </Form>
                   <Form.List name="names">
                     {(fields, { add, remove }, { errors }) => (
                       <>
                         {fields.map((field, index) => (
-                          <Form.Item required={false} key={field.key}>
+                          <Form.Item
+                            required={false}
+                            key={field.key}
+                            name="input"
+                          >
                             <Form.Item
                               {...field}
                               validateTrigger={["onChange", "onBlur"]}
                               noStyle
+                              name="input"
                             >
                               <FormLabel
                                 fontFamily={"Inter"}
@@ -294,7 +364,20 @@ function CreateRoom() {
                               >
                                 Amenity*
                               </FormLabel>
-                              <Input width="80%" mr="40px"></Input>
+                              <Input
+                                width="80%"
+                                mr="40px"
+                                onChange={(event) => {
+                                  const i = index + 2;
+                                  setNewRoom({
+                                    ...newRoom,
+                                    ["amenity"]: {
+                                      ...newRoom.amenity,
+                                      [i]: event.target.value,
+                                    },
+                                  });
+                                }}
+                              ></Input>
                             </Form.Item>
                             {fields.length >= 1 ? (
                               <Button
@@ -311,8 +394,11 @@ function CreateRoom() {
                             onClick={() => {
                               add();
                             }}
+                            color="#C14817"
+                            border="1px"
+                            borderColor="#C14817"
                           >
-                            Add
+                            + Add Amenity
                           </Button>
 
                           <Form.ErrorList errors={errors} />
