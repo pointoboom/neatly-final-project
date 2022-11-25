@@ -1,5 +1,12 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
+import { RoomImageUpload } from "../utils/upload.js";
+import multer from "multer";
+const multerUpload = multer({ dest: "uploads/" });
+const avatarUpload = multerUpload.fields([
+  { name: "main_img", maxCount: 2 },
+  { name: "gallery_img", maxCount: 10 },
+]);
 const roomRouter = Router();
 import moment from "moment";
 
@@ -124,5 +131,50 @@ roomRouter.get("/room-detail/:roomId", async (req, res) => {
     randomRoom: randomRoom.rows,
     message: "get room_types successfully returned",
   });
+});
+
+roomRouter.post("/newroom", avatarUpload, async (req, res) => {
+  try {
+    const newRoom = {
+      ...req.body,
+    };
+    const imgUrl = await RoomImageUpload(req.files);
+    const mainImg = imgUrl[0].main_url;
+    const tempGalImg = imgUrl.filter((item) => {
+      if ("gal_url" in item) {
+        return item;
+      }
+    });
+    const galImg = tempGalImg.map((item) => item.gal_url);
+    await pool.query(
+      `insert into room_types
+             (type_name, room_size, bed_type, guest, max_guest, no_of_bed,
+             price, promotion_price, description, amenity_id, admin_id, main_images, gallery_images,main_image_url,gallery_images_id)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,$14,$15)`,
+      [
+        newRoom.room_type,
+        newRoom.room_size,
+        newRoom.bed_type,
+        newRoom.guest,
+        newRoom.guest,
+        newRoom.guest,
+        newRoom.price,
+        newRoom.price - 500,
+        newRoom.description,
+        1,
+        newRoom.user_id,
+        mainImg,
+        galImg,
+        "test",
+        "test",
+      ]
+    );
+    console.log("success");
+    return res.json({
+      message: "Create room successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 export default roomRouter;

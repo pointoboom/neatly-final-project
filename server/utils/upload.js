@@ -17,4 +17,30 @@ const cloudinaryUpload = async (files) => {
   return fileUrl;
 };
 
-export { cloudinaryUpload };
+const RoomImageUpload = async (files) => {
+  const fileUrl = [];
+  for (let file of files.main_img) {
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "techupth/Neatly-project/roomImage",
+      type: "private",
+    });
+    fileUrl.push({
+      main_url: result.secure_url,
+      publicId: result.public_id,
+    });
+    await fs.unlink(file.path);
+  }
+  for (let file of files.gallery_img) {
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "techupth/Neatly-project/roomImage",
+      type: "private",
+    });
+    fileUrl.push({
+      gal_url: result.secure_url,
+      publicId: result.public_id,
+    });
+    await fs.unlink(file.path);
+  }
+  return fileUrl;
+};
+export { cloudinaryUpload, RoomImageUpload };
