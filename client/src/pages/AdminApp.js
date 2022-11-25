@@ -14,6 +14,7 @@ import RoomDetailPage from "./RoomDetailPage";
 import RoomManagementPage from "./admins/RoomManagementPage";
 import CreateRoom from "./admins/CreateRoom";
 import CustomerBookingDetails from "./admins/CustomerBookingDetails";
+import EditProfilePage from "./EditProfilePage";
 
 function AdminApp() {
   return (
@@ -39,6 +40,8 @@ function AdminApp() {
           path="/customerbooking/customerbookingdetails/:id"
           element={<CustomerBookingDetails />}
         />
+
+        <Route path="/edit-profile" element={<EditProfilePage />} />
       </Routes>
     </div>
   );

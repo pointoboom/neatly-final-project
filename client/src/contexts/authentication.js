@@ -69,6 +69,23 @@ function AuthProvider(props) {
 
   const isAuthenticated = Boolean(localStorage.getItem("token"));
 
+  // editUser the user
+  const editUser = async (data, id) => {
+    const result = await axios.put(
+      `http://localhost:4000/auth/edit/${id}`,
+      data,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+
+    console.log(result.data);
+    const token = result.data.token;
+    localStorage.setItem("token", token);
+
+    navigate("/");
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -82,6 +99,7 @@ function AuthProvider(props) {
         loginfail,
         isAdmin,
         setLoginSuccess,
+        editUser,
       }}
     >
       {props.children}
