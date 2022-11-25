@@ -10,7 +10,7 @@ import {} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 function CustomerBookingDetails() {
   const params = useParams();
-  console.log(params);
+  // console.log(params);
   const [customerBooking, setCustomerBooking] = useState([]);
   const getData = async () => {
     const res = await axios.get(
@@ -30,8 +30,6 @@ function CustomerBookingDetails() {
     console.log(data);
     setCustomerBooking(data);
   };
-
-  console.log(customerBooking);
 
   useEffect(() => {
     getData();
@@ -171,14 +169,45 @@ function CustomerBookingDetails() {
 
               {customerBooking.map((data) => {
                 if (data.type === "specialRequest") {
-                  return (
-                    <Flex justify="space-between">
-                      <Text p="2"> {data.have}</Text>
-                      <Text p="2" fontWeight="bold">
-                        {data.req_price}.00
-                      </Text>
-                    </Flex>
-                  );
+                  if (data.have === "Airport transfer") {
+                    return (
+                      <Flex justify="space-between">
+                        <Text p="2"> {data.have}</Text>
+                        <Text p="2" fontWeight="bold">
+                          {data.req_price}.00
+                        </Text>
+                      </Flex>
+                    );
+                  } else if (data.have === "Breakfast") {
+                    return (
+                      <Flex justify="space-between">
+                        <Text p="2"> {data.have}</Text>
+                        <Text p="2" fontWeight="bold">
+                          {data.req_price *
+                            data.guest *
+                            moment(data.check_out_date).diff(
+                              moment(data.check_in_date),
+                              "days"
+                            )}
+                          .00
+                        </Text>
+                      </Flex>
+                    );
+                  } else {
+                    return (
+                      <Flex justify="space-between">
+                        <Text p="2"> {data.have}</Text>
+                        <Text p="2" fontWeight="bold">
+                          {data.req_price *
+                            moment(data.check_out_date).diff(
+                              moment(data.check_in_date),
+                              "days"
+                            )}
+                          .00
+                        </Text>
+                      </Flex>
+                    );
+                  }
                 }
               })}
 
@@ -199,7 +228,6 @@ function CustomerBookingDetails() {
                 }
               })}
             </Flex>
-
             <Flex bg="#E4E6ED" direction="column" p="5" mt="10">
               <Text p="2">Additional Request</Text>
               {customerBooking.map((data) => {

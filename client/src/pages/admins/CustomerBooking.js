@@ -12,17 +12,21 @@ import {
   Th,
   Td,
   TableContainer,
-  Button,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar.js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import moment from "moment";
 import { SearchIcon } from "@chakra-ui/icons";
 import usePersistedState from "use-persisted-state-hook";
 import {} from "@chakra-ui/react";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
+import debounce from "lodash.debounce";
+
+// const lodash = require("lodash");
+// lodash.debounce = jest.fn((fn) => fn);
+
 function CustomerBooking() {
   const [customerBooking, setCustomerBooking] = useState([]);
   const [keywords, setKeyWords] = useState("");
@@ -40,7 +44,7 @@ function CustomerBooking() {
       return data;
     });
     setCustomerBooking(data);
-    console.log(data);
+    // console.log(data);
   };
 
   const handleChange = (e) => {
@@ -53,6 +57,8 @@ function CustomerBooking() {
   }, [keywords]);
 
   const navigate = useNavigate();
+
+  // const debouncedGetData = useCallback(debounce(handleChange, 500), []);
 
   return (
     <Flex direction="row" bg="#F6F7FC">
@@ -81,8 +87,8 @@ function CustomerBooking() {
                   placeholder="Search..."
                   size="md"
                   width="400px"
-                  onChange={(e) => debounce(handleChange(e.target.value), 1000)}
-                  // onChange={handleChange}
+                  // onChange={(e) => debounce(handleChange(e.target.value), 1000)}
+                  onChange={(e) => debounce(handleChange(e.target.value), 500)}
                 />
               </InputGroup>
             </Flex>
