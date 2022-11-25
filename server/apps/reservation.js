@@ -172,10 +172,10 @@ reserveRouter.get("/admin/customerbooking", async (req, res) => {
   console.log(keywords);
   if (keywords) {
     const result = await pool.query(
-      "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id, reservations.reservation_id  from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where users.fullname = $1",
-      [keywords]
+      "select users.fullname, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id, reservations.reservation_id  from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where users.fullname ilike $1",
+      [`%${keywords}%`]
     );
-
+    console.log(result.rows);
     return res.json({
       data: result.rows,
     });
@@ -196,7 +196,9 @@ reserveRouter.get("/admin/customerbookingdetails/:id", async (req, res) => {
   const result = await pool.query(
     // "select users.fullname,users.card_number, room_types.guest, room_types.type_name, bills.total_price, reservations.amount,room_types.bed_type, check_in_date, check_out_date, users.user_id, reservations.reservation_id, reservations.booking_date, reservations.payment_method from reservations inner join users_reservations on reservations.reservation_id = users_reservations.reservation_id inner join users on users_reservations.user_id = users.user_id inner join room_types on reservations.room_type_id = room_types.room_types_id inner join bills on reservations.reservation_id = bills.reservation_id where reservations.reservation_id = $1",
     // [id]
-    "select * from reservations left join reservations_request on reservations.reservation_id = reservations_request.reservation_id left join request on request.request_id = reservations_request.request_id left join users_reservations on reservations.reservation_id = users_reservations.reservation_id left join users on users_reservations.user_id = users.user_id left join room_types on reservations.room_type_id = room_types.room_types_id left join bills on reservations.reservation_id = bills.reservation_id where reservations.reservation_id = $1 order by reservations.reservation_id asc ",
+    `select * from reservations left join reservations_request on reservations.reservation_id = reservations_request.reservation_id 
+    left join request on request.request_id = reservations_request.request_id left join users_reservations on reservations.reservation_id = users_reservations.reservation_id left join users on users_reservations.user_id = users.user_id left join room_types on reservations.room_type_id = room_types.room_types_id 
+    left join bills on reservations.reservation_id = bills.reservation_id where reservations.reservation_id = $1 order by reservations.reservation_id asc `,
     [id]
   );
 
