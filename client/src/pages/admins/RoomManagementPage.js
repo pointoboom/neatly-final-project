@@ -21,10 +21,13 @@ import { Tag, Select } from "antd";
 
 function RoomManagementPage() {
   const [roomManagement, setRoomManagement] = useState([]);
+  const [search, setSearch] = useState("");
   const getData = async () => {
-    const res = await axios.get(`http://localhost:4000/rooms/admin/manage`);
+    const res = await axios.get(
+      `http://localhost:4000/rooms/admin/manage?search=${search}`
+    );
 
-    setRoomManagement(res.data.data);
+    setRoomManagement( res.data.data);
   };
 
   const handleChange = async (value, room_no) => {
@@ -90,13 +93,13 @@ function RoomManagementPage() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [search]);
   //bg="#F6F7FC"
   return (
-    <Flex direction="row" h="full" bg="#F6F7FC">
+    <Flex direction="row"  bg="red-100">
       <SideBar />
       <Flex w="100%" h="100vh" bg="#F6F7FC" justifyContent="center">
-        <Flex direction="column" bg="#F6F7FC" w="full" h="100%">
+        <Flex direction="column" bg="#F6F7FC" w="full" >
           <Flex
             h="80px"
             bg="white"
@@ -107,7 +110,7 @@ function RoomManagementPage() {
             alignItems="center"
           >
             <Flex>
-              <Text fontSize="20px" ml="60px" fontWeight="semibold">
+              <Text fontSize="20px" ml="60px" fontWeight="semibold" py="20">
                 Room Management
               </Text>
             </Flex>
@@ -119,6 +122,8 @@ function RoomManagementPage() {
                   placeholder="Search..."
                   size="md"
                   width="400px"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </InputGroup>
             </Flex>
