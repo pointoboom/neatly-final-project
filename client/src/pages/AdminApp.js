@@ -20,7 +20,7 @@ function AdminApp() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<CustomerBooking />} />
         <Route path="/search" element={<RoomSearchPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
