@@ -96,7 +96,7 @@ function RoomManagementPage() {
   }, [search]);
   //bg="#F6F7FC"
   return (
-    <Flex direction="row"  bg="red-100">
+    <Flex direction="row">
       <SideBar />
       <Flex w="100%" h="100vh" bg="#F6F7FC" justifyContent="center">
         <Flex direction="column" bg="#F6F7FC" w="full" >
