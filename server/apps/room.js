@@ -40,4 +40,5 @@ roomRouter.get("/room-detail/:roomId", async (req, res) => {
 roomRouter.post("/newroom", avatarUpload, async (req, res) => {
   CreateRoom(req, res);
 });
+
 export default roomRouter;

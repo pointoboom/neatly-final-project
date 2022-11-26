@@ -80,7 +80,11 @@ function CreateRoom() {
     const userdata = jwtDecode(token);
     event.preventDefault();
     const formData = new FormData();
+<<<<<<< HEAD
     const amenityArray = [];
+=======
+
+>>>>>>> 314aa03 (feat:create room type function)
     formData.append("room_type", newRoom.room_type);
     formData.append("user_id", userdata.id);
     formData.append("room_size", newRoom.room_size);
@@ -88,11 +92,17 @@ function CreateRoom() {
     formData.append("guest", newRoom.guest);
     formData.append("price", newRoom.price);
     formData.append("description", newRoom.description);
+<<<<<<< HEAD
     //*Fix */
     for (let i in newRoom.amenity) {
       amenityArray.push(newRoom.amenity[i]);
     }
     formData.append("amenity", amenityArray);
+=======
+    for (let i in newRoom.amenity) {
+      formData.append("amenity", newRoom.amenity[i]);
+    }
+>>>>>>> 314aa03 (feat:create room type function)
     for (let mainImgKey in mainImg) {
       formData.append("main_img", mainImg[mainImgKey]);
     }
