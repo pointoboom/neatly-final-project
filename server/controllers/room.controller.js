@@ -99,10 +99,28 @@ export async function GetRoomDetail(req, res) {
 export async function GetRoomManagement(req, res) {
   try {
     const roomid = req.params.roomid;
+    const search = `%${req.query.search.toLowerCase()}%`;
 
-    const result = await pool.query(
-      "SELECT room_no,type_name,bed_type,status_name FROM room_managements left join room_types on room_managements.room_types_id = room_types.room_types_id left join status on room_managements.status_id = status.status_id order by room_no asc"
-    );
+    let query = "";
+    let values = [];
+
+    if (search) {
+      query = `SELECT room_no,type_name,bed_type,status_name
+        FROM room_managements
+        left join room_types on room_managements.room_types_id = room_types.room_types_id
+        left join status on room_managements.status_id = status.status_id
+        where room_no LIKE $1
+        or LOWER(type_name) LIKE $1
+        or LOWER(bed_type) LIKE $1
+        or LOWER(status_name)  LIKE $1
+        order by room_no asc`;
+      values = [search];
+    } else {
+      query =
+        "SELECT room_no,type_name,bed_type,status_name FROM room_managements left join room_types on room_managements.room_types_id = room_types.room_types_id left join status on room_managements.status_id = status.status_id order by room_no asc";
+    }
+
+    const result = await pool.query(query, values);
     return res.json({
       data: result.rows,
     });
