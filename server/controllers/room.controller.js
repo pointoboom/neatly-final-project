@@ -79,7 +79,7 @@ export async function GetRoomDetail(req, res) {
       [roomId]
     );
     const randomRoom = await pool.query(
-      `SELECT room_types_id, type_name, main_image_url, gallery_images_id FROM public.room_types
+      `SELECT room_types_id, type_name, main_images, gallery_images_id FROM public.room_types
     WHERE room_types_id != $2
     ORDER BY RANDOM()
     LIMIT $1`,
@@ -133,7 +133,7 @@ export async function GetRoomByID(req, res) {
     const roomid = req.params.roomid;
 
     const result = await pool.query(
-      "select type_name,promotion_price from room_types where room_types_id = $1",
+      "select * from room_types where room_types_id = $1",
       [roomid]
     );
     return res.json({

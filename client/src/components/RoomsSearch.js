@@ -29,7 +29,7 @@ function RoomsSearch() {
                 w="350px"
                 h="200px"
                 objectFit="cover"
-                src={data.main_image_url}
+                src={data.main_images}
                 mr="50px"
               />
             </Flex>

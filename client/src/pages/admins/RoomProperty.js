@@ -33,7 +33,7 @@ function RoomProperty() {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <Flex direction="row" bg="#F6F7FC">
@@ -97,15 +97,13 @@ function RoomProperty() {
                           _hover={{ bg: "gray.100" }}
                           onClick={() => {
                             console.log(data.room_types_id);
-                            navigate(
-                              `roompropertyedit/${data.room_types_id}`
-                            );
+                            navigate(`roompropertyedit/${data.room_types_id}`);
                           }}
                         >
                           <Tr>
                             <Td>
                               <Image
-                                src={data.main_image_url}
+                                src={data.main_images}
                                 w="200px"
                                 h="100px"
                                 objectFit="cover"

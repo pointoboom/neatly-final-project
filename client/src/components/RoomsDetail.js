@@ -35,7 +35,7 @@ function RoomsDetail() {
     setSlideData([
       ...slideData,
       {
-        image: results.data.data.main_image_url,
+        image: results.data.data.main_images,
       },
       {
         image: results.data.data.gallery_images_id,
@@ -251,7 +251,7 @@ function RoomsDetail() {
                 return (
                   <Flex position="relative" key={item.room_types_id}>
                     <Image
-                      src={item.main_image_url}
+                      src={item.main_images}
                       alt="Deluxe"
                       margin="15px"
                       height="350px"
