@@ -26,25 +26,27 @@ function RoomsDetail() {
   const [room, setRoom] = useState(null);
   const [randomRoom, setRandomRoom] = useState(null);
   const [slideData, setSlideData] = useState([]);
+  const [amenities, setAmenities] = useState([]);
 
   const getData = async () => {
     const results = await axios(
       `http://localhost:4000/rooms/room-detail/${params.roomId}?random=2`
     );
-    // console.log(results.data);
+
+    // console.log(results.data.data.amenity.split(","));
+
     setSlideData([
       ...slideData,
-      {
-        image: results.data.data.main_images,
-      },
-      {
-        image: results.data.data.gallery_images_id,
-      },
+      results.data.data.main_images,
+      ...results.data.data.gallery_images,
     ]);
     setRoom(results.data.data);
     setRandomRoom(results.data.randomRoom);
+    setAmenities([...amenities, ...results.data.data.amenity.split(",")]);
   };
   // console.log(randomRoom);
+
+  console.log("amenities",amenities);
 
   useEffect(() => {
     getData();
@@ -109,7 +111,7 @@ function RoomsDetail() {
               slideData.map((slide, index) => {
                 return (
                   <Image
-                    src={slide.image}
+                    src={slide}
                     height="650px"
                     width="800px"
                     objectFit={"cover"}
@@ -213,7 +215,7 @@ function RoomsDetail() {
 
               <UnorderedList mt={2}>
                 <Flex direction="column" h={200} wrap={"wrap"}>
-                  {RoomAmenities.map((item, index) => {
+                  {amenities.map((item, index) => {
                     return (
                       <ListItem
                         fontFamily={"Inter"}
