@@ -79,9 +79,11 @@ function AuthProvider(props) {
       }
     );
 
-    console.log(result.data);
-    const token = result.data.token;
-    localStorage.setItem("token", token);
+    console.log("token", result.data.token);
+    if (result.data.token) {
+      const token = result.data.token;
+      localStorage.setItem("token", token);
+    }
 
     navigate("/");
   };

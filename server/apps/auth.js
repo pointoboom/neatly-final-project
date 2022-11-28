@@ -66,6 +66,10 @@ authRouter.put("/edit/:id", avatarUpload, async (req, res) => {
         editUser.country,
       ]
     );
+    return res.json({
+      // data: result.rows,
+      message: "update user succesfully",
+    });
   } else {
     console.log("new pic");
 
@@ -88,25 +92,25 @@ authRouter.put("/edit/:id", avatarUpload, async (req, res) => {
         editUser.profile_picture,
       ]
     );
+
+    const token = jwt.sign(
+      {
+        id: id,
+        fullname: editUser.fullname,
+        profile_picture: newAvatar,
+      },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "900000",
+      }
+    );
+
+    return res.json({
+      // data: result.rows,
+      message: "update user succesfully",
+      token,
+    });
   }
-
-  const token = jwt.sign(
-    {
-      id: id,
-      fullname: editUser.fullname,
-      profile_picture: newAvatar,
-    },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: "900000",
-    }
-  );
-
-  return res.json({
-    // data: result.rows,
-    message: "update user succesfully",
-    token,
-  });
 });
 
 export default authRouter;
