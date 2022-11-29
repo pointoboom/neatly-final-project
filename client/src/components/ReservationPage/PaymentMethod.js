@@ -10,6 +10,7 @@ import { useAuth } from "../../contexts/authentication";
 import React, { useState, useEffect } from "react";
 import { useHotel } from "../../contexts/reservation";
 import moment from "moment";
+import jwtDecode from "jwt-decode";
 
 function PaymentMethod(props) {
   const auth = useAuth();
@@ -17,11 +18,13 @@ function PaymentMethod(props) {
 
   const searchDetail = useHotel();
   const handleSubmit = async (event) => {
+    const token = localStorage.getItem("token");
+    const userdata = jwtDecode(token);
     event.preventDefault();
     const checkIn = searchDetail.checkIn;
     const checkOut = searchDetail.checkOut;
     const guest = searchDetail.guest;
-    const userId = auth.state.user.id;
+    const userId = userdata.id;
     const roomId = Number(props.roomId);
     const specialRequest = props.specialRequest;
     const standardRequest = props.standardRequest;

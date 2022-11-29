@@ -24,16 +24,9 @@ function AdminApp() {
     <div className="App">
       <Routes>
         <Route path="/" element={<CustomerBooking />} />
-        <Route path="/search" element={<RoomSearchPage />} />
+
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/reservation/:roomId" element={<ReservationPage />} />
-        <Route path="/test" element={<TestStep />} />
-
-        <Route
-          path="/bookingsummary/:reserveId"
-          element={<BookingSummaryPage />}
-        />
         <Route path="/customerbooking" element={<CustomerBooking />} />
         <Route path="/roomproperty" element={<RoomProperty />} />
         <Route path="/roomproperty/createroom" element={<CreateRoom />} />
@@ -41,16 +34,11 @@ function AdminApp() {
           path="/roomproperty/roompropertyedit/:id"
           element={<RoomPropertyEdit />}
         />
-        <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
         <Route path="/roommanagement" element={<RoomManagementPage />} />
-
         <Route
           path="/customerbooking/customerbookingdetails/:id"
           element={<CustomerBookingDetails />}
         />
-
-        <Route path="/edit-profile" element={<EditProfilePage />} />
-        <Route path="/edit-payment-method" element={<EditPaymentPage />} />
         <Route path="/hotelinfo/:id" element={<HotelInformationPage />} />
       </Routes>
     </div>

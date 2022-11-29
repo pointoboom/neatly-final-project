@@ -19,9 +19,11 @@ import { AiOutlineUser, AiOutlineCreditCard } from "react-icons/ai";
 import { IoIosLogOut } from "react-icons/io";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import { useAuth } from "../contexts/authentication";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 function Navbar() {
+  const navigate = useNavigate();
   const auth = useAuth();
   const { logout } = useAuth();
   const [userdata, setUserdata] = useState(null);
@@ -137,8 +139,20 @@ function Navbar() {
                   <Avatar src={userdata.profile_picture} />
                 </MenuButton>
                 <MenuList color="gray.600">
-                  <MenuItem icon={<AiOutlineUser />}>Profile</MenuItem>
-                  <MenuItem icon={<AiOutlineCreditCard />}>
+                  <MenuItem
+                    icon={<AiOutlineUser />}
+                    onClick={() => {
+                      navigate("/edit-profile");
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    icon={<AiOutlineCreditCard />}
+                    onClick={() => {
+                      navigate("/edit-payment-method");
+                    }}
+                  >
                     Payment Method
                   </MenuItem>
                   <MenuItem icon={<HiOutlineBriefcase />}>

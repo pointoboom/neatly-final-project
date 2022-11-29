@@ -46,7 +46,7 @@ function BookingSummaryPage() {
       <Flex
         className="booking-summary-page"
         width="100vw"
-        height="100vh"
+        // height="100vh"
         fontFamily={"Inter"}
         bgColor="rgba(247, 247, 251, 1)"
         display="flex"
@@ -185,7 +185,7 @@ function BookingSummaryPage() {
                 {reserveData.filter((item) => {
                   return item.have === "Early check-in";
                 }).length === 0 ? (
-                  <Text fontWeight="400">Before 12:00 AM</Text>
+                  <Text fontWeight="400">After 2:00 PM</Text>
                 ) : (
                   <Text fontWeight="400">Late Check-In</Text>
                 )}

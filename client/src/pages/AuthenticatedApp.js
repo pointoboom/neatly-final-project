@@ -10,6 +10,7 @@ import ReservationPage from "./ReservationPage";
 import BookingSummaryPage from "./BookingSummaryPage";
 import RoomDetailPage from "./RoomDetailPage";
 import EditProfilePage from "./EditProfilePage";
+import EditPaymentPage from "./EditPaymentPage";
 
 function AuthenticatedApp() {
   return (
@@ -28,6 +29,7 @@ function AuthenticatedApp() {
         <Route path="/room-detail/:roomId" element={<RoomDetailPage />} />
 
         <Route path="/edit-profile" element={<EditProfilePage />} />
+        <Route path="/edit-payment-method" element={<EditPaymentPage />} />
       </Routes>
     </div>
   );
