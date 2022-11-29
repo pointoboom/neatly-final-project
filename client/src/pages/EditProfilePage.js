@@ -38,8 +38,8 @@ function EditProfilePage() {
   const [email, setEmail] = useState("");
   const [idnumber, setIdnumber] = useState("");
   const [country, setCountry] = useState("");
-  const [dob, setDob] = useState("");
-  // const [dob, setDob] = usePersistedState("dob", null);
+  // const [dob, setDob] = useState("");
+  const [dob, setDob] = usePersistedState("dob", null);
 
   const [avatars, setAvatars] = useState({});
   const { editUser, register } = useAuth();
@@ -57,16 +57,15 @@ function EditProfilePage() {
     setCountry(res.data.data[0].country);
     setImageUrl(res.data.data[0].profile_picture);
 
-    
-    setDob(res.data.data[0].date_of_birth);
+    setDob(moment(res.data.data[0].date_of_birth).format("dd,DD MMM YYYY"));
   };
 
   useEffect(() => {
     getData();
   }, []);
 
-  console.log(userdata)
-  console.log(dob)
+  console.log(userdata);
+  console.log(dob);
 
   const handleChange = (info) => {
     getBase64(info.file.originFileObj, (url) => {
@@ -105,7 +104,6 @@ function EditProfilePage() {
     formData.append("dob", dob);
     formData.append("country", country);
 
-
     for (let avatarKey in avatars) {
       formData.append("avatar", avatars[avatarKey]);
     }
@@ -115,7 +113,7 @@ function EditProfilePage() {
     // }
 
     console.log(formData);
-    editUser(formData ,userdata.user_id);
+    editUser(formData, userdata.user_id);
   };
 
   return (
@@ -242,9 +240,9 @@ function EditProfilePage() {
                         paddingLeft: "15px",
                       }}
                       placeholder="Enter your username"
-                      onChange={onChangeDate}
-                      defaultValue={moment("We,02 Nov 2022", dateFormat)}
-                      // defaultValue={dob ? moment("dob", dateFormat) : null}
+                      onChange={(date, dateString) => setDob(dateString)}
+                      // defaultValue={moment("We,02 Nov 2022", dateFormat)}
+                      defaultValue={dob ? moment(dob, dateFormat) : ""}
                     />
                   </Flex>
                 </Flex>
