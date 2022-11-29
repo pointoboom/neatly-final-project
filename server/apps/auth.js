@@ -113,4 +113,35 @@ authRouter.put("/edit/:id", avatarUpload, async (req, res) => {
   }
 });
 
+// edit payment method
+
+authRouter.put("/edit/paymentmethod/:id", avatarUpload, async (req, res) => {
+  const id = req.params.id;
+  console.log("body", req.body);
+
+  const editPayment = {
+    ...req.body,
+  };
+
+  const result = await pool.query(
+    `UPDATE users
+      SET card_number = $2, card_owner = $3, expiry_date = $4,
+      cvc_cvv = $5
+      where user_id = $1
+      RETURNING *`,
+    [
+      id,
+      editPayment.cardNumber,
+      editPayment.cardOwner,
+      editPayment.cardExpiry,
+      editPayment.cardCVV,
+    ]
+  );
+
+  return res.json({
+    // data: result.rows,
+    message: "update user succesfully",
+  });
+});
+
 export default authRouter;
