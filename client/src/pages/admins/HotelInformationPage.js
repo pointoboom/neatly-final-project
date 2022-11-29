@@ -9,7 +9,6 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import ImgCrop from "antd-img-crop";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import { useAuth } from "../../contexts/authentication";
@@ -84,13 +83,8 @@ function HotelInformationPage() {
       formData.append("avatar", avatars[avatarKey]);
     }
 
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
-
     console.log(formData);
     editHotelinfo(formData, 1);
-    // editHotelinfo(formData, userdata.user_id);
   };
 
   return (
@@ -98,7 +92,6 @@ function HotelInformationPage() {
       <Sidebar />
       <Flex w="100%" direction="column">
         <form onSubmit={handleSubmit}>
-          {/* <FormControl onSubmit={handleSubmit}> */}
           <Flex direction="column" w="full">
             <Flex
               h="80px"
@@ -174,32 +167,29 @@ function HotelInformationPage() {
                 Hotel Logo *
               </FormLabel>
               <Flex mt="10px" ml="10px">
-                <ImgCrop>
-                  <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    maxCount="1"
-                    showUploadList={false}
-                    onChange={handleChange}
-                  >
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt="avatar"
-                        style={{
-                          width: "100%",
-                        }}
-                      />
-                    ) : (
-                      uploadButton
-                    )}
-                  </Upload>
-                </ImgCrop>
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  maxCount="1"
+                  showUploadList={false}
+                  onChange={handleChange}
+                >
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="avatar"
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
+                </Upload>
               </Flex>
             </Flex>
           </Flex>
-          {/* </FormControl> */}
         </form>
       </Flex>
     </Flex>
