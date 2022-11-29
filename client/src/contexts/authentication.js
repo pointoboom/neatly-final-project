@@ -88,6 +88,25 @@ function AuthProvider(props) {
     navigate("/");
   };
 
+  const editPayment = async (data, id) => {
+    const result = await axios.put(
+      `http://localhost:4000/auth/edit/paymentmethod/${id}`,
+      data,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+
+    console.log(result.data);
+
+    if (result.data.token) {
+      const token = result.data.token;
+      localStorage.setItem("token", token);
+    }
+
+    navigate("/");
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -102,6 +121,7 @@ function AuthProvider(props) {
         isAdmin,
         setLoginSuccess,
         editUser,
+        editPayment,
       }}
     >
       {props.children}
