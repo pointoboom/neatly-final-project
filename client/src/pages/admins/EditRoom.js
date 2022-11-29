@@ -46,7 +46,7 @@ function RoomPropertyEdit() {
 
   const navigate = useNavigate();
   const params = useParams();
-  console.log(amenity);
+
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms/${params.id}`);
 
@@ -67,7 +67,6 @@ function RoomPropertyEdit() {
     });
     let test = res.data.data[0].amenity.split(",").map((item) => {
       const temp = { first: item };
-
       return temp;
     });
 
@@ -106,23 +105,18 @@ function RoomPropertyEdit() {
   const onFinish = (values) => {
     console.log("Received values of form:", values);
   };
-  const handleUpdate = (event) => {
+  const handleUpdate = async (event) => {
     const token = localStorage.getItem("token");
     const userdata = jwtDecode(token);
     event.preventDefault();
     const formData = new FormData();
-    const amenityArray = [];
     formData.append("room_type", roomType);
     formData.append("user_id", userdata.id);
-    formData.append("room_size", newRoom.room_size);
-    formData.append("bed_type", newRoom.bed_type);
-    formData.append("guest", newRoom.guest);
-    formData.append("price", newRoom.price);
-    formData.append("description", newRoom.description);
-    //*Fix */
-    // for (let i in newRoom.amenity) {
-    //   amenityArray.push(newRoom.amenity[i]);
-    // }
+    formData.append("room_size", roomSize);
+    formData.append("bed_type", bedType);
+    formData.append("guest", guest);
+    formData.append("price", price);
+    formData.append("description", description);
     formData.append("amenity", amenity);
     for (let mainImgKey in mainImg) {
       formData.append("main_img", mainImg[mainImgKey]);
@@ -130,16 +124,13 @@ function RoomPropertyEdit() {
     for (let i of fileList) {
       formData.append("gallery_img", i.originFileObj);
     }
+    await axios.put(`http://localhost:4000/rooms/${params.id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   };
   const handeleDelete = async (event) => {
     event.preventDefault();
     const res = await axios.delete(`http://localhost:4000/rooms/${params.id}`);
-  };
-  const deleteAmenity = (index) => {
-    console.log(index);
-    const temp = amenity.filter((item, i) => i !== index);
-
-    setAmenity(temp);
   };
   const uploadButton = (
     <div>
@@ -185,7 +176,8 @@ function RoomPropertyEdit() {
                 color="white"
                 px="50px"
                 onClick={(e) => {
-                  handleUpdate();
+                  handleUpdate(e);
+                  navigate("/");
                 }}
               >
                 Update
@@ -353,8 +345,6 @@ function RoomPropertyEdit() {
 
               <Flex flexDirection="column">
                 {amenity.map((item, index) => {
-                  console.log(amenity);
-
                   return (
                     <Flex alignItems="center">
                       <Flex flexDirection="column" w="100%" mt="36px">
@@ -396,7 +386,6 @@ function RoomPropertyEdit() {
                 <Button
                   onClick={(e) => {
                     setAmenity([...amenity, ""]);
-                    console.log(amenity);
                   }}
                   fontFamily={"Open Sans"}
                   bg="#FFFFF"
@@ -423,7 +412,7 @@ function RoomPropertyEdit() {
               bg="none"
               w="100px"
               onClick={(e) => {
-                // handeleDelete(e);
+                handeleDelete(e);
                 navigate("/");
               }}
             >
