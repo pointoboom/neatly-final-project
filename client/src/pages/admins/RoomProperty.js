@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Flex,
   Text,
@@ -24,16 +24,17 @@ import { useNavigate } from "react-router-dom";
 
 function RoomProperty() {
   const [roomProp, setRoomProp] = usePersistedState("roomstatus", null);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const getData = async () => {
-    const res = await axios.get(`http://localhost:4000/rooms`);
+    const res = await axios.get(`http://localhost:4000/rooms?search=${search}`);
 
     setRoomProp(res.data.data);
   };
 
   useEffect(() => {
     getData();
-  });
+  }, [search]);
 
   return (
     <Flex direction="row" bg="#F6F7FC">
@@ -57,7 +58,12 @@ function RoomProperty() {
             <Flex my="20px">
               <InputGroup>
                 <InputLeftElement children={<SearchIcon color="gray.400" />} />
-                <Input placeholder="Search..." width="400px" />
+                <Input
+                  placeholder="Search..."
+                  width="400px"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </InputGroup>
               <Button
                 mr="20px"
@@ -99,6 +105,7 @@ function RoomProperty() {
                             console.log(data.room_types_id);
                             navigate(`roompropertyedit/${data.room_types_id}`);
                           }}
+                          cursor = "pointer"
                         >
                           <Tr>
                             <Td>
