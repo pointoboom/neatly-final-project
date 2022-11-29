@@ -1,19 +1,11 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
-import multer from "multer";
-import { cloudinaryUpload } from "../utils/upload.js";
-const authRouter = Router();
-const multerUpload = multer({ dest: "uploads/" });
-const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);
 const hotelRouter = Router();
-const navigate = useNavigate();
-const params = useParams();
+
 hotelRouter.post("/hotel", async (req, res) => {
     const hasPublished = req.body.status === "published";
     const newHotel = {
-        name: req.body.name,
-        description: req.body.description,
-        logo: req.body.logo,
+        ...req.body,
     };
 },
     await pool.query(
@@ -25,13 +17,17 @@ hotelRouter.post("/hotel", async (req, res) => {
             newHotel.logo,
         ]
     ));
-console.log(req.files.avatar)
+
+return res.json({
+    message: "Hotel's information has been created.",
+})
+
 hotelRouter.put("/hotel/:hotelid", async (req, res) => {
     const hasPublished = req.body.status === "published";
     const updateHotel = {
         ...req.body,
     };
-    const hotelId = req.params.id;
+    const postId = req.params.id;
 },
 
 
@@ -45,11 +41,9 @@ hotelRouter.put("/hotel/:hotelid", async (req, res) => {
             updateHotel.logo,
         ]
     ));
-await cloudinaryUpload(req.files);
-const avatarUrl = await cloudinaryUpload(req.files);
-user["avatars"] = avatarUrl;
 
 return res.json({
-    message: "User has been created successfully",
+    message: `Hotel's Information has been updated.`,
 });
+
 export default hotelRouter;
