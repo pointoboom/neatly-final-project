@@ -27,7 +27,7 @@ function RoomManagementPage() {
       `http://localhost:4000/rooms/admin/manage?search=${search}`
     );
 
-    setRoomManagement( res.data.data);
+    setRoomManagement(res.data.data);
   };
 
   const handleChange = async (value, room_no) => {
@@ -98,8 +98,8 @@ function RoomManagementPage() {
   return (
     <Flex direction="row">
       <SideBar />
-      <Flex w="100%" h="100vh" bg="#F6F7FC" justifyContent="center">
-        <Flex direction="column" bg="#F6F7FC" w="full" >
+      <Flex w="100%" bg="#F6F7FC" justifyContent="center">
+        <Flex direction="column" bg="#F6F7FC" w="full">
           <Flex
             h="80px"
             bg="white"
