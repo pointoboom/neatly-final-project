@@ -88,6 +88,25 @@ function AuthProvider(props) {
     navigate("/");
   };
 
+  // edit hotel info
+  const editHotelinfo = async (data, id) => {
+    const result = await axios.put(
+      `http://localhost:4000/auth/edit/hotelinfo/${id}`,
+      data,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+
+    // console.log("token", result.data.token);
+    // if (result.data.token) {
+    //   const token = result.data.token;
+    //   localStorage.setItem("token", token);
+    // }
+
+    navigate("/");
+  };
+
   const editPayment = async (data, id) => {
     const result = await axios.put(
       `http://localhost:4000/auth/edit/paymentmethod/${id}`,
@@ -122,6 +141,7 @@ function AuthProvider(props) {
         setLoginSuccess,
         editUser,
         editPayment,
+        editHotelinfo,
       }}
     >
       {props.children}
