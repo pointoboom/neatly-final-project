@@ -10,12 +10,17 @@ import {
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Upload, Form } from "antd";
+import {
+  LoadingOutlined,
+  PlusOutlined,
+  MinusCircleOutlined,
+} from "@ant-design/icons";
+import { Upload } from "antd";
 import "antd/dist/antd.min.css";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Formik, Form, Field, FieldArray } from "formik";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -37,16 +42,20 @@ function RoomPropertyEdit() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [amenity, setAmenity] = useState([]);
-  const [test, setTest] = useState(["test1", "test2"]);
+  const [initialValue, setInitialValue] = useState([]);
+
   const navigate = useNavigate();
   const params = useParams();
-
+  console.log(newRoom);
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms/${params.id}`);
 
     setRoomDetail(res.data.data);
     setImageUrl(res.data.data[0].main_images);
-    // setAmenity(res.data.data[0].amenity.split(","));
+    setNewRoom({
+      ...res.data.data[0],
+      ["newAmenity"]: res.data.data[0].amenity.split(","),
+    });
     res.data.data.map((item) => {
       setRoomType(item.type_name);
       setRoomSize(item.room_size);
@@ -56,7 +65,13 @@ function RoomPropertyEdit() {
       setDescription(item.description);
       setAmenity(item.amenity.split(","));
     });
+    let test = res.data.data[0].amenity.split(",").map((item) => {
+      const temp = { first: item };
 
+      return temp;
+    });
+
+    setInitialValue(test);
     const data = res.data.data[0].gallery_images.map((item) => {
       const temp = {
         uid: res.data.data[0].gallery_images.indexOf(item),
@@ -337,60 +352,132 @@ function RoomPropertyEdit() {
               </Text>
 
               <Flex className="amenity" direction="column" mb="40px">
-                <Form name="dynamic_form_item" onFinish={onFinish}>
-                  <Form
-                    validateTrigger={["onChange", "onBlur"]}
-                    noStyle
-                    name="input"
-                  >
-                    <FormLabel
-                      fontFamily={"Inter"}
-                      fontSize="16px"
-                      fontStyle="400"
-                    >
-                      Amenity*
-                    </FormLabel>
+                {amenity.map((item) => {
+                  return (
+                    <Formik
+                      initialValues={{ friends: [item] }}
+                      onSubmit={(values) =>
+                        setTimeout(() => {
+                          alert(JSON.stringify(values, null, 2));
+                        }, 500)
+                      }
+                      render={({ values }) => (
+                        <Form>
+                          <FieldArray
+                            name="friends"
+                            render={(arrayHelpers) => (
+                              <Flex>
+                                {values.friends && values.friends.length > 0
+                                  ? values.friends.map((friend, index) => (
+                                      <Flex key={index} w="full">
+                                        <Input
+                                          mr="40px"
+                                          onChange={(event) => {
+                                            setNewRoom({
+                                              ...newRoom,
+                                              ["newAmenity"]: {
+                                                index: event.target.value,
+                                              },
+                                            });
+                                          }}
+                                          mb="40px"
+                                          name={`friends.${index}`}
+                                          defaultValue={item}
+                                        />
+                                        <Button
+                                          type="button"
+                                          onClick={() => {
+                                            arrayHelpers.remove(index);
+                                          }} // remove a friend from the list
+                                        >
+                                          delete
+                                        </Button>
+                                      </Flex>
+                                    ))
+                                  : null}
+                              </Flex>
+                            )}
+                          />
+                        </Form>
+                      )}
+                    />
+                  );
+                })}
+                <Formik
+                  initialValues={{ friends: [] }}
+                  onSubmit={(values) =>
+                    setTimeout(() => {
+                      alert(JSON.stringify(values, null, 2));
+                    }, 500)
+                  }
+                  render={({ values }) => (
+                    <Form>
+                      <FieldArray
+                        name="friends"
+                        render={(arrayHelpers) => (
+                          <Flex direction="column">
+                            {values.friends.map((friend, index) => (
+                              <Flex>
+                                <Flex key={index} w="full">
+                                  <Input
+                                    mr="40px"
+                                    onChange={(event) => {
+                                      setNewRoom({
+                                        ...newRoom,
+                                        ["amenity"]: {
+                                          1: event.target.value,
+                                        },
+                                      });
+                                    }}
+                                    mb="40px"
+                                    name={`friends.${index}`}
+                                    // defaultValue={item}
+                                  />
+                                  <Button
+                                    type="button"
+                                    onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                  >
+                                    delete
+                                  </Button>
+                                </Flex>
+                              </Flex>
+                            ))}
 
-                    {amenity.map((item, index) => {
-                      return (
-                        <>
-                          <Input
-                            defaultValue={item}
-                            width="80%"
-                            mr="40px"
-                            // onChange={(event) => {
-                            //   setNewRoom({
-                            //     ...newRoom,
-                            //     ["amenity"]: { index: event.target.value },
-                            //   });
-                            // }}
-                            mb="40px"
-                          ></Input>
-                          <Button
-                            onClick={() => {
-                              deleteAmenity(index);
-                            }}
-                          >
-                            Delete{index}
-                          </Button>
-                        </>
-                      );
-                    })}
-                  </Form>
-                  <Form.List name="names">
+                            <Button
+                              type="button"
+                              onClick={() => arrayHelpers.insert("")}
+                              w="250px"
+                              color="#C14817"
+                              border="1px"
+                              borderColor="#C14817"
+                            >
+                              {/* show this when user has removed all friends from the list */}
+                              + Add Amenity
+                            </Button>
+                          </Flex>
+                        )}
+                      />
+                    </Form>
+                  )}
+                />
+
+                {/* <Form.List name="names" initialValue={initialValue}>
                     {(fields, { add, remove }, { errors }) => (
                       <>
-                        {fields.map((field, index) => (
-                          <Form.Item
-                            required={false}
-                            key={field.key}
-                            name="input"
-                          >
+                        {fields.map(({ key, name, ...restField }) => (
+                          <Form.Item required={false} key={key}>
                             <Form.Item
                               {...field}
+                              {...restField}
                               validateTrigger={["onChange", "onBlur"]}
                               noStyle
-                              name="input"
+                              name={[name, "first"]}
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Missing first name",
+                                },
+                              ]}
                             >
                               <FormLabel
                                 fontFamily={"Inter"}
@@ -403,22 +490,23 @@ function RoomPropertyEdit() {
                               <Input
                                 width="80%"
                                 mr="40px"
-                                // onChange={(event) => {
-                                //   const i = room.amenity.split(",").length + 1;
-                                //   setNewRoom({
-                                //     ...newRoom,
-                                //     ["amenity"]: {
-                                //       ...newRoom.amenity,
-                                //       [i]: event.target.value,
-                                //     },
-                                //   });
-                                // }}
+
+                                onChange={(event) => {
+                                  const i = room.amenity.split(",").length + 1;
+                                  setNewRoom({
+                                    ...newRoom,
+                                    ["amenity"]: {
+                                      ...newRoom.amenity,
+                                      [i]: event.target.value,
+                                    },
+                                  });
+                                }}
                               ></Input>
                             </Form.Item>
                             {fields.length >= 1 ? (
                               <Button
                                 className="dynamic-delete-button"
-                                onClick={() => remove(field.name)}
+                                onClick={() => remove(name)}
                               >
                                 delete
                               </Button>
@@ -441,8 +529,7 @@ function RoomPropertyEdit() {
                         </Form.Item>
                       </>
                     )}
-                  </Form.List>
-                </Form>
+                  </Form.List> */}
               </Flex>
             </Flex>
           </Flex>
@@ -453,12 +540,15 @@ function RoomPropertyEdit() {
             alignItems="center"
             mb="50px"
             pr="250px"
-            onClick={(e) => {
-              handeleDelete(e);
-              navigate("/");
-            }}
           >
-            <Button bg="none" w="100px">
+            <Button
+              bg="none"
+              w="100px"
+              onClick={(e) => {
+                // handeleDelete(e);
+                navigate("/");
+              }}
+            >
               Delete Room
             </Button>
           </Flex>
