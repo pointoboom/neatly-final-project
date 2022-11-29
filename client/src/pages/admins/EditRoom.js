@@ -351,185 +351,63 @@ function RoomPropertyEdit() {
                 Room Amenities
               </Text>
 
-              <Flex className="amenity" direction="column" mb="40px">
-                {amenity.map((item) => {
+              <Flex flexDirection="column">
+                {amenity.map((item, index) => {
+                  console.log(amenity);
+
                   return (
-                    <Formik
-                      initialValues={{ friends: [item] }}
-                      onSubmit={(values) =>
-                        setTimeout(() => {
-                          alert(JSON.stringify(values, null, 2));
-                        }, 500)
-                      }
-                      render={({ values }) => (
-                        <Form>
-                          <FieldArray
-                            name="friends"
-                            render={(arrayHelpers) => (
-                              <Flex>
-                                {values.friends && values.friends.length > 0
-                                  ? values.friends.map((friend, index) => (
-                                      <Flex key={index} w="full">
-                                        <Input
-                                          mr="40px"
-                                          onChange={(event) => {
-                                            setNewRoom({
-                                              ...newRoom,
-                                              ["newAmenity"]: {
-                                                index: event.target.value,
-                                              },
-                                            });
-                                          }}
-                                          mb="40px"
-                                          name={`friends.${index}`}
-                                          defaultValue={item}
-                                        />
-                                        <Button
-                                          type="button"
-                                          onClick={() => {
-                                            arrayHelpers.remove(index);
-                                          }} // remove a friend from the list
-                                        >
-                                          delete
-                                        </Button>
-                                      </Flex>
-                                    ))
-                                  : null}
-                              </Flex>
-                            )}
-                          />
-                        </Form>
-                      )}
-                    />
+                    <Flex alignItems="center">
+                      <Flex flexDirection="column" w="100%" mt="36px">
+                        <Text fontSize="18px" fontFamily={"Inter"}>
+                          Amenitiy{" "}
+                        </Text>
+                        <Input
+                          fontFamily={"Inter"}
+                          value={item}
+                          onChange={(event) => {
+                            const temp = amenity.map((item, i) => {
+                              if (i === index) {
+                                return (item = event.target.value);
+                              } else {
+                                return item;
+                              }
+                            });
+                            setAmenity(temp);
+                          }}
+                        />
+                      </Flex>
+                      <Button
+                        onClick={(e) => {
+                          const result = amenity.filter(
+                            (item, i) => i !== index
+                          );
+                          setAmenity(result);
+                        }}
+                        bg="#FFFFF"
+                        color="#E76B39"
+                        fontFamily={"Open Sans"}
+                      >
+                        Delete
+                      </Button>
+                    </Flex>
                   );
                 })}
-                <Formik
-                  initialValues={{ friends: [] }}
-                  onSubmit={(values) =>
-                    setTimeout(() => {
-                      alert(JSON.stringify(values, null, 2));
-                    }, 500)
-                  }
-                  render={({ values }) => (
-                    <Form>
-                      <FieldArray
-                        name="friends"
-                        render={(arrayHelpers) => (
-                          <Flex direction="column">
-                            {values.friends.map((friend, index) => (
-                              <Flex>
-                                <Flex key={index} w="full">
-                                  <Input
-                                    mr="40px"
-                                    onChange={(event) => {
-                                      setNewRoom({
-                                        ...newRoom,
-                                        ["amenity"]: {
-                                          1: event.target.value,
-                                        },
-                                      });
-                                    }}
-                                    mb="40px"
-                                    name={`friends.${index}`}
-                                    // defaultValue={item}
-                                  />
-                                  <Button
-                                    type="button"
-                                    onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-                                  >
-                                    delete
-                                  </Button>
-                                </Flex>
-                              </Flex>
-                            ))}
 
-                            <Button
-                              type="button"
-                              onClick={() => arrayHelpers.insert("")}
-                              w="250px"
-                              color="#C14817"
-                              border="1px"
-                              borderColor="#C14817"
-                            >
-                              {/* show this when user has removed all friends from the list */}
-                              + Add Amenity
-                            </Button>
-                          </Flex>
-                        )}
-                      />
-                    </Form>
-                  )}
-                />
-
-                {/* <Form.List name="names" initialValue={initialValue}>
-                    {(fields, { add, remove }, { errors }) => (
-                      <>
-                        {fields.map(({ key, name, ...restField }) => (
-                          <Form.Item required={false} key={key}>
-                            <Form.Item
-                              {...field}
-                              {...restField}
-                              validateTrigger={["onChange", "onBlur"]}
-                              noStyle
-                              name={[name, "first"]}
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Missing first name",
-                                },
-                              ]}
-                            >
-                              <FormLabel
-                                fontFamily={"Inter"}
-                                fontSize="16px"
-                                fontStyle="400"
-                              >
-                                Amenity*
-                              </FormLabel>
-
-                              <Input
-                                width="80%"
-                                mr="40px"
-
-                                onChange={(event) => {
-                                  const i = room.amenity.split(",").length + 1;
-                                  setNewRoom({
-                                    ...newRoom,
-                                    ["amenity"]: {
-                                      ...newRoom.amenity,
-                                      [i]: event.target.value,
-                                    },
-                                  });
-                                }}
-                              ></Input>
-                            </Form.Item>
-                            {fields.length >= 1 ? (
-                              <Button
-                                className="dynamic-delete-button"
-                                onClick={() => remove(name)}
-                              >
-                                delete
-                              </Button>
-                            ) : null}
-                          </Form.Item>
-                        ))}
-                        <Form.Item>
-                          <Button
-                            onClick={() => {
-                              add();
-                            }}
-                            color="#C14817"
-                            border="1px"
-                            borderColor="#C14817"
-                          >
-                            + Add Amenity
-                          </Button>
-
-                          <Form.ErrorList errors={errors} />
-                        </Form.Item>
-                      </>
-                    )}
-                  </Form.List> */}
+                <Button
+                  onClick={(e) => {
+                    setAmenity([...amenity, ""]);
+                    console.log(amenity);
+                  }}
+                  fontFamily={"Open Sans"}
+                  bg="#FFFFF"
+                  w="200px"
+                  border="1px"
+                  borderColor="#E76B39"
+                  color="#E76B39"
+                  mt="36px"
+                >
+                  + Add Amenity
+                </Button>
               </Flex>
             </Flex>
           </Flex>
