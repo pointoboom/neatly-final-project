@@ -10,7 +10,7 @@ function Sidebar() {
     <Flex
       backgroundColor="#2F3E35"
       w="240px"
-      // h="100vh"
+      h="100vh"
       pt={"48px"}
       display="flex"
       direction="column"

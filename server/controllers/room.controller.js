@@ -210,3 +210,14 @@ export async function SearchRoom(req, res) {
     console.log(error);
   }
 }
+export async function DeleteRoomById(req, res) {
+  try {
+    const roomId = req.params.roomid;
+    const result = await pool.query(
+      `delete from room_types where room_types_id = $1`,
+      [roomId]
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}

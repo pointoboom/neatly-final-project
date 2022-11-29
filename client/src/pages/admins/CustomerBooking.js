@@ -53,7 +53,7 @@ function CustomerBooking() {
   return (
     <Flex direction="row" bg="#F6F7FC">
       <Sidebar />
-      <Flex w="100%" h="100vh" bg="blue" justifyContent="center">
+      <Flex w="100%" bg="blue" justifyContent="center">
         <Flex direction="column" bg="#F6F7FC" w="full">
           <Flex
             h="80px"
@@ -108,7 +108,7 @@ function CustomerBooking() {
                           onClick={() => {
                             console.log(data.reservation_id);
                             navigate(
-                              `customerbookingdetails/${data.reservation_id}`
+                              `/customerbooking/customerbookingdetails/${data.reservation_id}`
                             );
                           }}
                         >
