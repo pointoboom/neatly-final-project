@@ -168,9 +168,6 @@ export async function SearchRoom(req, res) {
   const guest = req.query.guest;
   let search = req.query.search;
 
-  console.log("search", typeof req.query.search);
-  console.log("startdate", startdate);
-
   try {
     if (req.query.search === undefined) {
       // booking search
@@ -212,8 +209,7 @@ export async function SearchRoom(req, res) {
           dissableroom: notReserve,
         });
       }
-    } 
-    else {
+    } else {
       // roomproperty search
       if (search) {
         search = `%${search.toLowerCase()}%`;
