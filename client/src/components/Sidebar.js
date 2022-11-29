@@ -79,7 +79,7 @@ function Sidebar() {
               <Image boxSize="27px" pr="10px" src="/images/hotel.svg" />
               <Text
                 onClick={() => {
-                  navigate("/hotel");
+                  navigate("/hotelinfo/1");
                 }}
               >
                 Hotel Information

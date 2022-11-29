@@ -29,7 +29,7 @@ function EditPaymentPage() {
   const [cardExpiry, setCardExpiry] = useState("");
   const [cardCVV, setCardCVV] = useState("");
   // const [dob, setDob] = usePersistedState("dob", null);
-  const { editPayment, register } = useAuth();
+  const { editPayment } = useAuth();
 
   const getData = async () => {
     const token = localStorage.getItem("token");

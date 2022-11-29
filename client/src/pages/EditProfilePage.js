@@ -57,11 +57,7 @@ function EditProfilePage() {
     setCountry(res.data.data[0].country);
     setImageUrl(res.data.data[0].profile_picture);
 
-<<<<<<< HEAD
     setDob(moment(res.data.data[0].date_of_birth).format("dd,DD MMM YYYY"));
-=======
-    setDob(res.data.data[0].date_of_birth);
->>>>>>> 6113456 (feat: add editPaymentPage)
   };
 
   useEffect(() => {
