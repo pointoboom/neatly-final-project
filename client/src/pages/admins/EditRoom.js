@@ -46,7 +46,7 @@ function RoomPropertyEdit() {
 
   const navigate = useNavigate();
   const params = useParams();
-  console.log(newRoom);
+  console.log(amenity);
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms/${params.id}`);
 
@@ -120,10 +120,10 @@ function RoomPropertyEdit() {
     formData.append("price", newRoom.price);
     formData.append("description", newRoom.description);
     //*Fix */
-    for (let i in newRoom.amenity) {
-      amenityArray.push(newRoom.amenity[i]);
-    }
-    formData.append("amenity", amenityArray);
+    // for (let i in newRoom.amenity) {
+    //   amenityArray.push(newRoom.amenity[i]);
+    // }
+    formData.append("amenity", amenity);
     for (let mainImgKey in mainImg) {
       formData.append("main_img", mainImg[mainImgKey]);
     }
@@ -352,57 +352,53 @@ function RoomPropertyEdit() {
               </Text>
 
               <Flex className="amenity" direction="column" mb="40px">
-                {amenity.map((item) => {
-                  return (
-                    <Formik
-                      initialValues={{ friends: [item] }}
-                      onSubmit={(values) =>
-                        setTimeout(() => {
-                          alert(JSON.stringify(values, null, 2));
-                        }, 500)
-                      }
-                      render={({ values }) => (
-                        <Form>
-                          <FieldArray
-                            name="friends"
-                            render={(arrayHelpers) => (
-                              <Flex>
-                                {values.friends && values.friends.length > 0
-                                  ? values.friends.map((friend, index) => (
-                                      <Flex key={index} w="full">
-                                        <Input
-                                          mr="40px"
-                                          onChange={(event) => {
-                                            setNewRoom({
-                                              ...newRoom,
-                                              ["newAmenity"]: {
-                                                index: event.target.value,
-                                              },
-                                            });
-                                          }}
-                                          mb="40px"
-                                          name={`friends.${index}`}
-                                          defaultValue={item}
-                                        />
-                                        <Button
-                                          type="button"
-                                          onClick={() => {
-                                            arrayHelpers.remove(index);
-                                          }} // remove a friend from the list
-                                        >
-                                          delete
-                                        </Button>
-                                      </Flex>
-                                    ))
-                                  : null}
-                              </Flex>
-                            )}
-                          />
-                        </Form>
-                      )}
-                    />
-                  );
-                })}
+                <Formik
+                  enableReinitialize={true}
+                  initialValues={{ list: amenity }}
+                  render={({ values }) => (
+                    <Form>
+                      <FieldArray
+                        name="friends"
+                        render={(arrayHelpers) => (
+                          <Flex direction="column">
+                            {values.list && values.list.length > 0
+                              ? values.list.map((friend, index) => (
+                                  <Flex key={index} w="full">
+                                    <Input
+                                      mr="40px"
+                                      onChange={(event) => {
+                                        const temp = amenity.map((item, i) => {
+                                          if (i === index) {
+                                            return (item = event.target.value);
+                                          } else {
+                                            return item;
+                                          }
+                                        });
+                                        setAmenity(temp);
+                                      }}
+                                      mb="40px"
+                                      name={`list.${index}`}
+                                      value={amenity[index]}
+                                    />
+                                    <Button
+                                      type="button"
+                                      onClick={() => {
+                                        deleteAmenity(index);
+                                        // arrayHelpers.remove(index);
+                                      }} // remove a friend from the list
+                                    >
+                                      delete{index}
+                                    </Button>
+                                  </Flex>
+                                ))
+                              : null}
+                          </Flex>
+                        )}
+                      />
+                    </Form>
+                  )}
+                />
+
                 <Formik
                   initialValues={{ friends: [] }}
                   onSubmit={(values) =>
@@ -422,12 +418,17 @@ function RoomPropertyEdit() {
                                   <Input
                                     mr="40px"
                                     onChange={(event) => {
-                                      setNewRoom({
-                                        ...newRoom,
-                                        ["amenity"]: {
-                                          1: event.target.value,
-                                        },
-                                      });
+                                      // setNewRoom({
+                                      //   ...newRoom,
+                                      //   ["amenity"]: {
+                                      //     index: event.target.value,
+                                      //   },
+                                      // });
+                                      const temp = [
+                                        ...amenity,
+                                        event.target.value,
+                                      ];
+                                      setAmenity(temp);
                                     }}
                                     mb="40px"
                                     name={`friends.${index}`}
@@ -437,7 +438,7 @@ function RoomPropertyEdit() {
                                     type="button"
                                     onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
                                   >
-                                    delete
+                                    delete{index}
                                   </Button>
                                 </Flex>
                               </Flex>
