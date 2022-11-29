@@ -46,7 +46,7 @@ function RoomPropertyEdit() {
 
   const navigate = useNavigate();
   const params = useParams();
-  console.log(newRoom);
+  console.log(amenity);
   const getData = async () => {
     const res = await axios.get(`http://localhost:4000/rooms/${params.id}`);
 
@@ -120,10 +120,10 @@ function RoomPropertyEdit() {
     formData.append("price", newRoom.price);
     formData.append("description", newRoom.description);
     //*Fix */
-    for (let i in newRoom.amenity) {
-      amenityArray.push(newRoom.amenity[i]);
-    }
-    formData.append("amenity", amenityArray);
+    // for (let i in newRoom.amenity) {
+    //   amenityArray.push(newRoom.amenity[i]);
+    // }
+    formData.append("amenity", amenity);
     for (let mainImgKey in mainImg) {
       formData.append("main_img", mainImg[mainImgKey]);
     }
