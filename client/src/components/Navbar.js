@@ -29,7 +29,6 @@ function Navbar(props) {
   const auth = useAuth();
   const { logout } = useAuth();
   const [userdata, setUserdata] = useState(null);
-  const [logo, setLogo] = useState("");
   const { hotelInfo } = useHotel();
 
   useEffect(() => {
@@ -55,7 +54,7 @@ function Navbar(props) {
         <HStack spacing={"42px"}>
           <a href="/">
             <Image
-              src="/images/logo.svg"
+              src={hotelInfo.hotel_logo}
               alt="Neatly Logo"
               w="167px"
               h="45px"
