@@ -48,7 +48,7 @@ function RoomsSearch() {
                 {data.bed_type}&ensp;|&ensp;
                 {data.room_size}
               </Text>
-              <Text fontSize="s" fontFamily={"inter"} width="270px">
+              <Text fontSize="s" fontFamily={"inter"} width="350px">
                 {data.description}
               </Text>
             </Flex>

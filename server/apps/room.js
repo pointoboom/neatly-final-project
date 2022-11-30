@@ -58,7 +58,7 @@ roomRouter.put("/:roomid", avatarUpload, async (req, res) => {
                ,gallery_images_id=$13,amenity_id=$14  where room_types_id = $15`,
         [
           newRoom.room_type,
-          `${newRoom.room_size} sqm`,
+          `${newRoom.room_size}`,
           newRoom.bed_type,
           newRoom.guest,
           newRoom.guest,
