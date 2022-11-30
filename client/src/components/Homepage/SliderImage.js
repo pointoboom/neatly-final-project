@@ -5,31 +5,36 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 function SliderImage() {
   const slideData = [
     {
-      image: "./images/About/img1.svg",
+      image:
+        "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783037/slidedata/2cfa8c73719c6a91b4b0d1acd972e5f3_sdoyzb.webp",
     },
     {
-      image: "./images/About/img2.svg",
+      image:
+        "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783037/slidedata/317482891_kqvlwc.jpg",
     },
     {
-      image: "./images/About/img3.svg",
+      image:
+        "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783037/slidedata/317478313_bxnie3.jpg",
+    },
+    // {
+    //   image:
+    //     "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783036/slidedata/247791999_ai4ghj.jpg",
+    // },
+    {
+      image:
+        "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783036/slidedata/142640165_115787740446918_7223652144255639282_n_sfjpzx.jpg",
     },
     {
-      image: "./images/About/img1.svg",
+      image: "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783037/slidedata/279043739_5173390632699953_3570556530460733161_n_x6s1gr.jpg",
     },
     {
-      image: "./images/About/img2.svg",
+      image: "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783036/slidedata/143415319_115787730446919_6968223846291386393_n_frmrvz.jpg",
     },
     {
-      image: "./images/About/img2.svg",
+      image: "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783036/slidedata/142355557_115787763780249_4874431403769728257_n_driks7.jpg",
     },
     {
-      image: "./images/About/img2.svg",
-    },
-    {
-      image: "./images/About/img2.svg",
-    },
-    {
-      image: "./images/About/img2.svg",
+      image: "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669783036/slidedata/804ffbbe01e89edfc414d2db7b9cc981_ddtomb.webp",
     },
   ];
 
@@ -38,7 +43,7 @@ function SliderImage() {
       infiniteLoop
       showStatus={false}
       centerMode
-      centerSlidePercentage="30"
+      centerSlidePercentage="25"
       showIndicators={false}
       renderArrowPrev={(onClickHandler, hasPrev, label) =>
         hasPrev && (
@@ -46,7 +51,7 @@ function SliderImage() {
             type="button"
             onClick={onClickHandler}
             title={label}
-            className="absolute z-10 top-[300px]  left-[200px] "
+            className="absolute z-10 top-[250px]  left-[200px] "
           >
             <Image src="./images/About/Prevarrow.svg" />
           </button>
@@ -58,7 +63,7 @@ function SliderImage() {
             type="button"
             onClick={onClickHandler}
             title={label}
-            className="absolute z-10 top-[300px] right-[200px] "
+            className="absolute z-10 top-[250px] right-[200px] "
           >
             <Image src="./images/About/Nextarrow.svg" />
           </button>
@@ -66,7 +71,7 @@ function SliderImage() {
       }
     >
       {slideData.map((slide) => {
-        return <Image src={slide.image} height="full" />;
+        return <Image src={slide.image} height="full"  objectFit="cover" />;
       })}
     </Carousel>
   );

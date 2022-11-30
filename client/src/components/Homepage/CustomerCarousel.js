@@ -7,31 +7,32 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { useState } from "react";
+import { Avatar } from "antd";
 
 const SlideData = [
   {
     topic: "Our Customer Says",
     comment:
-      "lorem ipsum dolor sit amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint, velit official consequat duis enim velit mollit, exercitation minim amet consequat sunt.",
-    customername: "Katherine, Company®",
+      "The rooms were clean, very comfortable, and the staff was amazing. They went over and beyond to help make our stay enjoyable. I highly recommend this hotel for anyone.",
+    customername: "Jisoo, Company®",
     image:
-      "https://res.cloudinary.com/practicaldev/image/fetch/s--i96Gcbyf--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://thepracticaldev.s3.amazonaws.com/uploads/user/profile_image/50592/f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg",
+      "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669784437/slidedata/20518952_zofhwb.jpg",
   },
   {
-    topic: "Our Customer Says2",
+    topic: "Our Customer Says",
     comment:
-      "lorem ipsum dolor sit amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint, velit official consequat duis enim velit mollit, exercitation minim amet consequat sunt.",
-    customername: "Katherine, Company®",
+      "They were extremely accommodating and allowed us to check in early at like 10am. We got to hotel super early and I didn’t wanna wait. So this was a big plus. The service was exceptional as well. Would definitely send a friend there.",
+    customername: "Rose , Company®",
     image:
-      "https://res.cloudinary.com/practicaldev/image/fetch/s--i96Gcbyf--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://thepracticaldev.s3.amazonaws.com/uploads/user/profile_image/50592/f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg",
+      "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669784442/slidedata/com.RoseBlackpinkWallpaper.adnapps-645da9a8-d70a-4ae9-a6fe-adea30bbfdc0_i2xxsh.jpg",
   },
   {
-    topic: "Our Customer Says3",
+    topic: "Our Customer Says",
     comment:
-      "lorem ipsum dolor sit amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint, velit official consequat duis enim velit mollit, exercitation minim amet consequat sunt.",
-    customername: "Katherine, Company®",
+      "I had a wonderful experience at Neatly. Every staff member I encountered, from the valet to the check- in to the cleaning staff were delightful and eager to help! Thank you! Will recommend to my colleagues!",
+    customername: "Lisa , Company®",
     image:
-      "https://res.cloudinary.com/practicaldev/image/fetch/s--i96Gcbyf--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://thepracticaldev.s3.amazonaws.com/uploads/user/profile_image/50592/f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg",
+      "https://res.cloudinary.com/dyfc6ffal/image/upload/v1669784439/slidedata/HD-wallpaper-lisa-blackpink-blackpink-kpop-lalisa-lisa-thumbnail_xpztud.jpg",
   },
 ];
 
@@ -123,7 +124,7 @@ function CustomerCarousel() {
                   >
                     {slide.topic}
                   </Heading>
-                  <Center>
+                  <Center bg="#E6EBE9">
                     <Text
                       pt="125"
                       pb="50"
@@ -141,11 +142,16 @@ function CustomerCarousel() {
 
                   <Flex justify="center" w="100%" pt="55" pb="50">
                     <Box boxSize="32px">
-                      <Image
+                      {/* <Image
                         src={slide.image}
                         alt="customerImage"
                         borderRadius="full"
-                      />
+                        w="50px"
+                        h="50px"
+
+
+                      /> */}
+                      <Avatar src={slide.image} />
                     </Box>
                     <Text
                       pl="5"
