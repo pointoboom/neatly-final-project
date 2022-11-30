@@ -76,8 +76,6 @@ function RoomsSearch() {
                   fontFamily={"Open Sans"}
                   fontSize="lg"
                   onClick={() => {
-                    console.log(data.room_types_id);
-                    // navigate(`/room-detail/`);
                     navigate(`/room-detail/${data.room_types_id}`);
                   }}
                   bg="white"

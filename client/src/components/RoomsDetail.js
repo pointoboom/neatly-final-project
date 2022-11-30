@@ -4,7 +4,6 @@ import {
   Image,
   Text,
   Flex,
-  Spacer,
   UnorderedList,
   ListItem,
 } from "@chakra-ui/react";
@@ -21,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 
 function RoomsDetail() {
   const params = useParams();
-  // console.log(params.roomId);
   const navigate = useNavigate();
   const [room, setRoom] = useState(null);
   const [randomRoom, setRandomRoom] = useState(null);
@@ -33,7 +31,6 @@ function RoomsDetail() {
       `http://localhost:4000/rooms/room-detail/${params.roomId}?random=2`
     );
 
-    // console.log(results.data.data.amenity.split(","));
 
     setSlideData([
       ...slideData,
@@ -44,9 +41,7 @@ function RoomsDetail() {
     setRandomRoom(results.data.randomRoom);
     setAmenities([...amenities, ...results.data.data.amenity.split(",")]);
   };
-  // console.log(randomRoom);
 
-  console.log("amenities",amenities);
 
   useEffect(() => {
     getData();
@@ -78,8 +73,6 @@ function RoomsDetail() {
             centerMode
             interval="8000"
             autoPlay
-            // centerSlidePercentage="20"
-            // showIndicators={false}
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
               hasPrev && (
                 <button
@@ -295,45 +288,6 @@ function RoomsDetail() {
                   </Flex>
                 );
               })}
-
-            {/* 
-            <Flex position="relative">
-              <Image
-                src="/images/roomsDetail/suite.svg"
-                alt="Deluxe"
-                margin="15px"
-                height="350px"
-                width="550px"
-                objectFit={"cover"}
-              ></Image>
-
-              <Flex
-                zIndex="popover"
-                position="absolute"
-                bottom="100px"
-                left="80px"
-                color="white"
-                direction="column"
-              >
-                <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
-                  Deluxe
-                </Text>
-                <Flex
-                  position="relative"
-                  left="10px"
-                  _hover={{ color: "orange" }}
-                >
-                  <Text fontSize="1rem" fontFamily={"Open Sans"}>
-                    Explore room
-                  </Text>
-                  <ArrowForwardIcon
-                    position="absolute"
-                    left="115px"
-                    bottom="4px"
-                  />
-                </Flex>
-              </Flex>
-            </Flex> */}
           </Flex>
         </Flex>
       </Box>

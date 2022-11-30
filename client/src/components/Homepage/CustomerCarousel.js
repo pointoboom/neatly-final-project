@@ -38,18 +38,8 @@ const SlideData = [
 
 function CustomerCarousel() {
   const [slides, useSlides] = useState([...SlideData]);
-  // const [hasNext, setHasNext] = React.useState(true);
-  // const [hasPrev, setHasPrev] = React.useState(true);
-  // const [labelPrev] = React.useState("PREVIOUS");
-  // const [labelNext] = React.useState("NEXT");
-
-  // const clickHandler = () => {
-  //   console.log("clickHandlerCalled");
-  // };
   return (
     <Flex justify="center" bg="#E6EBE9">
-      {/* <img src="images/CustomerCarousel/right-arrow.svg" />
-      <img src="images/arrow.svg" /> */}
       <Box w="80%">
         <Box w="100%" pb="150">
           <Carousel
@@ -57,10 +47,7 @@ function CustomerCarousel() {
             interval="8000"
             autoPlay
             infiniteLoop
-            //   centerMode="true"
-            //   mx="auto"
             showStatus={false}
-            ////////
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
               hasPrev && (
                 <button
@@ -110,7 +97,6 @@ function CustomerCarousel() {
                 <Box
                   w="100%"
                   h="100%"
-                  // bg="blue"
                   key={index}
                 >
                   <Heading
@@ -142,15 +128,6 @@ function CustomerCarousel() {
 
                   <Flex justify="center" w="100%" pt="55" pb="50">
                     <Box boxSize="32px">
-                      {/* <Image
-                        src={slide.image}
-                        alt="customerImage"
-                        borderRadius="full"
-                        w="50px"
-                        h="50px"
-
-
-                      /> */}
                       <Avatar src={slide.image} />
                     </Box>
                     <Text
@@ -168,19 +145,6 @@ function CustomerCarousel() {
             })}
           </Carousel>
 
-          {/* 
-          <Carousel
-            interval="1000"
-            autoPlay
-            infiniteLoop
-            //   centerMode="true"
-            //   mx="auto"
-            showStatus={false}
-          >
-            {SlideData.map((slide) => {
-              return <Image src={slide.image} height="auto" width="800px" />;
-            })}
-          </Carousel> */}
         </Box>
       </Box>
     </Flex>
@@ -189,46 +153,3 @@ function CustomerCarousel() {
 
 export default CustomerCarousel;
 
-// import React from "react";
-// import { Box } from "@chakra-ui/react";
-
-// import { Image } from "@chakra-ui/react";
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-// export const SlideData = [
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1546768292-fb12f6c92568?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1475189778702-5ec9941484ae?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
-//   },
-// ];
-
-// function TestCompoent() {
-//   return (
-//     <Box w="100%" p={4} color="white">
-//       <Carousel infiniteLoop>
-//         {SlideData.map((slide) => {
-//           return <Image src={slide.image} height="auto" width="800px" />;
-//         })}
-//       </Carousel>
-//     </Box>
-//   );
-// }
-
-// export default TestCompoent;

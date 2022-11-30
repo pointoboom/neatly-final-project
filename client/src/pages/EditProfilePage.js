@@ -5,7 +5,6 @@ import {
   Input,
   Divider,
   FormControl,
-  FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
@@ -38,7 +37,6 @@ function EditProfilePage() {
   const [email, setEmail] = useState("");
   const [idnumber, setIdnumber] = useState("");
   const [country, setCountry] = useState("");
-  // const [dob, setDob] = useState("");
   const [dob, setDob] = usePersistedState("dob", null);
 
   const [avatars, setAvatars] = useState({});
@@ -105,12 +103,6 @@ function EditProfilePage() {
     for (let avatarKey in avatars) {
       formData.append("avatar", avatars[avatarKey]);
     }
-
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
-
-    console.log(formData);
     editUser(formData, userdata.user_id);
   };
 
@@ -156,9 +148,6 @@ function EditProfilePage() {
                 px="40px"
                 fontFamily={"Inter"}
                 _hover={{ background: "#E76B39" }}
-                // onClick={() => {
-                //   console.log("Update Profile");
-                // }}
                 type="submit"
               >
                 Update Profile
