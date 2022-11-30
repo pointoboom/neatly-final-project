@@ -13,7 +13,6 @@ import {
   Icon,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Spinner,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -39,11 +38,7 @@ function ReservationPage() {
   const [standardRequest, setStandardRequest] = useState([]);
   const [reserveDetail, setReserveDetail] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const searchDetail = useHotel();
-  const { roomId } = useHotel();
-  const { register } = useAuth();
   const { onClose } = useHotel();
-  const auth = useAuth();
   const tab = useHotel();
   const getData = async () => {
     const token = localStorage.getItem("token");
@@ -65,8 +60,6 @@ function ReservationPage() {
       <Navbar />;
       <Flex
         className="reservation-page"
-        // width="100vw"
-        // height="100vh"
         fontFamily={"Inter"}
         bgColor="rgba(247, 247, 251, 1)"
         display="flex"
@@ -80,7 +73,6 @@ function ReservationPage() {
           direction="column"
           align="flex-start"
           justify="center"
-          // bgColor="pink"
         >
           <Text
             className="Booking"
@@ -90,7 +82,6 @@ function ReservationPage() {
             fontFamily={"Noto Serif Display"}
             paddingBottom="40px"
             mt="50px"
-            // bgColor="pink.200"
           >
             Booking Room
           </Text>
@@ -104,11 +95,9 @@ function ReservationPage() {
               align="flex-start"
               justify="center"
               color="gray"
-              // bgColor="pink.300"
             >
               <Tab _selected={{ color: "orange" }}>
                 <Button
-                  // boxSize="66px"
                   mr="15px"
                   bgColor="gray.100"
                   _selected={{ colorScheme: "orange" }}
@@ -141,12 +130,10 @@ function ReservationPage() {
             </TabList>
 
             <Flex
-              // w="1122px"
               display="flex"
               direction="row"
               justifyContent="space-between"
               alignItems="flex-start"
-              // bgColor="yellow"
             >
               <TabPanels bgColor="white">
                 <BasicInformation userData={user} />
@@ -186,7 +173,6 @@ function ReservationPage() {
             </Flex>
           </Tabs>
         </Flex>
-        {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
         <Modal
           isOpen={tab.isOpen}

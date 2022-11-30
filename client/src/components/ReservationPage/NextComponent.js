@@ -1,9 +1,8 @@
 import { Flex, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useHotel } from "../../contexts/reservation";
 function NextComponent() {
   const { handleTabsChange, handleTabsBack } = useHotel();
-  const tab = useHotel();
 
   return (
     <Flex

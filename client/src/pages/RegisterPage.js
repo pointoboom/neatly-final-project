@@ -153,7 +153,6 @@ function RegisterPage() {
                     width="full"
                     fontFamily={"Inter"}
                     fontSize="16px"
-                    // id="fullname"
                     name="fullname"
                     type="text"
                     value={fullname}
@@ -179,7 +178,6 @@ function RegisterPage() {
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        // id="username"
                         name="username"
                         type="text"
                         value={username}
@@ -203,7 +201,6 @@ function RegisterPage() {
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        // id="password"
                         name="password"
                         type="password"
                         value={password}
@@ -261,7 +258,6 @@ function RegisterPage() {
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        // id="email"
                         name="email"
                         type="text"
                         value={email}
@@ -290,7 +286,6 @@ function RegisterPage() {
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        // id="idnumber"
                         name="idnumber"
                         type="number"
                         value={idnumber}
@@ -403,7 +398,6 @@ function RegisterPage() {
                       width="550px"
                       fontFamily={"Inter"}
                       fontSize="16px"
-                      // id="cardnumber"
                       name="cardnumber"
                       type="number"
                       value={cardnum}
@@ -430,7 +424,6 @@ function RegisterPage() {
                       width="550px"
                       fontFamily={"Inter"}
                       fontSize="16px"
-                      // id="cardowner"
                       name="cardowner"
                       type="text"
                       value={cardowner}
@@ -459,7 +452,6 @@ function RegisterPage() {
                       width="550px"
                       fontFamily={"Inter"}
                       fontSize="16px"
-                      // id="expiredate"
                       name="expiredate"
                       type="text"
                       value={expdate}
@@ -486,7 +478,6 @@ function RegisterPage() {
                       width="550px"
                       fontFamily={"Inter"}
                       fontSize="16px"
-                      // id="cvc"
                       name="cvc"
                       type="text"
                       value={cvc}
@@ -507,9 +498,6 @@ function RegisterPage() {
                   width="550px"
                   mb="10px"
                   _hover={{ background: "#E76B39" }}
-                  // onClick={(event) => {
-                  //   handleSubmit(event);
-                  // }}
                   type="submit"
                 >
                   Register

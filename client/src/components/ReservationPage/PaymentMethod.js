@@ -1,21 +1,12 @@
-import {
-  GridItem,
-  Input,
-  Text,
-  Flex,
-  Button,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Input, Text, Flex, Button, TabPanel } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useHotel } from "../../contexts/reservation";
 import moment from "moment";
 import jwtDecode from "jwt-decode";
 
 function PaymentMethod(props) {
-  const auth = useAuth();
   const { handleTabsBack, reserveRooms } = useHotel();
-
   const searchDetail = useHotel();
   const handleSubmit = async (event) => {
     const token = localStorage.getItem("token");
@@ -67,36 +58,12 @@ function PaymentMethod(props) {
       exp_year,
     };
     reserveRooms(data);
-    // const { error } = await stripe.createPaymentMethod({
-    //   type: "card",
-    //   card: { number, exp_month, exp_year, cvc },
-    // });
-
-    // if (!error) {
-    //   try {
-    //     reserveRooms(data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
   };
 
   return (
     <TabPanel className="third-page">
-      <Flex
-        w="740px"
-        className="info-form"
-        direction="column"
-        // bgColor="gray"
-        // pl="40px"
-        // pt="40px"
-      >
-        <Flex
-          className="info-form"
-          w="660px"
-          direction="column"
-          // bgColor="gray"
-        >
+      <Flex w="740px" className="info-form" direction="column">
+        <Flex className="info-form" w="660px" direction="column">
           <Flex mb="40px">
             <Text
               fontFamily={"Inter"}

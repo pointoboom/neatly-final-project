@@ -10,76 +10,27 @@ import { useAuth } from "../../contexts/authentication";
 import React, { useState } from "react";
 import { DatePicker, Select, Form } from "antd";
 import NextComponent from "./NextComponent";
-import { useHotel } from "../../contexts/reservation";
 import { countryList } from "../../data/country";
 import moment from "moment";
 function BasicInformation(props) {
   const date = moment(props.userData.date_of_birth).format("YYYY-MM-DD");
-  const [username, setUsername] = useState("");
   const [fullname, setFullName] = useState("");
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [idnumber, setIdnumber] = useState("");
-  const [cardnum, setCardnum] = useState("");
-  const [cardowner, setCardowner] = useState("");
-  const [expdate, setExpdate] = useState("");
-  const [cvc, setCvc] = useState("");
   const [dob, setDob] = useState("");
   const [country, setCountry] = useState("");
-  const { register } = useAuth();
   const auth = useAuth();
-  const tab = useHotel();
-  const dateFormat = "dd,DD MMM YYYY";
-
-  // console.log(String(moment().format("YYYY-MM-DD")));
-
   const onChangeDate = (value) => {
     setDob(value._d);
   };
   const handleCountry = (value) => {
     setCountry(value);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = {
-      username,
-      password,
-      fullname,
-      email,
-      idnumber,
-      cardnum,
-      cardowner,
-      expdate,
-      cvc,
-      dob,
-      country,
-      role: "user",
-      profile_picture: "test",
-    };
 
-    register(data);
-  };
-
-  const bgColorBox = (index) => {
-    if (index === 0) {
-    }
-  };
   return (
     <TabPanel className="first-page">
-      <Flex
-        w="740px"
-        className="info-form"
-        direction="column"
-        // bgColor="gray"
-        // pl="40px"
-        // pt="40px"
-      >
-        <Flex
-          className="info-form"
-          w="660px"
-          direction="column"
-          // bgColor="gray"
-        >
+      <Flex w="740px" className="info-form" direction="column">
+        <Flex className="info-form" w="660px" direction="column">
           <Flex mb="40px">
             <Text
               fontFamily={"Inter"}
@@ -192,18 +143,11 @@ function BasicInformation(props) {
                       }}
                       onChange={onChangeDate}
                       placeholder="Enter your birthday"
-                      // defaultValue={moment()}
                       defaultValue={moment(
                         moment(props.userData.date_of_birth).format(
                           "YYYY-MM-DD"
                         )
                       )}
-                      // defaultValue={moment(
-                      //   moment(props.userData.date_of_birth).format(
-                      //     "dd,DD MMM YYYY"
-                      //   ),
-                      //   dateFormat
-                      // )}
                       disabled
                     />
                   </Form.Item>

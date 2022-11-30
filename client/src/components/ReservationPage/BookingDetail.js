@@ -7,7 +7,6 @@ import moment from "moment";
 
 function BookingDetail(props) {
   const searchDetail = useHotel();
-  const auth = useAuth();
 
   return (
     <Flex
@@ -168,7 +167,6 @@ function BookingDetail(props) {
           fontFamily={"Inter"}
           ml="20px"
           mb="24px"
-          // bg="blue.100"
         >
           {props.reserveDetail.map((room) => {
             return (
@@ -180,7 +178,6 @@ function BookingDetail(props) {
                   alignItems="flex-start"
                   justifyContent="space-between"
                   w="70%"
-                  // bg="blue.200"
                   fontSize="16px"
                 >
                   {room.type_name}
@@ -191,7 +188,6 @@ function BookingDetail(props) {
                   direction="column"
                   alignItems="flex-start"
                   justifyContent="flex-start"
-                  // bg="blue.200"
                   fontSize="16px"
                 >
                   {room.promotion_price}.00
@@ -217,7 +213,6 @@ function BookingDetail(props) {
                     fontFamily={"Inter"}
                     ml="20px"
                     mb="24px"
-                    // bg="blue.100"
                   >
                     <Flex
                       className="special-request-option"
@@ -226,7 +221,6 @@ function BookingDetail(props) {
                       alignItems="flex-start"
                       justifyContent="space-between"
                       w="70%"
-                      // bg="blue.200"
                       fontSize="16px"
                     >
                       {data.req}
@@ -237,7 +231,6 @@ function BookingDetail(props) {
                       direction="column"
                       alignItems="flex-start"
                       justifyContent="flex-start"
-                      // bg="blue.200"
                       fontSize="16px"
                     >
                       {data.price}.00
@@ -258,7 +251,6 @@ function BookingDetail(props) {
                     fontFamily={"Inter"}
                     ml="20px"
                     mb="24px"
-                    // bg="blue.100"
                   >
                     <Flex
                       className="special-request-option"
@@ -267,7 +259,6 @@ function BookingDetail(props) {
                       alignItems="flex-start"
                       justifyContent="space-between"
                       w="70%"
-                      // bg="blue.200"
                       fontSize="16px"
                     >
                       {data.req}
@@ -278,7 +269,6 @@ function BookingDetail(props) {
                       direction="column"
                       alignItems="flex-start"
                       justifyContent="flex-start"
-                      // bg="blue.200"
                       fontSize="16px"
                     >
                       {data.price *
@@ -307,7 +297,6 @@ function BookingDetail(props) {
                     fontFamily={"Inter"}
                     ml="20px"
                     mb="24px"
-                    // bg="blue.100"
                   >
                     <Flex
                       className="special-request-option"
@@ -316,7 +305,6 @@ function BookingDetail(props) {
                       alignItems="flex-start"
                       justifyContent="space-between"
                       w="70%"
-                      // bg="blue.200"
                       fontSize="16px"
                     >
                       {data.req}
@@ -327,7 +315,6 @@ function BookingDetail(props) {
                       direction="column"
                       alignItems="flex-start"
                       justifyContent="flex-start"
-                      // bg="blue.200"
                       fontSize="16px"
                     >
                       {data.price *
@@ -343,8 +330,6 @@ function BookingDetail(props) {
                 );
               }
             })}
-
-        {/*  */}
 
         <GridItem
           w="310px"
@@ -368,7 +353,6 @@ function BookingDetail(props) {
           ml="20px"
           mb="24px"
           mt="24px"
-          // bg="blue.100"
         >
           <Flex
             className="special-request-option"
@@ -377,7 +361,6 @@ function BookingDetail(props) {
             alignItems="flex-start"
             justifyContent="space-between"
             w="30%"
-            // bg="blue.200"
             fontSize="16px"
           >
             Total
@@ -388,7 +371,6 @@ function BookingDetail(props) {
             direction="column"
             alignItems="flex-start"
             justifyContent="flex-start"
-            // bg="blue.200"
             fontSize="20px"
           >
             THB{" "}

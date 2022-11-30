@@ -9,7 +9,7 @@ import {
   Box,
   TabPanel,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import NextComponent from "./NextComponent";
 function SpecialRequest(props) {
   const handleCheck = (check, price, event) => {
@@ -53,20 +53,9 @@ function SpecialRequest(props) {
       ]);
     }
   };
-  const bgColorBox = (index) => {
-    if (index === 0) {
-    }
-  };
   return (
     <TabPanel className="second-page">
-      <Flex
-        w="740px"
-        className="info-form"
-        direction="column"
-        // bgColor="gray"
-        // pl="40px"
-        // pt="40px"
-      >
+      <Flex w="740px" className="info-form" direction="column">
         <Flex mb="45px" direction="column">
           <Text
             fontFamily={"Inter"}

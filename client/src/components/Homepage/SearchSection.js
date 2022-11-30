@@ -1,25 +1,16 @@
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { DatePicker, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.min.css";
-
 import { useHotel } from "../../contexts/reservation";
 import moment from "moment";
 const dateFormat = "dd,DD MMM YYYY";
 
 function SearchSection() {
   const navigate = useNavigate();
-  const {
-    checkIn,
-    setCheckIn,
-    checkOut,
-    setCheckOut,
-    room,
-    setRoom,
-    guest,
-    setGuest,
-  } = useHotel();
+  const { checkIn, setCheckIn, checkOut, setCheckOut, guest, setGuest } =
+    useHotel();
 
   return (
     <Flex
@@ -106,29 +97,6 @@ function SearchSection() {
               placeholder={`${guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
-                  {/* <div className=" flex flex-row justify-between px-[5px]">
-                    <div>Room</div>
-                    <div className=" flex flex-row">
-                      <button
-                        onClick={() => {
-                          if (room === 1) setRoom(1);
-                          else setRoom(room - 1);
-                        }}
-                      >
-                        {" "}
-                        <img src="./images/Search/minus.svg" alt="" />
-                      </button>
-
-                      <div className="mx-[5px]">{room}</div>
-                      <button
-                        onClick={() => {
-                          setRoom(room + 1);
-                        }}
-                      >
-                        <img src="./images/Search/plus.svg" alt="" />
-                      </button>
-                    </div>
-                  </div> */}
                   <div className=" flex flex-row justify-between px-[5px]">
                     <div className=" mr-[5px]">Guest</div>
                     <div className=" flex flex-row">
