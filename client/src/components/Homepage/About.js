@@ -1,11 +1,15 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Textarea } from "@chakra-ui/react";
+import { useHotel } from "../../contexts/reservation";
+
 function About() {
+  const { hotelInfo } = useHotel();
   return (
-    <Box
+    <Flex
       id="about"
+      direction="column"
+      alignItems="center"
       display="flex"
       justifyContent="center"
-      flexDirection="column"
       px="150px"
     >
       <Box display="flex" justifyContent="center">
@@ -20,17 +24,29 @@ function About() {
           mb="60px"
           mt="70px"
         >
-          Neatly Hotel
+          {hotelInfo.hotel_name} Hotel
         </Text>
       </Box>
 
-      <Box flex justifyContent flexDirection={"column"} px="170px" mb="100px">
-        <Text fontSize="16px" fontFamily={"Inter"} mb="20px">
-          Set in Bangkok, Thailand. Neatly Hotel offers 5-star accommodation
-          with an outdoor pool, kids' club, sports facilities and a fitness
-          centre. There is also a spa, an indoor pool and saunas.
-        </Text>
-        <Text fontSize="16px" fontFamily={"Inter"} mb="20px">
+      <Flex
+        justifyContent="center"
+        flexDirection={"column"}
+        px="170px"
+        mb="100px"
+      >
+        <Textarea
+          h="400px"
+          w="1000px"
+          resize="none"
+          isReadOnly="true"
+          border={false}
+          fontSize="16px"
+          fontFamily={"Inter"}
+          mb="20px"
+        >
+          {hotelInfo.hotel_desc}
+        </Textarea>
+        {/* <Text fontSize="16px" fontFamily={"Inter"} mb="20px">
           All units at the hotel are equipped with a seating area, a flat-screen
           TV with satellite channels, a dining area and a private bathroom with
           free toiletries, a bathtub and a hairdryer. Every room in Neatly Hotel
@@ -40,9 +56,9 @@ function About() {
         <Text fontSize="16px" fontFamily={"Inter"}>
           Free WiFi and entertainment facilities are available at property and
           also rentals are provided to explore the area.
-        </Text>
-      </Box>
-    </Box>
+        </Text> */}
+      </Flex>
+    </Flex>
   );
 }
 

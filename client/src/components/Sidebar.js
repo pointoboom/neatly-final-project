@@ -1,11 +1,17 @@
 import { Box, Flex, VStack, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/authentication";
+import { useHotel } from "../contexts/reservation";
+import React, { useState, useEffect } from "react";
 
 function Sidebar() {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { hotelInfo, getHotelInfo } = useHotel();
 
+  useEffect(() => {
+    getHotelInfo();
+  }, []);
   return (
     <Flex
       backgroundColor="#2F3E35"

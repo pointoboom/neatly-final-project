@@ -37,7 +37,9 @@ function HotelInformationPage() {
   const params = useParams();
 
   const getHotelInfo = async () => {
-    const res = await axios.get(`http://localhost:4000/auth/hotelinfo/${params.id}`);
+    const res = await axios.get(
+      `http://localhost:4000/auth/hotelinfo/${params.id}`
+    );
     setHotelInfo(res.data.data[0]);
     setHotelName(res.data.data[0].hotel_name);
     setHotelDesc(res.data.data[0].hotel_desc);
@@ -209,7 +211,7 @@ function HotelInformationPage() {
                 placeholder="Enter hotel location"
                 fontFamily={"Inter"}
                 fontSize="16px"
-                name="loction"
+                name="location"
                 type="text"
                 value={hotelLocation}
                 onChange={(event) => {

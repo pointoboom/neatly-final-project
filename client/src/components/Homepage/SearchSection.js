@@ -8,6 +8,7 @@ import moment from "moment";
 const dateFormat = "dd,DD MMM YYYY";
 
 function SearchSection() {
+  const { hotelInfo } = useHotel();
   const navigate = useNavigate();
   const { checkIn, setCheckIn, checkOut, setCheckOut, guest, setGuest } =
     useHotel();
@@ -38,7 +39,7 @@ function SearchSection() {
           fontWeight="400px"
           color="white"
         >
-          Neatly Experience
+          {hotelInfo.hotel_name} Experience
         </Text>
       </Flex>
 

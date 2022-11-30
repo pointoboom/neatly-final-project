@@ -20,7 +20,7 @@ function HomePage() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <SearchSection />
       <About />
       <SliderImage />
