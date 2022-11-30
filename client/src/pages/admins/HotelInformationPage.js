@@ -14,6 +14,7 @@ import { Upload } from "antd";
 import { useAuth } from "../../contexts/authentication";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useHotel } from "../../contexts/reservation";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -24,26 +25,30 @@ const getBase64 = (img, callback) => {
 function HotelInformationPage() {
   const [hotelInfo, setHotelInfo] = useState(null);
   const [hotelName, setHotelName] = useState("");
+  const [hotelTelNum, setHotelTelNum] = useState("");
+  const [hotelEmail, setHotelEmail] = useState("");
+  const [hotelLocation, setHotelLocation] = useState("");
   const [hotelDesc, setHotelDesc] = useState("");
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
   const [avatars, setAvatars] = useState({});
+
   const { editHotelinfo } = useAuth();
   const params = useParams();
 
-  const getData = async () => {
-    const res = await axios.get(
-      `http://localhost:4000/auth/hotelinfo/${params.id}`
-    );
-    console.log(res.data.data);
+  const getHotelInfo = async () => {
+    const res = await axios.get(`http://localhost:4000/auth/hotelinfo/${params.id}`);
     setHotelInfo(res.data.data[0]);
     setHotelName(res.data.data[0].hotel_name);
     setHotelDesc(res.data.data[0].hotel_desc);
+    setHotelTelNum(res.data.data[0].hotel_num);
+    setHotelLocation(res.data.data[0].hotel_location);
+    setHotelEmail(res.data.data[0].hotel_email);
     setImageUrl(res.data.data[0].hotel_logo);
   };
 
   useEffect(() => {
-    getData();
+    getHotelInfo();
   }, []);
 
   const uploadButton = (
@@ -75,6 +80,9 @@ function HotelInformationPage() {
     const formData = new FormData();
     formData.append("hotelName", hotelName);
     formData.append("hotelDesc", hotelDesc);
+    formData.append("hotelTelNum", hotelTelNum);
+    formData.append("hotelEmail", hotelEmail);
+    formData.append("hotelLocation", hotelLocation);
 
     console.log(hotelName);
     console.log(hotelDesc);
@@ -161,6 +169,55 @@ function HotelInformationPage() {
                 focusBorderColor="orange.500"
                 placeholder="Enter hotel description"
               ></Textarea>
+            </FormControl>
+
+            <FormControl>
+              <FormLabel mt="45px">Telephone number *</FormLabel>
+              <Input
+                placeholder="Enter telephone number"
+                fontFamily={"Inter"}
+                fontSize="16px"
+                name="telnumber"
+                type="text"
+                value={hotelTelNum}
+                onChange={(event) => {
+                  setHotelTelNum(event.target.value);
+                  console.log(event.target.value);
+                }}
+                focusBorderColor="orange.500"
+              ></Input>
+            </FormControl>
+            <FormControl>
+              <FormLabel mt="45px">Email *</FormLabel>
+              <Input
+                placeholder="Enter email"
+                fontFamily={"Inter"}
+                fontSize="16px"
+                name="email"
+                type="text"
+                value={hotelEmail}
+                onChange={(event) => {
+                  setHotelEmail(event.target.value);
+                  console.log(event.target.value);
+                }}
+                focusBorderColor="orange.500"
+              ></Input>
+            </FormControl>
+            <FormControl>
+              <FormLabel mt="45px">Hotel location *</FormLabel>
+              <Input
+                placeholder="Enter hotel location"
+                fontFamily={"Inter"}
+                fontSize="16px"
+                name="loction"
+                type="text"
+                value={hotelLocation}
+                onChange={(event) => {
+                  setHotelLocation(event.target.value);
+                  console.log(event.target.value);
+                }}
+                focusBorderColor="orange.500"
+              ></Input>
             </FormControl>
             <Flex direction="column">
               <FormLabel mb="15px" mt="45px" ml="5px">

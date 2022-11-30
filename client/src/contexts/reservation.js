@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+
 const hotelContext = React.createContext();
 
 function HotelProvider(props) {
@@ -18,6 +20,7 @@ function HotelProvider(props) {
   const [isSuccess, setSuccess] = useState(false);
   const [reserveId, setReserveId] = useState("");
   const [roomDetails, setRoomDetails] = useState([]);
+  const [hotelInfo, setHotelInfo] = usePersistedState("hotelinfo", []);
 
   const handleSetRoomId = (id) => {
     setRoomId(id);
@@ -73,6 +76,12 @@ function HotelProvider(props) {
     });
     setRoomDetails(data);
   };
+
+  const getHotelInfo = async () => {
+    const res = await axios.get(`http://localhost:4000/auth/hotelinfo/1`);
+    setHotelInfo(res.data.data[0]);
+  };
+
   return (
     <hotelContext.Provider
       value={{
@@ -102,6 +111,8 @@ function HotelProvider(props) {
         reserveId,
         roomDetails,
         getData,
+        getHotelInfo,
+        hotelInfo,
       }}
     >
       {props.children}

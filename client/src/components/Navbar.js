@@ -22,11 +22,16 @@ import { useAuth } from "../contexts/authentication";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
-function Navbar() {
+import { useHotel } from "../contexts/reservation";
+
+function Navbar(props) {
   const navigate = useNavigate();
   const auth = useAuth();
   const { logout } = useAuth();
   const [userdata, setUserdata] = useState(null);
+  const [logo, setLogo] = useState("");
+  const { hotelInfo } = useHotel();
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
@@ -66,7 +71,7 @@ function Navbar() {
               fontSize="14px"
               textColor="#000000"
             >
-              About Neatly
+              About {hotelInfo.hotel_name}
             </Text>
           </a>
 
