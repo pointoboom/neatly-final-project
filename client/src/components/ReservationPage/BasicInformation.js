@@ -7,17 +7,19 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/authentication";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DatePicker, Select, Form } from "antd";
 import NextComponent from "./NextComponent";
 import { countryList } from "../../data/country";
 import moment from "moment";
+import usePersistedState from "use-persisted-state-hook";
+const dateFormat = "dd,DD MMM YYYY";
 function BasicInformation(props) {
   const date = moment(props.userData.date_of_birth).format("YYYY-MM-DD");
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [idnumber, setIdnumber] = useState("");
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = usePersistedState("dob", null);
   const [country, setCountry] = useState("");
   const auth = useAuth();
   const onChangeDate = (value) => {
@@ -143,11 +145,7 @@ function BasicInformation(props) {
                       }}
                       onChange={onChangeDate}
                       placeholder="Enter your birthday"
-                      defaultValue={moment(
-                        moment(props.userData.date_of_birth).format(
-                          "YYYY-MM-DD"
-                        )
-                      )}
+                      defaultValue={dob ? moment(dob, dateFormat) : ""}
                       disabled
                     />
                   </Form.Item>

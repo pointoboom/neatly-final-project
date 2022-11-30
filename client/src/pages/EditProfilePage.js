@@ -48,9 +48,7 @@ function EditProfilePage() {
     const token = localStorage.getItem("token");
     const userdata = jwtDecode(token);
     const res = await axios.get(`http://localhost:4000/auth/${userdata.id}`);
-    // console.log(res.data.data);
     setUserdata(res.data.data[0]);
-
     setFullName(res.data.data[0].fullname);
     setEmail(res.data.data[0].email);
     setIdnumber(res.data.data[0].id_number);

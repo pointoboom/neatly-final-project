@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import usePersistedState from "use-persisted-state-hook";
 import { useHotel } from "./reservation";
+import moment from "moment";
 
 const AuthContext = React.createContext();
 
@@ -17,6 +18,7 @@ function AuthProvider(props) {
   const [emailRegistered, setEmailRegis] = useState(false);
   const [loginfail, setLoginSuccess] = useState(true);
   const [isAdmin, setIsAdmin] = usePersistedState("admin", false);
+  const [dob, setDob] = usePersistedState("dob", null);
   let isEmailRegistered = false;
   const navigate = useNavigate();
   // make a login request
@@ -27,6 +29,10 @@ function AuthProvider(props) {
       localStorage.setItem("token", token);
       const DataFromToken = jwtDecode(token);
       setState({ ...state, user: DataFromToken });
+
+      console.log(moment(DataFromToken.dob).format("dd,DD MMM YYYY"));
+      setDob(moment(DataFromToken.dob).format("dd,DD MMM YYYY"));
+
       setLoginSuccess(true);
       if (result.data.role === "admin") {
         setIsAdmin(true);
