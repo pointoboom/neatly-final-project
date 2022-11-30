@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
 import Stripe from "stripe";
-const stripe = new Stripe(
-  "sk_test_51M3GnmJPsAkb5CJr0bn5EbkjmC74103qjI3F5nR5iOTGdkEoWfgzw0DASleURWLOwC2ojBNX5RAS2c5iFiLuihDY00oj8F1qLs"
-);
+import dotenv from "dotenv";
+dotenv.config();
+const stripe = new Stripe(process.env.STRIPE_KEY);
 const reserveRouter = Router();
 import moment from "moment";
 
@@ -18,6 +18,7 @@ reserveRouter.post("/", async (req, res) => {
         cvc: String(req.body.cvc),
       },
     });
+
     const payment = await stripe.paymentIntents.create({
       amount: req.body.sumPrice,
       currency: "THB",

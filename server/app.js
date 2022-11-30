@@ -5,6 +5,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cloudinary from "cloudinary";
+
 import dotenv from "dotenv";
 async function init() {
   dotenv.config();
@@ -14,6 +15,7 @@ async function init() {
     api_secret: process.env.API_SECRET,
     secure: true,
   });
+
   const app = express();
   const port = 4000;
 
