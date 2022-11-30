@@ -160,10 +160,17 @@ authRouter.put("/edit/hotelinfo/:id", avatarUpload, async (req, res) => {
     console.log("old pic");
     const result = await pool.query(
       `UPDATE hotel_info
-      SET hotel_name = $2, hotel_desc = $3
+      SET hotel_name = $2, hotel_desc = $3, hotel_num=$4,hotel_email=$5,hotel_location=$6
       where hotel_info_id = $1
       RETURNING *`,
-      [id, editHotel.hotelName, editHotel.hotelDesc]
+      [
+        id,
+        editHotel.hotelName,
+        editHotel.hotelDesc,
+        editHotel.hotelTelNum,
+        editHotel.hotelEmail,
+        editHotel.hotelLocation,
+      ]
     );
     return res.json({
       message: "update user succesfully",
@@ -176,10 +183,18 @@ authRouter.put("/edit/hotelinfo/:id", avatarUpload, async (req, res) => {
     newAvatar = avatarUrl[0].url;
     const result = await pool.query(
       `UPDATE hotel_info
-      SET hotel_name = $2, hotel_desc = $3, hotel_logo = $4
+      SET hotel_name = $2, hotel_desc = $3, hotel_logo = $4,hotel_num=$5,hotel_email=$6,hotel_location=$7
       where hotel_info_id = $1
       RETURNING *`,
-      [id, editHotel.hotelName, editHotel.hotelDesc, editHotel.hotel_logo]
+      [
+        id,
+        editHotel.hotelName,
+        editHotel.hotelDesc,
+        editHotel.hotel_logo,
+        editHotel.hotelTelNum,
+        editHotel.hotelEmail,
+        editHotel.hotelLocation,
+      ]
     );
 
     return res.json({
