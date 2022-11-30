@@ -8,12 +8,11 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload, Form } from "antd";
 import "antd/dist/antd.min.css";
 import jwtDecode from "jwt-decode";
-import usePersistedState from "use-persisted-state-hook";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authentication";
 import axios from "axios";
@@ -28,7 +27,6 @@ function CreateRoom() {
   const [fileList, setFileList] = useState([]);
   const [newRoom, setNewRoom] = useState({});
   const [mainImg, setMainImg] = useState({});
-  const { register } = useAuth();
   const navigate = useNavigate();
   const createRoom = async (data) => {
     const result = await axios.post(
@@ -88,7 +86,6 @@ function CreateRoom() {
     formData.append("guest", newRoom.guest);
     formData.append("price", newRoom.price);
     formData.append("description", newRoom.description);
-    //*Fix */
     for (let i in newRoom.amenity) {
       amenityArray.push(newRoom.amenity[i]);
     }

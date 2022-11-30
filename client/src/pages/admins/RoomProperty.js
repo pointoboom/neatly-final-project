@@ -96,7 +96,6 @@ function RoomProperty() {
                 {roomProp == null
                   ? null
                   : roomProp.map((data) => {
-                      // console.log(data);
                       return (
                         <Tbody
                           bg="white"
@@ -105,7 +104,7 @@ function RoomProperty() {
                             console.log(data.room_types_id);
                             navigate(`roompropertyedit/${data.room_types_id}`);
                           }}
-                          cursor = "pointer"
+                          cursor="pointer"
                         >
                           <Tr>
                             <Td>
@@ -135,7 +134,6 @@ function RoomProperty() {
         </Flex>
       </Flex>
     </Flex>
-    // </Flex>
   );
 }
 

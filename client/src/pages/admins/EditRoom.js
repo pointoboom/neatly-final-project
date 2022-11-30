@@ -10,17 +10,12 @@ import {
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import "antd/dist/antd.min.css";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Formik, Form, Field, FieldArray } from "formik";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -42,7 +37,6 @@ function RoomPropertyEdit() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [amenity, setAmenity] = useState([]);
-  const [initialValue, setInitialValue] = useState([]);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -65,12 +59,7 @@ function RoomPropertyEdit() {
       setDescription(item.description);
       setAmenity(item.amenity.split(","));
     });
-    let test = res.data.data[0].amenity.split(",").map((item) => {
-      const temp = { first: item };
-      return temp;
-    });
 
-    setInitialValue(test);
     const data = res.data.data[0].gallery_images.map((item) => {
       const temp = {
         uid: res.data.data[0].gallery_images.indexOf(item),
@@ -102,9 +91,7 @@ function RoomPropertyEdit() {
       onSuccess("ok");
     }, 0);
   };
-  const onFinish = (values) => {
-    console.log("Received values of form:", values);
-  };
+
   const handleUpdate = async (event) => {
     const token = localStorage.getItem("token");
     const userdata = jwtDecode(token);
