@@ -1,6 +1,8 @@
 import { Image, Stack, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { useHotel } from "../contexts/reservation";
 
 function Footerbar() {
+  const { hotelInfo } = useHotel();
   return (
     <Flex
       display="flex"
@@ -41,7 +43,7 @@ function Footerbar() {
             paddingTop="30px"
             fontWeight="600"
           >
-            Neatly Hotel
+            {hotelInfo.hotel_name} Hotel
           </Text>
           <Text
             fontSize="16px"
@@ -84,7 +86,7 @@ function Footerbar() {
                 alt="phone number"
               />
               <Text fontSize="16px" textColor="white" padding="10px">
-                +66 99 999 9999
+                {hotelInfo.hotel_num}
               </Text>
             </Flex>
 
@@ -95,7 +97,7 @@ function Footerbar() {
                 alt="email"
               />
               <Text fontSize="16px" textColor="white" padding="12px">
-                contact@neatlyhotel.com
+                {hotelInfo.hotel_email}
               </Text>
             </Flex>
 
@@ -111,7 +113,7 @@ function Footerbar() {
                 marginTop="12px"
               />
               <Text fontSize="16px" textColor="white" padding="12px">
-                188 Phaya Thai Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400
+                {hotelInfo.hotel_location}
               </Text>
             </Flex>
           </Flex>

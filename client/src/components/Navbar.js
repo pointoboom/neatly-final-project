@@ -22,11 +22,15 @@ import { useAuth } from "../contexts/authentication";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
-function Navbar() {
+import { useHotel } from "../contexts/reservation";
+
+function Navbar(props) {
   const navigate = useNavigate();
   const auth = useAuth();
   const { logout } = useAuth();
   const [userdata, setUserdata] = useState(null);
+  const { hotelInfo } = useHotel();
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
@@ -50,7 +54,7 @@ function Navbar() {
         <HStack spacing={"42px"}>
           <a href="/">
             <Image
-              src="/images/logo.svg"
+              src={hotelInfo.hotel_logo}
               alt="Neatly Logo"
               w="167px"
               h="45px"
@@ -66,7 +70,7 @@ function Navbar() {
               fontSize="14px"
               textColor="#000000"
             >
-              About Neatly
+              About {hotelInfo.hotel_name}
             </Text>
           </a>
 
