@@ -9,6 +9,8 @@ import {
   editPayment,
   editHotelInfo,
   getHotelInfo,
+  editUserProfile,
+  getUserProfile,
 } from "../controllers/auth.controller.js";
 const authRouter = Router();
 const multerUpload = multer({ dest: "uploads/" });
@@ -22,15 +24,11 @@ authRouter.get("/", async (req, res) => {
     data: result.rows,
   });
 });
+
 authRouter.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  const result = await pool.query("select * from users where user_id = $1", [
-    id,
-  ]);
-  return res.json({
-    data: result.rows,
-  });
+  getUserProfile(req, res);
 });
+
 authRouter.post(
   "/register",
   avatarUpload,
@@ -45,73 +43,7 @@ authRouter.post("/login", (req, res) => {
 });
 
 authRouter.put("/edit/:id", avatarUpload, async (req, res) => {
-  try {
-    const id = req.params.id;
-    let newAvatar;
-    const editUser = {
-      ...req.body,
-    };
-
-    if (req.files.avatar === undefined) {
-      const result = await pool.query(
-        `UPDATE users
-      SET fullname = $2, email = $3, id_number = $4,
-      date_of_birth = $5, country = $6
-      where user_id = $1
-      RETURNING *`,
-        [
-          id,
-          editUser.fullname,
-          editUser.email,
-          editUser.idnumber,
-          editUser.dob,
-          editUser.country,
-        ]
-      );
-      return res.json({
-        message: "update user succesfully",
-      });
-    } else {
-      const avatarUrl = await cloudinaryUpload(req.files);
-      editUser["profile_picture"] = avatarUrl[0].url;
-      newAvatar = avatarUrl[0].url;
-      const result = await pool.query(
-        `UPDATE users
-      SET fullname = $2, email = $3, id_number = $4,
-      date_of_birth = $5, country = $6, profile_picture= $7
-      where user_id = $1
-      RETURNING *`,
-        [
-          id,
-          editUser.fullname,
-          editUser.email,
-          editUser.idnumber,
-          editUser.dob,
-          editUser.country,
-          editUser.profile_picture,
-        ]
-      );
-
-      const token = jwt.sign(
-        {
-          id: id,
-          fullname: editUser.fullname,
-          profile_picture: newAvatar,
-        },
-        process.env.SECRET_KEY,
-        {
-          expiresIn: "900000",
-        }
-      );
-
-      return res.json({
-        message: "update user succesfully",
-        token,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  editUserProfile(req, res);
 });
 
 // edit payment method
