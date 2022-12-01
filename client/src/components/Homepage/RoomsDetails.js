@@ -2,8 +2,9 @@ import { Text } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-
+import { useNavigate } from "react-router-dom";
 function RoomsDetails() {
+  const navigate = useNavigate();
   return (
     <Flex direction="column" align="center">
       <Flex id="roomssuits">
@@ -26,6 +27,8 @@ function RoomsDetails() {
           left="80px"
           color="white"
           direction="column"
+          cursor="pointer"
+          onClick={() => navigate("/room-detail/29")}
         >
           <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Superior Garden View
@@ -51,6 +54,8 @@ function RoomsDetails() {
           left="80px"
           color="white"
           direction="column"
+          cursor="pointer"
+          onClick={() => navigate("/room-detail/31")}
         >
           <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Deluxe
@@ -74,6 +79,8 @@ function RoomsDetails() {
           right="230px"
           color="white"
           direction="column"
+          cursor="pointer"
+          onClick={() => navigate("/room-detail/26")}
         >
           <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Superior
@@ -99,6 +106,8 @@ function RoomsDetails() {
           left="80px"
           color="white"
           direction="column"
+          cursor="pointer"
+          onClick={() => navigate("/room-detail/32")}
         >
           <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
             Premier Sea View
@@ -124,6 +133,8 @@ function RoomsDetails() {
             left="80px"
             color="white"
             direction="column"
+            cursor="pointer"
+            onClick={() => navigate("/room-detail/24")}
           >
             <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
               Supreme
@@ -147,6 +158,8 @@ function RoomsDetails() {
             left="80px"
             color="white"
             direction="column"
+            cursor="pointer"
+            onClick={() => navigate("/room-detail/33")}
           >
             <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
               Suite
