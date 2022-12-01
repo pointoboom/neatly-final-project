@@ -3,24 +3,14 @@ import {
   Text,
   Button,
   Input,
-  Divider,
   FormControl,
-  FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
-import { countryList } from "../data/country";
-import { DatePicker, Select, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import ImgCrop from "antd-img-crop";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-
-import usePersistedState from "use-persisted-state-hook";
 import axios from "axios";
-import moment from "moment";
 import { useAuth } from "../contexts/authentication";
-const dateFormat = "dd,DD MMM YYYY";
 
 function EditPaymentPage() {
   const [userdata, setUserdata] = useState(null);
@@ -28,7 +18,6 @@ function EditPaymentPage() {
   const [cardOwner, setCardOwner] = useState("");
   const [cardExpiry, setCardExpiry] = useState("");
   const [cardCVV, setCardCVV] = useState("");
-  // const [dob, setDob] = usePersistedState("dob", null);
   const { editPayment } = useAuth();
 
   const getData = async () => {
@@ -136,7 +125,6 @@ function EditPaymentPage() {
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        // id="email"
                         name="email"
                         type="text"
                         value={cardNumber}
@@ -155,7 +143,6 @@ function EditPaymentPage() {
                       width="550px"
                       fontFamily={"Inter"}
                       fontSize="16px"
-                      // id="email"
                       name="email"
                       type="text"
                       value={cardExpiry}
@@ -180,13 +167,11 @@ function EditPaymentPage() {
                         width="550px"
                         fontFamily={"Inter"}
                         fontSize="16px"
-                        // id="idnumber"
                         name="idnumber"
                         type="text"
                         value={cardOwner}
                         onChange={(event) => {
                           setCardOwner(event.target.value);
-                          console.log(event.target.value);
                         }}
                         focusBorderColor="orange.500"
                       ></Input>

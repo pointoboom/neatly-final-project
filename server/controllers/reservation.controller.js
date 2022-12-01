@@ -144,3 +144,21 @@ export async function getCustomerBooking(req, res) {
     console.log(error);
   }
 }
+
+export async function getCustomerBookingDetails(req, res) {
+  try {
+    const id = req.params.id;
+    const result = await pool.query(
+      `select * from reservations left join reservations_request on reservations.reservation_id = reservations_request.reservation_id 
+  left join request on request.request_id = reservations_request.request_id left join users_reservations on reservations.reservation_id = users_reservations.reservation_id left join users on users_reservations.user_id = users.user_id left join room_types on reservations.room_type_id = room_types.room_types_id 
+  left join bills on reservations.reservation_id = bills.reservation_id where reservations.reservation_id = $1 order by reservations.reservation_id asc `,
+      [id]
+    );
+
+    return res.json({
+      data: result.rows,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}

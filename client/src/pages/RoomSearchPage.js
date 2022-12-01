@@ -20,8 +20,6 @@ function RoomSearchPage() {
     setCheckIn,
     checkOut,
     setCheckOut,
-    room,
-    setRoom,
     guest,
     setGuest,
     getData,
@@ -91,29 +89,6 @@ function RoomSearchPage() {
               placeholder={`${guest} guests`}
               dropdownRender={(menu) => (
                 <div className="flex flex-col">
-                  {/* <div className=" flex flex-row justify-between px-[5px]">
-                    <div>Room</div>
-                    <div className=" flex flex-row">
-                      <button
-                        onClick={() => {
-                          if (room === 1) setRoom(1);
-                          else setRoom(room - 1);
-                        }}
-                      >
-                        {" "}
-                        <img src="./images/Search/minus.svg" alt="" />
-                      </button>
-
-                      <div className="mx-[5px]">{room}</div>
-                      <button
-                        onClick={() => {
-                          setRoom(room + 1);
-                        }}
-                      >
-                        <img src="./images/Search/plus.svg" alt="" />
-                      </button>
-                    </div>
-                  </div> */}
                   <div className=" flex flex-row justify-between px-[5px]">
                     <div className=" mr-[5px]">Guest</div>
                     <div className=" flex flex-row">
