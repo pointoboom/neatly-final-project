@@ -67,7 +67,11 @@ function SearchSection() {
                 format="dd,DD MMM YYYY"
                 style={{ width: "170px" }}
                 onChange={(date, dateString) => setCheckIn(dateString)}
-                defaultValue={checkIn ? moment(checkIn, dateFormat) : ""}
+                defaultValue={
+                  checkIn
+                    ? moment(checkIn, dateFormat)
+                    : moment(moment().format("dd,DD MMM YYYY"), dateFormat)
+                }
                 disabledDate={(current) => {
                   let customDate = moment().format("YYYY-MM-DD");
                   return current && current < moment(customDate, "YYYY-MM-DD");
@@ -86,7 +90,14 @@ function SearchSection() {
               format="dd,DD MMM YYYY"
               style={{ width: "170px" }}
               onChange={(date, dateString) => setCheckOut(dateString)}
-              defaultValue={checkOut ? moment(checkOut, dateFormat) : ""}
+              defaultValue={
+                checkOut
+                  ? moment(checkOut, dateFormat)
+                  : moment(
+                      moment().add(1, "d").format("dd,DD MMM YYYY"),
+                      dateFormat
+                    )
+              }
               disabledDate={(current) => {
                 let customDate = moment().format("YYYY-MM-DD");
                 return current && current < moment(customDate, "YYYY-MM-DD");
