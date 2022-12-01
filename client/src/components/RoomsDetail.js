@@ -185,9 +185,8 @@ function RoomsDetail() {
                     fontSize="lg"
                     _hover={{ background: "#E76B39" }}
                     onClick={() => {
-                      console.log(room.room_types_id);
-                      // navigate(`/reservation`);
-                      navigate(`/reservation/${room.room_types_id}`);
+                      navigate(`/search`);
+                      // navigate(`/reservation/${room.room_types_id}`);
                     }}
                   >
                     Book Now
