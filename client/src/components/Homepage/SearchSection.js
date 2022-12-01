@@ -13,6 +13,11 @@ function SearchSection() {
   const { checkIn, setCheckIn, checkOut, setCheckOut, guest, setGuest } =
     useHotel();
 
+  if (checkIn === null && checkOut === null) {
+    setCheckIn(moment().format("dd,DD MMM YYYY"));
+    setCheckOut(moment().add(1, "d").format("dd,DD MMM YYYY"));
+  }
+
   return (
     <Flex
       direction="column"
