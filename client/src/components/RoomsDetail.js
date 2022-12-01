@@ -25,43 +25,27 @@ function RoomsDetail() {
   const [randomRoom, setRandomRoom] = useState(null);
   const [slideData, setSlideData] = useState([]);
   const [amenities, setAmenities] = useState([]);
+  const [roomId, setRoomId] = useState(null);
 
   const getData = async () => {
     const results = await axios(
       `http://localhost:4000/rooms/room-detail/${params.roomId}?random=2`
     );
 
-
     setSlideData([
-      ...slideData,
       results.data.data.main_images,
       ...results.data.data.gallery_images,
     ]);
     setRoom(results.data.data);
     setRandomRoom(results.data.randomRoom);
-    setAmenities([...amenities, ...results.data.data.amenity.split(",")]);
+    setAmenities([...results.data.data.amenity.split(",")]);
+    setRoomId(params.roomId);
   };
-
 
   useEffect(() => {
     getData();
-  }, []);
-
-  const RoomAmenities = [
-    "Safe in Room",
-    "Air Conditioning",
-    "High speed internet connection",
-    "Hairdryer",
-    "Shower",
-    "Bathroom amenities",
-    "Lamp",
-    "Minibar",
-    "Telephone",
-    "Ironing board",
-    "A floor only accessible via a guest room key",
-    "Alarm clock",
-    "Bathrobe",
-  ];
+    window.scrollTo(0, 0);
+  }, [roomId]);
 
   return (
     <>
@@ -270,7 +254,7 @@ function RoomsDetail() {
                         _hover={{ color: "orange" }}
                         cursor="pointer"
                         onClick={() => {
-                          console.log(item.room_types_id);
+                          setRoomId(item.room_types_id);
                           navigate(`/room-detail/${item.room_types_id}`);
                         }}
                       >
