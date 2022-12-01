@@ -105,6 +105,12 @@ function RoomPropertyEdit() {
     formData.append("price", price);
     formData.append("description", description);
     formData.append("amenity", amenity);
+    // formData.append("old_main", imageUrl);
+    for (let i of fileList) {
+      if (i.url) {
+        formData.append("old_gal", i.url);
+      }
+    }
     for (let mainImgKey in mainImg) {
       formData.append("main_img", mainImg[mainImgKey]);
     }

@@ -101,7 +101,6 @@ function RoomProperty() {
                           bg="white"
                           _hover={{ bg: "gray.100" }}
                           onClick={() => {
-                            console.log(data.room_types_id);
                             navigate(`roompropertyedit/${data.room_types_id}`);
                           }}
                           cursor="pointer"
