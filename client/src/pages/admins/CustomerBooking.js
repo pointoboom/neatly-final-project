@@ -14,7 +14,7 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import Sidebar from "../../components/Sidebar.js";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -77,7 +77,6 @@ function CustomerBooking() {
                   placeholder="Search..."
                   size="md"
                   width="400px"
-                  // onChange={(e) => debounce(handleChange(e.target.value), 1000)}
                   onChange={(e) => handleChange(e.target.value)}
                 />
               </InputGroup>

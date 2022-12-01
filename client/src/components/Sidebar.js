@@ -51,6 +51,7 @@ function Sidebar() {
             onClick={() => {
               navigate("/customerbooking");
             }}
+            cursor="pointer"
           >
             <Flex display="flex" direction="row">
               <Image boxSize="27px" pr="10px" src="/images/booking.svg" />
@@ -67,6 +68,7 @@ function Sidebar() {
             onClick={() => {
               navigate("/roommanagement");
             }}
+            cursor="pointer"
           >
             <Flex display="flex" direction="row">
               <Image boxSize="27px" pr="10px" src="/images/manage.svg" />
@@ -80,16 +82,14 @@ function Sidebar() {
             gap="0"
             _hover={{ background: "#465C50" }}
             _selected={{ background: "#5D7B6A" }}
+            onClick={() => {
+              navigate("/hotelinfo/1");
+            }}
+            cursor="pointer"
           >
             <Flex display="flex" direction="row">
               <Image boxSize="27px" pr="10px" src="/images/hotel.svg" />
-              <Text
-                onClick={() => {
-                  navigate("/hotelinfo/1");
-                }}
-              >
-                Hotel Information
-              </Text>
+              <Text>Hotel Information</Text>
             </Flex>
           </Box>
           <Box
@@ -99,16 +99,14 @@ function Sidebar() {
             gap="0"
             _hover={{ background: "#465C50" }}
             _selected={{ background: "#5D7B6A" }}
+            onClick={() => {
+              navigate("/roomproperty");
+            }}
+            cursor="pointer"
           >
             <Flex display="flex" direction="row">
               <Image boxSize="27px" pr="10px" src="/images/room.svg" />
-              <Text
-                onClick={() => {
-                  navigate("/roomproperty");
-                }}
-              >
-                Room & Property
-              </Text>
+              <Text>Room & Property</Text>
             </Flex>
           </Box>
           <Box w="240px" h="292px"></Box>

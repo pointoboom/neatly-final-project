@@ -14,7 +14,6 @@ import { Upload } from "antd";
 import { useAuth } from "../../contexts/authentication";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useHotel } from "../../contexts/reservation";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -23,7 +22,6 @@ const getBase64 = (img, callback) => {
 };
 
 function HotelInformationPage() {
-  const [hotelInfo, setHotelInfo] = useState(null);
   const [hotelName, setHotelName] = useState("");
   const [hotelTelNum, setHotelTelNum] = useState("");
   const [hotelEmail, setHotelEmail] = useState("");
@@ -40,7 +38,6 @@ function HotelInformationPage() {
     const res = await axios.get(
       `http://localhost:4000/auth/hotelinfo/${params.id}`
     );
-    setHotelInfo(res.data.data[0]);
     setHotelName(res.data.data[0].hotel_name);
     setHotelDesc(res.data.data[0].hotel_desc);
     setHotelTelNum(res.data.data[0].hotel_num);
@@ -86,14 +83,10 @@ function HotelInformationPage() {
     formData.append("hotelEmail", hotelEmail);
     formData.append("hotelLocation", hotelLocation);
 
-    console.log(hotelName);
-    console.log(hotelDesc);
-
     for (let avatarKey in avatars) {
       formData.append("avatar", avatars[avatarKey]);
     }
 
-    console.log(formData);
     editHotelinfo(formData, 1);
   };
 
@@ -150,7 +143,6 @@ function HotelInformationPage() {
                 value={hotelName}
                 onChange={(event) => {
                   setHotelName(event.target.value);
-                  console.log(event.target.value);
                 }}
                 focusBorderColor="orange.500"
               ></Input>
@@ -166,7 +158,6 @@ function HotelInformationPage() {
                 value={hotelDesc}
                 onChange={(event) => {
                   setHotelDesc(event.target.value);
-                  console.log(event.target.value);
                 }}
                 focusBorderColor="orange.500"
                 placeholder="Enter hotel description"
@@ -184,7 +175,6 @@ function HotelInformationPage() {
                 value={hotelTelNum}
                 onChange={(event) => {
                   setHotelTelNum(event.target.value);
-                  console.log(event.target.value);
                 }}
                 focusBorderColor="orange.500"
               ></Input>
@@ -200,7 +190,6 @@ function HotelInformationPage() {
                 value={hotelEmail}
                 onChange={(event) => {
                   setHotelEmail(event.target.value);
-                  console.log(event.target.value);
                 }}
                 focusBorderColor="orange.500"
               ></Input>
@@ -216,7 +205,6 @@ function HotelInformationPage() {
                 value={hotelLocation}
                 onChange={(event) => {
                   setHotelLocation(event.target.value);
-                  console.log(event.target.value);
                 }}
                 focusBorderColor="orange.500"
               ></Input>
