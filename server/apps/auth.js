@@ -18,12 +18,12 @@ const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);
 import { cloudinaryUpload } from "../utils/upload.js";
 import jwt from "jsonwebtoken";
 
-authRouter.get("/", async (req, res) => {
-  const result = await pool.query("select * from users");
-  return res.json({
-    data: result.rows,
-  });
-});
+// authRouter.get("/", async (req, res) => {
+//   const result = await pool.query("select * from users");
+//   return res.json({
+//     data: result.rows,
+//   });
+// });
 
 authRouter.get("/:id", async (req, res) => {
   getUserProfile(req, res);
