@@ -4,14 +4,11 @@ import Sidebar from "../../components/Sidebar.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-// import { SearchIcon } from "@chakra-ui/icons";
-// import usePersistedState from "use-persisted-state-hook";
-import {} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 function CustomerBookingDetails() {
   const params = useParams();
-  // console.log(params);
+
   const [customerBooking, setCustomerBooking] = useState([]);
   const getData = async () => {
     const res = await axios.get(
@@ -28,7 +25,6 @@ function CustomerBookingDetails() {
       data = { ...data, check_in_date, check_out_date, booking_date };
       return data;
     });
-    console.log(data);
     setCustomerBooking(data);
   };
 
@@ -36,7 +32,6 @@ function CustomerBookingDetails() {
     getData();
   }, []);
 
-  // #F6F7FC
   return (
     <Flex direction="row" bg="#F6F7FC">
       <Sidebar />
@@ -97,15 +92,11 @@ function CustomerBookingDetails() {
                       <Text color="#9AA1B9" fontWeight="semibold">
                         Guest(s)
                       </Text>
-                      <Text mb="5">{data.guest}</Text>
+                      <Text mb="5">{data.guest_no}</Text>
                       <Text color="#9AA1B9" fontWeight="semibold">
                         Room type
                       </Text>
                       <Text mb="5">{data.type_name}</Text>
-                      <Text color="#9AA1B9" fontWeight="semibold">
-                        Amount
-                      </Text>
-                      <Text mb="5">{data.amount}</Text>
                       <Text color="#9AA1B9" fontWeight="semibold">
                         Bed type
                       </Text>

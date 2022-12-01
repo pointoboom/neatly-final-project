@@ -103,13 +103,6 @@ function AuthProvider(props) {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-
-    // console.log("token", result.data.token);
-    // if (result.data.token) {
-    //   const token = result.data.token;
-    //   localStorage.setItem("token", token);
-    // }
-
     navigate("/");
   };
 

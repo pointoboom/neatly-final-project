@@ -97,3 +97,103 @@ export async function login(req, res) {
     role: user.rows[0].role,
   });
 }
+
+export async function editPayment(req, res) {
+  try {
+    const id = req.params.id;
+    const editPayment = {
+      ...req.body,
+    };
+
+    const result = await pool.query(
+      `UPDATE users
+    SET card_number = $2, card_owner = $3, expiry_date = $4,
+    cvc_cvv = $5
+    where user_id = $1
+    RETURNING *`,
+      [
+        id,
+        editPayment.cardNumber,
+        editPayment.cardOwner,
+        editPayment.cardExpiry,
+        editPayment.cardCVV,
+      ]
+    );
+
+    return res.json({
+      message: "update payment medthod succesfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function editHotelInfo(req, res) {
+  try {
+    const id = req.params.id;
+    let newAvatar;
+    const editHotel = {
+      ...req.body,
+    };
+
+    if (req.files.avatar === undefined) {
+      const result = await pool.query(
+        `UPDATE hotel_info
+    SET hotel_name = $2, hotel_desc = $3, hotel_num=$4,hotel_email=$5,hotel_location=$6
+    where hotel_info_id = $1
+    RETURNING *`,
+        [
+          id,
+          editHotel.hotelName,
+          editHotel.hotelDesc,
+          editHotel.hotelTelNum,
+          editHotel.hotelEmail,
+          editHotel.hotelLocation,
+        ]
+      );
+      return res.json({
+        message: "update hotel information succesfully",
+      });
+    } else {
+      const avatarUrl = await cloudinaryUpload(req.files);
+      editHotel["hotel_logo"] = avatarUrl[0].url;
+      newAvatar = avatarUrl[0].url;
+      const result = await pool.query(
+        `UPDATE hotel_info
+    SET hotel_name = $2, hotel_desc = $3, hotel_logo = $4,hotel_num=$5,hotel_email=$6,hotel_location=$7
+    where hotel_info_id = $1
+    RETURNING *`,
+        [
+          id,
+          editHotel.hotelName,
+          editHotel.hotelDesc,
+          editHotel.hotel_logo,
+          editHotel.hotelTelNum,
+          editHotel.hotelEmail,
+          editHotel.hotelLocation,
+        ]
+      );
+
+      return res.json({
+        message: "update hotel information succesfully",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getHotelInfo(req, res) {
+  try {
+    const id = req.params.id;
+    const result = await pool.query(
+      "select * from hotel_info where hotel_info_id = $1",
+      [id]
+    );
+    return res.json({
+      data: result.rows,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
