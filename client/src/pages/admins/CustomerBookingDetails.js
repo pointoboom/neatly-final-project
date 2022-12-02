@@ -220,18 +220,6 @@ function CustomerBookingDetails() {
                 }
               })}
             </Flex>
-            <Flex bg="#E4E6ED" direction="column" p="5" mt="10">
-              <Text p="2">Additional Request</Text>
-              {customerBooking.map((data) => {
-                if (data.type === "additionalRequest") {
-                  return (
-                    <Text p="2" color="#646D89">
-                      {data.have}
-                    </Text>
-                  );
-                }
-              })}
-            </Flex>
           </Flex>
         </Flex>
       </Flex>
