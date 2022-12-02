@@ -505,7 +505,9 @@ function RegisterPage() {
               </Flex>
               <Flex>
                 <Text mr="10px">Already have an account?</Text>
-                <Text color="orange.500">Login</Text>
+                <a href="/login">
+                  <Text color="orange.500">Login</Text>
+                </a>
               </Flex>
             </Flex>
           </Flex>
