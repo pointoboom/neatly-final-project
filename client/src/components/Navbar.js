@@ -137,7 +137,6 @@ function Navbar(props) {
             </>
           ) : (
             <>
-              <Img src="/images/Nav/noti.svg"></Img>
               <Menu>
                 <MenuButton>
                   <Avatar src={userdata.profile_picture} />
