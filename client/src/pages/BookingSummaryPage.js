@@ -431,17 +431,6 @@ function BookingSummaryPage() {
             w="190px"
             h="48px"
             fontSize="16px"
-            color="rgba(231, 107, 57, 1)"
-            _hover={{ background: "#E76B39", color: "white" }}
-            bgColor="rgba(247, 247, 251, 1)"
-            mr="20px"
-          >
-            Check Booking Detail
-          </Button>
-          <Button
-            w="190px"
-            h="48px"
-            fontSize="16px"
             color="white"
             bg="rgba(193, 72, 23, 1)"
             _hover={{ background: "#E76B39" }}

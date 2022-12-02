@@ -159,9 +159,7 @@ function Navbar(props) {
                   >
                     Payment Method
                   </MenuItem>
-                  <MenuItem icon={<HiOutlineBriefcase />}>
-                    Booking History
-                  </MenuItem>
+
                   <MenuDivider />
                   <MenuItem
                     icon={<IoIosLogOut />}
