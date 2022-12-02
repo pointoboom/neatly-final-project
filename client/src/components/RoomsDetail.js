@@ -244,6 +244,11 @@ function RoomsDetail() {
                       left="80px"
                       color="white"
                       direction="column"
+                      cursor="pointer"
+                      onClick={() => {
+                        setRoomId(item.room_types_id);
+                        navigate(`/room-detail/${item.room_types_id}`);
+                      }}
                     >
                       <Text fontSize="2.5rem" fontFamily={"Noto Serif Display"}>
                         {item.type_name}
@@ -252,11 +257,6 @@ function RoomsDetail() {
                         position="relative"
                         left="10px"
                         _hover={{ color: "orange" }}
-                        cursor="pointer"
-                        onClick={() => {
-                          setRoomId(item.room_types_id);
-                          navigate(`/room-detail/${item.room_types_id}`);
-                        }}
                       >
                         <Text fontSize="1rem" fontFamily={"Open Sans"}>
                           Explore room

@@ -213,12 +213,6 @@ function SpecialRequest(props) {
           </CheckboxGroup>
         </Flex>
 
-        <Box mb="40px">
-          <FormLabel htmlFor="desc" fontFamily={"Inter"} fontSize="16px">
-            Additional Request
-          </FormLabel>
-          <Textarea id="desc" />
-        </Box>
         <NextComponent />
       </Flex>
     </TabPanel>
