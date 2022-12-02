@@ -107,7 +107,7 @@ function SearchSection() {
         </Flex>
         <Flex direction="column" mr="50px">
           <Flex fontFamily={"Inter"} fontSize="16px">
-            Room&Guests
+            Guests
           </Flex>
           <Flex fontFamily={"Inter"} fontSize="16px">
             <Select
